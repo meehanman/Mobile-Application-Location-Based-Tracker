@@ -28,13 +28,22 @@ A range of available technologies to complete the project:
 # Success Criteria
 The project can be considered a success if there is a product created that is able to manage space within a building for meetings and classes, the ability to track people’s attendance of the meetings and generate live reports based on the findings to allow the end user to view building and room utilisation. 
 
-# Install Instructions
+# Server Install Instructions
 
 Server is setup to run on digital ocean Ubuntu Droplet
 
 Install NodeJS 
 `sudo apt-get install nodejs`
 
+Install NPM 
+`sudo apt-get install npm`
+
 Install MongoDB
 `https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04`
 
+Install Supervisor
+`sudo apt-get install npm`
+
+Install NPM Requirements from package.json
+
+Security setup with Basic Authentication over TLS/HTTPS
