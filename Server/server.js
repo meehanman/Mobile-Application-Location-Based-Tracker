@@ -18,6 +18,17 @@ mongoose.connect('mongodb://localhost/MALBT_DB');
 //Create Server
 var server = restify.createServer();
 
+//Enabling CORS
+server.use(restify.CORS());
+//Add headers for browsers to AJAX request freely.
+server.opts(/.*/, function (req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", req.header("Access-Control-Request-Method"));
+    res.header("Access-Control-Allow-Headers", req.header("Access-Control-Request-Headers"));
+    res.send(200);
+    return next();
+});
+
 //Setup Bearer Passport
 passport.use(new BearerStrategy(
   function(token, cb) {
