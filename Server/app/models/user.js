@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  name: String,
-  email: { type: String, required: true, unique: true },
+  name: { type: String, required: true, lowercase: true},
+  email: { type: String, required: true, unique: true, lowercase: true},
   password: { type: String, required: true },
   admin: Boolean,
   location: String,
-  picture: Buffer,
+  image: { data: Buffer, contentType: String },
   groups: [{id: Number, name: String}],
   addedBy: {_id: Schema.Types.ObjectId, name: String},
   created_at: Date,
