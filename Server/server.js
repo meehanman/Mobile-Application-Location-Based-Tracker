@@ -47,6 +47,14 @@ server.opts(/.*/, function(req, res, next) {
 
 server.use(function (req, res, next) {
 
+if(!req.authorization || !req.authorization.basic){
+	next(new restify.NotAuthorizedError("You have not provided authorisation to access this API"));
+}
+
+if(!req.authorization.basic.username || !req.authorization.basic.password){
+	next(new restify.NotAuthorizedError("Username and/or Password is empty"));
+}
+
 User.findOne({email: req.authorization.basic.username})
 .then(function (user) {
 // Ensure that user is not anonymous; and
@@ -55,7 +63,7 @@ User.findOne({email: req.authorization.basic.username})
 if (req.username == 'anonymous' || !user || req.authorization.basic.password !== user.password) {
 // Respond with { code: 'NotAuthorized', message: '' }
 console.log("Auth: [ ]");
-next(new restify.NotAuthorizedError());
+next(new restify.NotAuthorizedError("Username and/or Password is incorrect"));
 } else {
 console.log("Auth: [/]");
 //Assign user to request object
@@ -65,13 +73,18 @@ next();
 })
 .error(function(error){
 console.log("Database Error");
-next(new restify.NotAuthorizedError());
+next(new restify.InternalError ("Could not check your creditentials [DBError]"));
 });
 
 });
 
 //Server Shit
-
+//Outputting JSON
+server.get('/',
+  function(req, res) {
+    res.json({"version":1.0, "author":"Dean Meehan"});
+  });
+  
 //Outputting JSON
 server.get('/whoami',
   function(req, res) {
