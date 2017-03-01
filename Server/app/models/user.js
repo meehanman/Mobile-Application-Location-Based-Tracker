@@ -3,16 +3,25 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
   name: String,
-  surname: String,
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  token: { type: String, required: true },
   admin: Boolean,
   location: String,
   picture: Buffer,
   groups: [{id: Number, name: String}],
+  addedBy: {_id: Schema.Types.ObjectId, name: String},
   created_at: Date,
   updated_at: Date
+});
+
+userSchema.pre('save', function(next){
+  now = new Date();
+  this.updated_at = now;
+  if ( !this.created_at ) {
+    this.created_at = now;
+  }
+  this.updated_at = now;
+  next();
 });
 
 // the schema is useless so far
