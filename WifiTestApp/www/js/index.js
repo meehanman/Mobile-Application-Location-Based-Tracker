@@ -40,7 +40,11 @@ var app = {
         var btnListNetworks = document.getElementById("btnListNetworks");
         var btnGetCurrentSSID = document.getElementById("btnGetCurrentSSID");
         var btnGetCurrentBSSID = document.getElementById("btnGetCurrentBSSID");
+        var btnPollServeer = document.getElementById("btnPollServeer");
+        var btnGeoLocation = document.getElementById("btnGeoLocation");
         var output = document.getElementById('output');
+        var scanResults = [];
+        var GPSLocation = {x:0,y:0};
         
         //Starting Scan
         btnStartScan.addEventListener('click', function(event) {
@@ -52,6 +56,57 @@ var app = {
             });
         });
         
+        //Send currnet saved Scan to Server
+        btnPollServeer.addEventListener('click', function(event){
+            var data = new FormData();
+            data.append("access_point", JSON.stringify(scanResults));
+            data.append("gps", JSON.stringify(GPSLocation));
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                console.log(this.responseText);
+                  output.innerHTML = JSON.stringify(this.responseText);
+              }
+            });
+
+            xhr.open("POST", "https://cloud.dean.technology/poll");
+            xhr.setRequestHeader("authorization", "Basic ZDNhbi5tZWVoYW5AaG90bWFpbC5jb206UGFzc3dvcmQ=");
+            xhr.setRequestHeader("cache-control", "no-cache");
+
+            xhr.send(data);
+        });
+        
+        //Get GeoLocation
+        btnGeoLocation.addEventListener('click', function(event){
+            output.innerHTML = "Getting GPS Results...";
+            var onSuccess = function(position) {
+            output.innerHTML = position.coords.latitude+", "+position.coords.longitude;
+                /*
+                  'Longitude: '         + position.coords.longitude         + '\n' +
+                  'Altitude: '          + position.coords.altitude          + '\n' +
+                  'Accuracy: '          + position.coords.accuracy          + '\n' +
+                  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+                  'Heading: '           + position.coords.heading           + '\n' +
+                  'Speed: '             + position.coords.speed             + '\n' +
+                  'Timestamp: '         + position.timestamp                + '\n';
+                */
+                GPSLocation.x = position.coords.latitude;
+                GPSLocation.y = position.coords.longitude;                
+        };
+
+        // onError Callback receives a PositionError object
+        //
+        function onError(error) {
+            alert('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+        }
+
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        });
+        
         //Get Scan Results
         btnGetScanResults.addEventListener('click', function(event) {
             getScanResults();
@@ -61,11 +116,15 @@ var app = {
             output.innerHTML = "Getting Scan Results...";
             WifiWizard.getScanResults({numLevels: false}, function(data){
                 console.log(data);
-                output.innerHTML = "<br>" + output.innerHTML + JSON.stringify(data);
+                //output.innerHTML = "<br>" + output.innerHTML + JSON.stringify(data);
+                
+                //Reset Scan Results Array
+                scanResults = [];
                 
                 //Output a list of the properties
                 for(var i=0;i<data.length;i++){
-                    output.innerHTML += "<br><div><b>"+data[i].BSSID+"</b><br>SSID: "+data[i].SSID+"</div><p>"+data[i].capabilities+"</p><br><br>"
+                    output.innerHTML += "<br><div><b>"+data[i].BSSID+"</b>("+data[i].SSID+")</div>";
+                    scanResults.push(data[i].BSSID);
                 }
                 
             },function(data){
@@ -73,8 +132,9 @@ var app = {
             });
         }
         
+        //Auto do this for testing
         window.setInterval(function(){
-          getScanResults();
+          //getScanResults();
         }, 5000);
         
         //List Networks

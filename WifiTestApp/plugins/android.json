@@ -66,6 +66,9 @@
         },
         "com.pylonproducts.wifiwizard": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-eddystone": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     },
     "dependent_plugins": {
@@ -73,6 +76,9 @@
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
         "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-ble": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     }

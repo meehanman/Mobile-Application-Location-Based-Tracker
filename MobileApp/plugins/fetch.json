@@ -169,8 +169,8 @@
     },
     "cordova-plugin-eddystone": {
         "source": {
-            "type": "registry",
-            "id": "cordova-plugin-eddystone"
+            "type": "local",
+            "path": "plugins\\cordova-plugin-eddystone"
         },
         "is_top_level": true,
         "variables": {}
