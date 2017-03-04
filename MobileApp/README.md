@@ -1,4 +1,4 @@
-# Eventmap Phone GUI
+# MALBT - Mobile App GUI
 
 - Built on Phonegap/Cordova
 
