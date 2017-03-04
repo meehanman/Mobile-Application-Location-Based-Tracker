@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>EventMap</title>
+    <!-- Cordova Tag -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <!-- Path to Framework7 Library CSS, Material Theme -->
+    <link rel="stylesheet" href="css/framework7/framework7.material.css">
+    <!-- Path to Framework7 color related styles, Material Theme -->
+    <link rel="stylesheet" href="css/framework7/framework7.material.colors.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/style.css"> </head>
+
+<body>
+    <!-- Status bar overlay for full screen mode (PhoneGap) -->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-right panel-reveal">
+        <div class="content-block">
+            <p>Nothing to show.</p>
+        </div>
+    </div>
+    <!-- Views -->
+    <div class="views">
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Top Navbar-->
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                    <div class="center sliding">EventMap</div>
+                    <div class="right">
+                        <!-- 
+                Right link contains only icon - additional "icon-only" class
+                Additional "open-panel" class tells app to open panel when we click on this link
+              --><a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a> </div>
+                </div>
+            </div>
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages toolbar-fixed">
+                <!-- Page, "data-page" contains page name -->
+                <div data-page="index" class="page" data-page="home">
+                    <!-- Scrollable page content -->
+                    <div class="page-content">
+                        <div class="content-block-title">Welcome <b>{{this.auth.userName}}</b></div>
+                        <!-- This block will be inset only on tablets -->
+                        <div class="content-block tablet-inset">
+                            <div class="content-block-inner">
+                                <p> <a id="loadMeetings" href="#" class="button button-big active">View Meetings</a></p>
+                            </div>
+                            <div class="content-block-inner">
+                                <p> <a id="loadRooms" href="#" class="button button-big active">View Rooms</a></p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-content-inner"> <a id="startBeaconTracking" href="#" class="button">iBeacon Testing</a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom Toolbar-->
+            <div class="toolbar">
+                <div class="toolbar-inner">
+                    <!-- Toolbar links --><a href="index.html" class="link">Home</a> <a id="logout-button" href="#logout" class="link">Logout</a> </div>
+            </div>
+        </div>
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-auth">
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages">
+                <!-- Page, "data-page" contains page name -->
+                <div data-page="index" class="page" data-page="auth">
+                    <!-- Scrollable page content -->
+                    <div class="page-content">
+                        <!-- Login Page Start -->
+                        <center> <img style="padding-top:100px;" class="loginLogo" src="img/eventMap/evLogoLogin.png" />
+                            <div class="content-block-title">EventMap</div>
+                        </center>
+                        <div class="list-block">
+                            <ul>
+                                <!-- Text inputs -->
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-input">
+                                                <input id="login-username" type="email" placeholder="Username" style="padding-left:10px;"> </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-input">
+                                                <input id="login-password" type="password" placeholder="Password" style="padding-left:10px;"> </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-input">
+                                                <input id="login-url" type="url" placeholder="Application URL" style="padding-left:10px;"> </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div style="margin-top:20px;"></div> <a id="login-button" class="button button-big button-raised button-fill">Login</a>
+                            <center>
+                        </div>
+                        <!-- Login Page End -->
+                    </div>
+                    <!-- Bottom Toolbar-->
+                    <div class="toolbar" style="background-color:#fff;text-align:center;">
+                        <div class=" toolbar-inner "> <img class="navLogo" src="img/eventMap/EmSmallGrey.png " /> </div>
+                    </div>
+                    <!-- /End of Bottom Toolbar-->
+                </div>
+            </div>
+            <!-- Bottom Toolbar-->
+        </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript " src="js/framework7.js "></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/helper.js"></script>
+    <script type="text/javascript" src="js/eddy.js"></script>
+    </script>
+</body>
+
+</html>
