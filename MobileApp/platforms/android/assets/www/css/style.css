@@ -1,0 +1,69 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(font/MaterialIcons-Regular.woff2) format('woff2'),
+       url(font/MaterialIcons-Regular.woff) format('woff'),
+       url(font/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+/*LOGIN ONLY*/
+.loginLogo {
+    max-width: 100px;
+    max-height: 100px;
+}
+.navLogo{
+    display: block;
+    margin: 20px auto;
+    opacity: 0.5;
+    clear: both;
+}
+#login-button {
+    background-color:#2A2D34;
+}
+/* GEN AND HACK*/
+img {
+    vertical-align: middle;
+    border: 0;
+}
+.Absolute-Center {
+  margin: auto;
+  position: absolute;
+  top: 35%; left: 0; bottom: 0; right: 0;
+}
+.navbar,
+.subnavbar {
+  background: #1F2025;
+    border-bottom: 2px solid #1aa0f2;
+}
+.toolbar{
+    background:#1aa0f2;
+}
