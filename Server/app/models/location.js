@@ -6,6 +6,7 @@ var locationSchema = new Schema({
   description: String,
   image: { data: Buffer, contentType: String },
   type: { type: String, required: true},
+  max_people: Number,
   services: [{
 	name: String, 
 	description: String

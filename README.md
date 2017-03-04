@@ -28,7 +28,7 @@ A range of available technologies to complete the project:
 # Success Criteria
 The project can be considered a success if there is a product created that is able to manage space within a building for meetings and classes, the ability to track people’s attendance of the meetings and generate live reports based on the findings to allow the end user to view building and room utilisation. 
 
-# Server Install Instructions
+## Server Install Instructions
 
 Server is setup to run on digital ocean Ubuntu Droplet
 
@@ -47,3 +47,8 @@ Install Supervisor
 Install NPM Requirements from package.json
 
 Security setup with Basic Authentication over TLS/HTTPS
+
+# Postman Config
+
+You can see example calls from the postman link here acting as a client
+`https://www.getpostman.com/collections/5760a7b5dffe14225012`
