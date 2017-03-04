@@ -289,9 +289,10 @@ server.get('/location/all',
 server.post('/location',
   function(req, res, next) {
 
-    req.body.services = JSON.parse(req.body.services);
-    req.body.gps = JSON.parse(req.body.gps);
-    req.body.place = JSON.parse(req.body.place);
+	console.log(1);
+    req.body.services = JSON.parse(req.body.services);	console.log(1);
+    req.body.gps = JSON.parse(req.body.gps);	console.log(2);
+    req.body.place = JSON.parse(req.body.place);	console.log(3);
 
     if (req.body.image) {
       var image = {};
@@ -361,14 +362,37 @@ server.get('/event/all',
   
   //Polling
   //Returns all evemts
-server.get('/poll',
+server.post('/poll',
   function(req, res) {
 	  
-	  var gps = req.body.gps;
-	  var beacon = req.body.beacon;
-	  var access_point = req.body.access_point; //This could be an array of multiple access_points
+	  var gps = req.body.gps?JSON.parse(req.body.gps):[];
+	  var beacon = req.body.beacon?JSON.parse(req.body.beacon):[];
+	  var access_point = req.body.access_point?JSON.parse(req.body.access_point):[]; //This could be an array of multiple access_points
 	  
+	  var Query = {$or : []}
+	  for(i in access_point){
+		  console.log(access_point[i]);
+		  Query.$or.push({access_point: access_point[i]})
+	  }
 	  
+	  console.log("GPS",gps.x,gps.y);
+	  console.log(gps.x);
+	  console.log("Checked for Access Point BSSID 0 or 1",access_point[0].BSSID,access_point[1].BSSID);
+	  
+	  //Let's check if there are any locations that match up ;)
+	  Location.find(Query, "name access_point gps", function(error, locations) {
+		  if (error) {
+			res.json({
+			  title: "Failed",
+			  message: "Could not list all locations.",
+			  error: error
+			});
+		  } else {
+			res.json(locations);
+		  }
+      });
+	
+
 	  //User should poll:
 	  //GPS 
 	  //Beacons
