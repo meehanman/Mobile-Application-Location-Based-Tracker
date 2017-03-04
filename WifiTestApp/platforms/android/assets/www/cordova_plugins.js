@@ -525,6 +525,22 @@ module.exports = [
         "clobbers": [
             "window.WifiWizard"
         ]
+    },
+    {
+        "id": "cordova-plugin-ble.BLE",
+        "file": "plugins/cordova-plugin-ble/ble.js",
+        "pluginId": "cordova-plugin-ble",
+        "clobbers": [
+            "evothings.ble"
+        ]
+    },
+    {
+        "id": "cordova-plugin-eddystone.eddystoneplugin",
+        "file": "plugins/cordova-plugin-eddystone/js/eddystone-plugin.js",
+        "pluginId": "cordova-plugin-eddystone",
+        "clobbers": [
+            "evothings.eddystone"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -551,7 +567,9 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.3",
     "cordova-plugin-whitelist": "1.2.2",
-    "com.pylonproducts.wifiwizard": "0.2.11"
+    "com.pylonproducts.wifiwizard": "0.2.11",
+    "cordova-plugin-ble": "2.0.1",
+    "cordova-plugin-eddystone": "1.3.0"
 };
 // BOTTOM OF METADATA
 });

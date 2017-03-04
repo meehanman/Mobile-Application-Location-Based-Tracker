@@ -114,4 +114,5 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <plugin name="cordova-plugin-eddystone" spec="cordova-plugin-eddystone" />
 </widget>

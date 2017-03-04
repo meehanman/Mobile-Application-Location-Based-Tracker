@@ -17,3 +17,4 @@
 
 - Project is within /www folder
 
+- Uses Eddystone plugin `cordova plugin add cordova-plugin-eddystone`
