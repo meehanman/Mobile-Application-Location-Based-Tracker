@@ -9,7 +9,7 @@ var eventSchema = new Schema({
   type: { type: String, required: true},
   location: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
   addedBy: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
-  attendees: [{_id: {type: Schema.Types.ObjectId, required: true}, name: String}],
+  attendees: [{_id: {type: Schema.Types.ObjectId, required: true}, name: {type: String, required: true}, status: {type: String, required: true}}],
   starts_at: { type: Date, required: true},
   ends_at: { type: Date, required: true},
   created_at: Date,

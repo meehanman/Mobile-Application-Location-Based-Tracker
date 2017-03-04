@@ -358,6 +358,32 @@ server.get('/event/all',
       }
     });
   });
+  
+  //Polling
+  //Returns all evemts
+server.get('/poll',
+  function(req, res) {
+	  
+	  var gps = req.body.gps;
+	  var beacon = req.body.beacon;
+	  var access_point = req.body.access_point; //This could be an array of multiple access_points
+	  
+	  
+	  //User should poll:
+	  //GPS 
+	  //Beacons
+	  //Hotspots
+	  
+	  //App Searches for next meeting scheduled
+	  //Gets the meetings location
+	  //Get's the location information that's
+	  //not empty for the location
+	  
+	  //compares these with the not empty values the user sends
+	  //if the user replys with nothing then do nothing
+	  
+	  
+  });
 
 //Start Server
 server.listen(settings.port, settings.host, function() {
