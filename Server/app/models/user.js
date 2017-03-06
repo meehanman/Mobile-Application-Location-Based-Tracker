@@ -14,14 +14,14 @@ var userSchema = new Schema({
   updated_at: Date
 });
 
-userSchema.pre('save', function(next){
-  now = new Date();
-  this.updated_at = now;
-  if ( !this.created_at ) {
-    this.created_at = now;
-  }
-  this.updated_at = now;
-  next();
+userSchema.pre('save', function(next) {
+    now = new Date();
+    this.updated_at = now;
+    if (!this.created_at) {
+        this.created_at = now;
+    }
+    this.updated_at = now;
+    next();
 });
 
 // the schema is useless so far

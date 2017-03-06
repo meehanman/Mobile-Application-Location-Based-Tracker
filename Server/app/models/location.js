@@ -7,16 +7,13 @@ var locationSchema = new Schema({
   image: { data: Buffer, contentType: String },
   type: { type: String, required: true},
   max_people: Number,
-  services: [{
-	name: String, 
-	description: String
-  }],
+  services: [{name: String,	description: String}],
   place: {
-	name: String, 
-	floor: Number,
-	department: String,
-	room_number: String,
-	address: String
+  	name: String,
+  	floor: Number,
+  	department: String,
+  	room_number: String,
+  	address: String
   },
   beacon: String,
   access_point: String,
@@ -26,14 +23,14 @@ var locationSchema = new Schema({
   updated_at: Date
 });
 
-locationSchema.pre('save', function(next){
-  now = new Date();
-  this.updated_at = now;
-  if ( !this.created_at ) {
-    this.created_at = now;
-  }
-  this.updated_at = now;
-  next();
+locationSchema.pre('save', function(next) {
+    now = new Date();
+    this.updated_at = now;
+    if (!this.created_at) {
+        this.created_at = now;
+    }
+    this.updated_at = now;
+    next();
 });
 
 // the schema is useless so far

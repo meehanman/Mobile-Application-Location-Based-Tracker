@@ -6,7 +6,7 @@ var eventSchema = new Schema({
   owner: {_id: Schema.Types.ObjectId, name: String},
   description: String,
   image: { data: Buffer, contentType: String },
-  type: { type: String, required: true},
+  type: { type: String, required: true, lowercase: true},
   location: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
   addedBy: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
   attendees: [{_id: {type: Schema.Types.ObjectId, required: true}, name: {type: String, required: true}, status: {type: String, required: true}}],
@@ -16,14 +16,14 @@ var eventSchema = new Schema({
   updated_at: Date
 });
 
-eventSchema.pre('save', function(next){
-  now = new Date();
-  this.updated_at = now;
-  if ( !this.created_at ) {
-    this.created_at = now;
-  }
-  this.updated_at = now;
-  next();
+eventSchema.pre('save', function(next) {
+    now = new Date();
+    this.updated_at = now;
+    if (!this.created_at) {
+        this.created_at = now;
+    }
+    this.updated_at = now;
+    next();
 });
 
 // the schema is useless so far
