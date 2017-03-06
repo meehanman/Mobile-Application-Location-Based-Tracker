@@ -1,4 +1,16 @@
-# MALBT - Mobile App GUI
+## MALBT - Mobile App GUI
+
+*Installed by running*
+
+`phonegap run android`
+
+or
+
+`phonegap run ios`
+
+[Note: requires Android SDK to be installed]
+
+#Features 
 
 - Built on Phonegap/Cordova
 
