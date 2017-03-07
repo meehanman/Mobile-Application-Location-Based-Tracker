@@ -129,9 +129,13 @@ server.get('/',
 server.get('/whoami',
     function(req, res) {
         res.json({
-            loggedIn: req.user.name,
-            email: req.user.email,
-            id: req.user._id
+            loggedIn: true,
+            id: req.user._id,
+            name: req.user.name,
+            admin: req.user.admin,
+            location: req.user.location,
+            groups: req.user.groups,
+            email: req.user.email
         });
     });
 
@@ -233,7 +237,7 @@ server.post('/user',
     });
 
 //Returns all users
-server.get('/user/all',
+server.get('/user',
     function(req, res) {
         User.find({}, function(error, users) {
             if (error) {
@@ -279,6 +283,7 @@ server.get('/user/:_id/events',
                     error: error
                 });
             }
+            res.json(events);
             //res.json(events);
             Location.findOne({
                 _id: events[0].location._id
@@ -322,6 +327,21 @@ server.get('/user/:_id',
         });
     });
 
+    //Returns all locations
+    server.get('/location', function(req, res) {
+        Location.find({}, function(error, locations) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not list all locations.",
+                    error: error
+                });
+            } else {
+                res.json(locations);
+            }
+        });
+    });
+
 //Returns all locations
 server.get('/location/:id', function(req, res) {
     Location.find({
@@ -331,21 +351,6 @@ server.get('/location/:id', function(req, res) {
             res.json({
                 title: "Failed",
                 message: "Could not list location.",
-                error: error
-            });
-        } else {
-            res.json(locations);
-        }
-    });
-});
-
-//Returns all locations
-server.get('/location/all', function(req, res) {
-    Location.find({}, function(error, locations) {
-        if (error) {
-            res.json({
-                title: "Failed",
-                message: "Could not list all locations.",
                 error: error
             });
         } else {
@@ -424,14 +429,26 @@ server.get('/event/:id',
                     message: "Could not list event.",
                     error: error
                 });
-            } else {
-                res.json(event);
             }
+              Location.findOne({_id:event.location._id},function(error,location){
+                if (error) {
+                    res.json({
+                        title: "Failed",
+                        message: "Could not find event location",
+                        _id: event.location._id,
+                        name: event.location.name,
+                        error: error
+                    });
+                }
+                event = event.toJSON();
+                event.location = location.toJSON();
+                res.json(event);
+              });
         });
     });
 
 //Returns all evemts
-server.get('/event/all',
+server.get('/event',
     function(req, res) {
         Event.find({}, function(error, events) {
             if (error) {
