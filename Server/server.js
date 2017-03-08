@@ -99,6 +99,7 @@ server.use(function(req, res, next) {
   req.global = {};
   req.global.eventStatus = {
     invited: "invited",
+    accepted: "accepted",
     declined: "declined",
     attended: "attended"
   }
@@ -274,40 +275,6 @@ server.get('/user/events', function(req, res) {
     res.json(events);
   });
 });
-server.get('/user/:_id/events',
-  function(req, res) {
-    console.log('/user/:_id/events', req.params._id);
-    Event.find({
-      'attendees': {
-        $elemMatch: {
-          _id: req.params._id
-        }
-      }
-    }, function(error, events) {
-      if (error) {
-        res.json({
-          title: "Failed",
-          message: "Could not get events for user",
-          error: error
-        });
-      }
-      res.json(events);
-      //res.json(events);
-      Location.findOne({
-        _id: events[0].location._id
-      }, function(error, location) {
-        if (error) {
-          res.json({
-            title: "Failed",
-            message: "Could not get location",
-            error: error
-          });
-        }
-        res.json(location)
-      });
-
-    });
-  });
 
 //Returns a user by their ID
 server.get('/user/:_id',
@@ -652,7 +619,63 @@ server.del('/event/:eventID/attendee',
     });
   });
 
+server.post('/event/:id/:status', function(req,res){
+    req.params.status = req.params.status.toLowerCase();
+    if(req.params.status=="accept"||req.params.status=="decline"){
+      Event.findOne({
+        _id: req.params.id
+      }, function(error, event) {
+        if (error) {
+          console.log("Error");
+          res.json({
+            title: "Failed",
+            message: "Could not list event.",
+            error: error
+          });
+        }
+          //Find the current user
+          var match=false;
+          for(var i=0;i<event.attendees.length;i++){
+            if(String(event.attendees[i]._id)==String(req.user._id)){
+              event.attendees[i].status = req.params.status;
+              match=true;
+              break;
+            }
+          }
 
+          if(match){
+            event.save(function(error){
+              if(error){
+                res.json({
+                  title: "Failed",
+                  message: "Could not update event",
+                  error: error
+                });
+              }
+              res.json({
+                title: "Success",
+                status: req.params.status,
+                name: event.name,
+                message: "User status for event changed"
+              });
+            })
+          }else{
+            res.json({
+              title: "Failed",
+              message: "User not invited to event",
+            });
+          }
+
+      });
+    }else{
+      res.json({
+        title: "Failed",
+        message: "Event status for user may only be set to accepted or declined",
+        status: req.params.status,
+        expected: [req.global.eventStatus.accepted, req.global.eventStatus.declined]
+      });
+    }
+});
 
 //Polling
 //Returns all evemts
