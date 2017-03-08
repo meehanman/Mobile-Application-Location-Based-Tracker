@@ -622,6 +622,15 @@ server.del('/event/:eventID/attendee',
 server.post('/event/:id/:status', function(req,res){
     req.params.status = req.params.status.toLowerCase();
     if(req.params.status=="accept"||req.params.status=="decline"){
+
+      if(req.params.status=="accept"){
+        req.params.status = req.global.eventStatus.accepted;
+      }
+
+      if(req.params.status=="decline"){
+        req.params.status = req.global.eventStatus.declined;
+      }
+
       Event.findOne({
         _id: req.params.id
       }, function(error, event) {
