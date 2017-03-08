@@ -10,6 +10,9 @@
         "cordova-plugin-battery-status": {
             "PACKAGE_NAME": "technology.dean"
         },
+        "cordova-plugin-ble": {
+            "PACKAGE_NAME": "technology.dean"
+        },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "technology.dean"
         },
@@ -65,9 +68,6 @@
             "PACKAGE_NAME": "technology.dean"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "technology.dean"
-        },
-        "cordova-plugin-ble": {
             "PACKAGE_NAME": "technology.dean"
         }
     },

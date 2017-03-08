@@ -159,14 +159,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-whitelist": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-whitelist@~1.2.1"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-eddystone": {
         "source": {
             "type": "local",
@@ -179,6 +171,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-ble"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1.3.1"
         },
         "is_top_level": true,
         "variables": {}
