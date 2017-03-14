@@ -7,7 +7,7 @@ var userSchema = new Schema({
   password: { type: String, required: true },
   admin: Boolean,
   location: String,
-  image: { data: Buffer, contentType: String },
+  image: String,
   groups: [{id: Number, name: String}],
   addedBy: {_id: Schema.Types.ObjectId, name: String},
   created_at: Date,

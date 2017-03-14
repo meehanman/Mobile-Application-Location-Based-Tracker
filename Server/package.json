@@ -6,8 +6,12 @@
   "dependencies": {
     "bcrypt": "^1.0.2",
     "bluebird": "^3.4.7",
+    "express": "^4.15.2",
+    "formidable": "^1.1.1",
     "mongodb": "^2.2.24",
     "mongoose": "^4.8.5",
+    "multi-rest": "^1.4.5",
+    "multipart": "^0.1.5",
     "password-hash-and-salt": "^0.1.4",
     "restify": "^4.3.0"
   },

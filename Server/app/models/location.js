@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var locationSchema = new Schema({
   name: { type: String, required: true},
   description: String,
-  image: { data: Buffer, contentType: String },
+  image: String,
   type: { type: String, required: true},
   max_people: Number,
   services: [{name: String,	description: String}],

@@ -5,7 +5,7 @@ var eventSchema = new Schema({
   name: { type: String, required: true},
   owner: {_id: Schema.Types.ObjectId, name: String},
   description: String,
-  image: { data: Buffer, contentType: String },
+  image: String,
   type: { type: String, required: true, lowercase: true},
   location: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
   addedBy: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
