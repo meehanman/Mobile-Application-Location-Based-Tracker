@@ -65,7 +65,7 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>EventMap</name>
+    <name>MALBT</name>
     <description>
         Final Year Assignment
     </description>
@@ -73,13 +73,6 @@
         Dean Meehan
     </author>
     <content src="index.html" />
-    <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
     <icon density="ldpi" src="www/img/eventMap/evLogoLogin.png" />
     <icon density="mdpi" src="www/img/eventMap/evLogoLogin.png" />
     <icon density="hdpi" src="www/img/eventMap/evLogoLogin.png" />
@@ -99,6 +92,20 @@
     <splash density="port-xxhdpi" src="www/img/eventMap/evLogoLogin.png" />
     <splash density="port-xxxhdpi" src="www/img/eventMap/evLogoLogin.png" />
     <allow-intent href="market:*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <access launch-external="yes" origin="geo:*" />
+    <access origin="*://*.googleapis.com/*" subdomains="true" />
+    <access origin="*://*.gstatic.com/*" subdomains="true" />
+    <access origin="*://*.google.com/*" subdomains="true" />
+    <access origin="*://*.googleusercontent.com/*" subdomains="true" />
+    <access origin="*" />
+    <allow-intent href="*" />
+    <allow-navigation href="*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />

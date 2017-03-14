@@ -61,13 +61,13 @@
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "technology.dean"
         },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "technology.dean"
-        },
         "cordova-plugin-eddystone": {
             "PACKAGE_NAME": "technology.dean"
         },
         "cordova-plugin-ble": {
+            "PACKAGE_NAME": "technology.dean"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "technology.dean"
         }
     },

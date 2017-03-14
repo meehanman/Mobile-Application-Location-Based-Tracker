@@ -7,9 +7,10 @@ var output = document.getElementById('output');
 
 function startBeaconTracking() {
     // Start tracking beacons!
-    setTimeout(startScan, 1000);
+    setTimeout(startScan, 5000);
     // Timer that refreshes the display.
-    timer = setInterval(updateBeaconList, 1000);
+    timer = setInterval(updateBeaconList, 5000);
+    output.innerHTML = "Started Beacon Tracking";
 }
 startBeaconTracking();
 
@@ -22,6 +23,7 @@ function startScan() {
     console.log("Scanning...", evothings);
     showMessage('Scan in progress.');
     evothings.eddystone.startScan(function (beacon) {
+        alert("SCAN")
         // Update beacon data.
         beacon.timeStamp = Date.now();
         beacons[beacon.address] = beacon;
@@ -40,6 +42,7 @@ function getSortedBeaconList(beacons) {
     var beaconList = [];
     for (var key in beacons) {
         beaconList.push(beacons[key]);
+        console.log(beacons[key]);
     }
     beaconList.sort(function (beacon1, beacon2) {
         return mapBeaconRSSI(beacon1.rssi) < mapBeaconRSSI(beacon2.rssi);
@@ -68,17 +71,13 @@ function displayBeacons() {
     var sortedList = getSortedBeaconList(beacons);
     for (var i = 0; i < sortedList.length; ++i) {
         var beacon = sortedList[i];
-        var meeting_room_01 = "64 32 38 32 62 32 39 64 35 66".replace(/ /g, '');;
-        var beacon_NID = uint8ArrayToString(beacon.nid).replace(/ /g, '');
-        if (beacon_NID == meeting_room_01) {
-            beacon.name = "Meeting Room 01";
-        }
         var htmlBeacon = '<p>' + htmlBeaconName(beacon) + htmlBeaconURL(beacon) + htmlBeaconNID(beacon) + htmlBeaconBID(beacon) + htmlBeaconEID(beacon) + htmlBeaconVoltage(beacon) + htmlBeaconTemperature(beacon) + htmlBeaconRSSI(beacon) + '</p>';
         html += htmlBeacon
         console.log(beacon);
     }
     //$$('#found-beacons').html(html);
-    output.innerHTML = html
+    output.innerHTML = html;
+    console.log(html);
     
 }
 
@@ -133,8 +132,8 @@ function uint8ArrayToString(uint8Array) {
 
 function showMessage(text) {
     //$$('#message').html(text);
-    output.innerHTML = text;
-    console.warn("eddy", text);
+    //output.innerHTML = text;
+    console.log("eddy", text);
 }
 // This calls onDeviceReady when Cordova has loaded everything.
 //document.addEventListener('deviceready', onDeviceReady, false);
