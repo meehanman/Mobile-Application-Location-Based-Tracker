@@ -39,6 +39,9 @@
               <a id="startBeaconTracking" href="#" class="button button-big button-fill button-raised color-blue">Beacon</a>
           </p>
           <p class="buttons-row">
+              <a id="btnAbout" href="#" class="button button-big button-fill button-raised color-blue">Account</a>
+          </p>
+          <p class="buttons-row">
               <a id="logout-button" href="#" class="button button-big button-fill button-raised color-red">Logout</a>
           </p>
             <!--
@@ -67,7 +70,7 @@
                         </a>
                         <div class="index-content">
                             <!-- Apply a background image -->
-                            <div class="indexBackgroundImage">
+                            <div class="indexBackgroundImage" style="background-image: url('{{this.auth.image}}');">
                                 <!-- Darken the image -->
                                 <div class="indexBackgroundImage-colorOverlay">
                                     <!-- Top Navbar-->
@@ -82,7 +85,7 @@
                                     </div>
 
                                     <div class="userInfo">
-                                        <img class="img-circle profileImage" width="75" height="75" src="https://lh3.googleusercontent.com/JMp91W4bmbF32CNdSY2QYegzmpFNr53fIEza8c8v15MOQ3aTtBR4QOEK6kehzmXwhkXLHrG5lbl1HVA=w1920-h1080-rw-no" />
+                                        <img class="img-circle profileImage" width="75" height="75" src="{{this.auth.image}}" />
                                         <div class="userInfo-text">
                                             <div class="userInfo-name">{{this.auth.name}}</div>
                                             <div class="userInfo-email">{{this.auth.email}}</div>
@@ -121,7 +124,7 @@
                                             </div>
                                             <div>
                                               {{#each attendees}}
-                                              <img src="https://lh3.googleusercontent.com/JMp91W4bmbF32CNdSY2QYegzmpFNr53fIEza8c8v15MOQ3aTtBR4QOEK6kehzmXwhkXLHrG5lbl1HVA=w1920-h1080-rw-no" class="upcomingEventrow-img" />
+                                              <img src="{{image}}" class="upcomingEventrow-img" />
                                               {{/each}}
                                             </div>
 
@@ -132,6 +135,9 @@
                                     </tr>
                                     {{else}}
                                     <p style="margin-left: 49px;">You have no upcoming Events.</p>
+                                    <p class="buttons-row">
+                                        <a id="btnRefreshUpcomingEvents" href="#" class="button">Refresh</a>
+                                    </p>
                                     {{/each}}
                                 </table>
                             </div>

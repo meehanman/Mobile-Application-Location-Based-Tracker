@@ -66,6 +66,9 @@ $$('#login-button').click(function() {
             window.localStorage['auth'] = JSON.stringify(parsedData);
             myApp.template7Data.auth = parsedData;
 
+            //On login - Load upcoming events
+            getUpcomingEvents();
+
             //Move to main page
             mainView.router.load({
                 url: 'index.html',
@@ -196,6 +199,10 @@ $$(document).on('click', '#btnAbout', function() {
     myApp.closePanel(true);
 });
 
+$$(document).on('click', '#btnRefreshUpcomingEvents', function(){
+  getUpcomingEvents();
+});
+
 
 $$(document).on('click', '.upcomingEventrow', function(event) {
     var eventID = $$(this).attr('data-id');
@@ -243,6 +250,13 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
                 data.attendeesList = data.attendees.slice(0, 5);
             } else {
                 data.attendeesList = data.attendees;
+            }
+
+            //If attendee has no image, assign a placeholder
+            for(at in data.attendees){
+              if(data.attendees[at].image==undefined){
+                data.attendees[at].image = "https://api.adorable.io/avatars/100/"+data.attendees[at].name;
+              }
             }
 
             myApp.template7Data.event = data;
@@ -382,11 +396,15 @@ function getUpcomingEvents(callBack) {
 
                 var mon = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
                 //Save results
-                console.log(mon, start_date.getMonth(), start_date);
                 data[i].dateString = start_date.getDate() + " " + mon[start_date.getMonth()].toUpperCase() + "  " + start_date.getFullYear();
                 data[i].timeString = startTimeHours + ":" + startTimeMinutes + "-" + endTimeHours + ":" + endTimeMinutes;
 
                 //Attendees
+                for(at in data[i].attendees){
+                  if(data[i].attendees[at].image==undefined){
+                    data[i].attendees[at].image = "https://api.adorable.io/avatars/100/"+data[i].attendees[at].name;
+                  }
+                }
 
             }
 
