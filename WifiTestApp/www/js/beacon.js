@@ -23,7 +23,6 @@ function startScan() {
     console.log("Scanning...", evothings);
     showMessage('Scan in progress.');
     evothings.eddystone.startScan(function (beacon) {
-        alert("SCAN")
         // Update beacon data.
         beacon.timeStamp = Date.now();
         beacons[beacon.address] = beacon;
@@ -78,7 +77,7 @@ function displayBeacons() {
     //$$('#found-beacons').html(html);
     output.innerHTML = html;
     console.log(html);
-    
+
 }
 
 function htmlBeaconName(beacon) {

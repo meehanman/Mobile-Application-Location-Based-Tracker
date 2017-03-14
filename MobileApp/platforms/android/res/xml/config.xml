@@ -65,6 +65,10 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="WifiWizard">
+        <param name="android-package" value="com.pylonproducts.wifiwizard.WifiWizard" />
+        <param name="onload" value="true" />
+    </feature>
     <name>MALBT</name>
     <description>
         Final Year Assignment

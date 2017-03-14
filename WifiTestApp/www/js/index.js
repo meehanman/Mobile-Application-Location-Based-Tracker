@@ -33,7 +33,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        
+
         //get a reference to the element
         var btnStartScan = document.getElementById('btnStartScan');
         var btnGetScanResults = document.getElementById('btnGetScanResults');
@@ -45,7 +45,7 @@ var app = {
         var output = document.getElementById('output');
         var scanResults = [];
         var GPSLocation = {x:0,y:0};
-        
+
         //Starting Scan
         btnStartScan.addEventListener('click', function(event) {
             output.innerHTML = "Starting Scan...";
@@ -55,7 +55,7 @@ var app = {
                 output.innerHTML = "<br>" + output.innerHTML + "Starting Scan... [Failed]";
             });
         });
-        
+
         //Send currnet saved Scan to Server
         btnPollServeer.addEventListener('click', function(event){
             var data = new FormData();
@@ -78,7 +78,7 @@ var app = {
 
             xhr.send(data);
         });
-        
+
         //Get GeoLocation
         btnGeoLocation.addEventListener('click', function(event){
             output.innerHTML = "Getting GPS Results...";
@@ -94,7 +94,7 @@ var app = {
                   'Timestamp: '         + position.timestamp                + '\n';
                 */
                 GPSLocation.x = position.coords.latitude;
-                GPSLocation.y = position.coords.longitude;                
+                GPSLocation.y = position.coords.longitude;
         };
 
         // onError Callback receives a PositionError object
@@ -106,37 +106,37 @@ var app = {
 
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
         });
-        
+
         //Get Scan Results
         btnGetScanResults.addEventListener('click', function(event) {
             getScanResults();
-        });      
-        
+        });
+
         function getScanResults(){
             output.innerHTML = "Getting Scan Results...";
             WifiWizard.getScanResults({numLevels: false}, function(data){
                 console.log(data);
                 //output.innerHTML = "<br>" + output.innerHTML + JSON.stringify(data);
-                
+
                 //Reset Scan Results Array
                 scanResults = [];
-                
+
                 //Output a list of the properties
                 for(var i=0;i<data.length;i++){
                     output.innerHTML += "<br><div><b>"+data[i].BSSID+"</b>("+data[i].SSID+")</div>";
                     scanResults.push(data[i].BSSID);
                 }
-                
+
             },function(data){
                 output.innerHTML = "<br>" + output.innerHTML + "Getting Scan Results... [Failed]";
             });
         }
-        
+
         //Auto do this for testing
         window.setInterval(function(){
           //getScanResults();
         }, 5000);
-        
+
         //List Networks
         btnListNetworks.addEventListener('click', function(event) {
             output.innerHTML = "List Networks...";
@@ -146,8 +146,8 @@ var app = {
             },function(data){
                 output.innerHTML = "<br>" + output.innerHTML + "List Networks... [Failed]";
             });
-        }); 
-        
+        });
+
         //Get Current SSID
         btnGetCurrentSSID.addEventListener('click', function(event) {
             output.innerHTML = "Get Current SSID...";
@@ -157,13 +157,13 @@ var app = {
             },function(data){
                 output.innerHTML = "<br>" + output.innerHTML + "Get Current SSID... [Failed]";
             });
-        }); 
-        
-                
+        });
+
+
         //Get Current BSSID
         btnGetCurrentBSSID.addEventListener('click', function(event) {
             output.innerHTML = "Get Current BSSID...";
-            //Calling getCurrentBSSID() get's JAVA's getConnectedBSSID() 
+            //Calling getCurrentBSSID() get's JAVA's getConnectedBSSID()
             //Changed Java file to correlate with github version
             WifiWizard.getCurrentBSSID(function(data){
                 console.log(data);
@@ -172,10 +172,10 @@ var app = {
                 output.innerHTML = "<br>" + output.innerHTML + "Get Current BSSID... [Failed]";
                 console.warn(data);
             });
-        }); 
+        });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-       
+
     }
 };

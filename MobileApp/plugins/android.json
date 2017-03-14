@@ -69,6 +69,9 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "technology.dean"
+        },
+        "com.pylonproducts.wifiwizard": {
+            "PACKAGE_NAME": "technology.dean"
         }
     },
     "dependent_plugins": {

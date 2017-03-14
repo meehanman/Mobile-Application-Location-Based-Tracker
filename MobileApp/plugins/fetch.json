@@ -182,5 +182,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "com.pylonproducts.wifiwizard": {
+        "source": {
+            "type": "registry",
+            "id": "WifiWizard"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

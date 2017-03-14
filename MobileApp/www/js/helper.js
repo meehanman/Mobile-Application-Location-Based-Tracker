@@ -289,8 +289,16 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
 
 });
 
+$$(document).on('click', '#attendeeList', function(e){
+    console.warn(myApp.template7Data.event.attendees);
+
+    mainView.router.load({
+        url: 'event-attendees.html',
+        context: myApp.template7Data.event
+    });
+});
+
 $$(document).on('click', '#openEventMap', function() {
-    //getUpcomingEvents();
     mainView.router.load({
         url: 'map.html',
         context: myApp.template7Data
@@ -449,3 +457,55 @@ $$(document).on('page:init', '.page[data-page="track"]', function(e) {
 $$(document).on('page:init', '.page[data-page="home"]', function(e) {
     onBackButtonDown();
 });
+
+
+$$(document).on('click', '#getGPS', function(e) {
+
+  console.log(getGPS());
+});
+
+$$(document).on('click', '#getWifi', function(e) {
+  console.log(getWifi());
+});
+
+function getGPS(){
+  console.log("Getting GPS Results...");
+  navigator.geolocation.getCurrentPosition(function(position){
+    var GPSLocation = {x:0,y:0};
+    console.log(GPSLocation)
+    GPSLocation.x = position.coords.latitude;
+    GPSLocation.y = position.coords.longitude;
+    console.log(GPSLocation);
+    return GPSLocation;
+  }, function(error){
+    console.error("Failed at getting GPS results");
+  });
+
+}
+
+function getBeacons(){
+    console.log("Getting Blu Results...");
+    console.log(startBeaconTracking());
+}
+
+function getWifi(){
+    console.log("Getting Wifi Results...");
+    WifiWizard.getScanResults({numLevels: false}, function(data){
+        console.log("Wifi Scan Results", data);
+        //output.innerHTML = "<br>" + output.innerHTML + JSON.stringify(data);
+
+        //Reset Scan Results Array
+        var scanResults = [];
+
+        //Output a list of the properties
+        for(var i=0;i<data.length;i++){
+            console.log("<br><div><b>"+data[i].BSSID+"</b>("+data[i].SSID+")</div>");
+            scanResults.push(data[i].BSSID);
+        }
+
+        return scanResults;
+
+    },function(data){
+        console.error("Failed to get Wifi Scan Results");
+    });
+}

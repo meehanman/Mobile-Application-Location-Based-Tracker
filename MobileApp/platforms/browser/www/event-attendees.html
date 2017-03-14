@@ -1,8 +1,8 @@
 <!-- We don't need full layout in this file because this page will be parsed with Ajax. It is just enough to put here .navbar and .page-->
 
 <!-- Top Navbar-->
-<div class="pages navbar-fixed" data-page="map">
-    <div data-page="map" class="page">
+<div class="pages navbar-fixed" data-page="event-attendees">
+    <div data-page="event-attendees" class="page">
         <div class="page-content" style="background-color: #f2f2f2;">
             <div class="indexBackgroundImage-other">
                 <!-- Darken the image -->
@@ -23,8 +23,25 @@
             <br><br><br>
 
             <div style="text-align: center;background-color: #fff;padding-top: 5px;color: #000;height: 100%;">
+                <div class="list-block">
+                    <ul>
+                      {{#each attendees}}
+                        <li class="item-content">
+                            <div class="item-media">
+                              <img src="{{image}}"
+                              class="upcomingEventrow-img" style="margin: 0; padding: 0; display: block; margin-right: 15px;">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">{{name}}</div>
+                                <div class="item-after">{{status}}</div>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
 
-                
+
+                {{/each}}
 
             </div>
             <br>

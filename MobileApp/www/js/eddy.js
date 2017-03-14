@@ -5,9 +5,11 @@ var timer = null;
 
 function startBeaconTracking() {
     // Start tracking beacons!
-    setTimeout(startScan, 1000);
+    //setTimeout(startScan, 1000);
     // Timer that refreshes the display.
     timer = setInterval(updateBeaconList, 1000);
+
+    return startScan();
 }
 
 function onBackButtonDown() {
@@ -22,6 +24,7 @@ function startScan() {
         // Update beacon data.
         beacon.timeStamp = Date.now();
         beacons[beacon.address] = beacon;
+        return beacons;
     }, function (error) {
         showMessage('Eddystone scan error: ' + error);
     });
