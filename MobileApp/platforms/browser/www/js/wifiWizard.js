@@ -18,7 +18,6 @@
  */
 
 var WifiWizard = {
-
     /**
      * 	This method formats wifi information into an object for use with the
      * 	addNetwork function. Currently only supports
