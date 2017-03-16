@@ -23,25 +23,46 @@
             <br><br><br>
 
             <div style="text-align: center;background-color: #fff;padding-top: 5px;color: #000;height: 100%;">
-                <div class="list-block">
-                    <ul>
-                      {{#each attendees}}
-                        <li class="item-content">
-                            <div class="item-media">
-                              <img src="{{image}}"
-                              class="upcomingEventrow-img" style="margin: 0; padding: 0; display: block; margin-right: 15px;">
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title">{{name}}</div>
-                                <div class="item-after">{{status}}</div>
-                            </div>
-                        </li>
-                        {{/each}}
-                    </ul>
+
+              <div class="list-block">
+                  <ul>
+
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title floating-label">Name</div>
+                          <div class="item-input">
+                              <input type="text" name="name">
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title floating-label">Description</div>
+                          <div class="item-input">
+                              <input type="text" name="description">
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title floating-label">Image</div>
+                          <div class="item-input">
+                              <button id="btnEventPhoto">Select Photo</button><br>
+                              <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
-                {{/each}}
-            </div>
-            <br>
+
         </div>
     </div>
 </div>

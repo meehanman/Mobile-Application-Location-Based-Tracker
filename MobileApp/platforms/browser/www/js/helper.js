@@ -3,6 +3,7 @@ var myApp = new Framework7({
     modalTitle: 'MALBT',
     material: true,
     materialRipple: true,
+    animatePages: false,
     init: true,
     template7Pages: true,
     template7Data: {
@@ -199,6 +200,15 @@ $$(document).on('click', '#btnAbout', function() {
     myApp.closePanel(true);
 });
 
+$$(document).on('click', '#btnAddEvent', function() {
+    //getUpcomingEvents();
+    mainView.router.load({
+        url: 'new-event.html',
+        context: myApp.template7Data
+    });
+    myApp.closePanel(true);
+});
+
 $$(document).on('click', '#btnRefreshUpcomingEvents', function(){
   getUpcomingEvents();
 });
@@ -315,6 +325,20 @@ myApp.onPageInit('map', function() {
     });
 
 });
+
+// A button will call this function
+  //
+  $$(document).on('click', '#btnEventPhoto', function(){
+    console.log("event Phoeo");
+    navigator.camera.getPicture(function(){
+      var smallImage = document.getElementById('smallImage');
+      smallImage.style.display = 'block';
+      smallImage.src = imageURI;
+    }, function(){}, { quality: 50,
+      destinationType: navigator.camera.DestinationType.FILE_URI,
+      sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
+  });
+
 
 myApp.onPageInit('event', function() {
 
