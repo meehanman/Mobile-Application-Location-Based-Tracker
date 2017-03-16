@@ -330,10 +330,9 @@ myApp.onPageInit('map', function() {
   //
   $$(document).on('click', '#btnEventPhoto', function(){
     console.log("event Phoeo");
-    navigator.camera.getPicture(function(){
-      var smallImage = document.getElementById('smallImage');
-      smallImage.style.display = 'block';
-      smallImage.src = imageURI;
+    navigator.camera.getPicture(function(ImageURI){
+      $$('#smallImage').css("display",'block');
+      $$('#smallImage').attr("src",ImageURI);
     }, function(){}, { quality: 50,
       destinationType: navigator.camera.DestinationType.FILE_URI,
       sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
