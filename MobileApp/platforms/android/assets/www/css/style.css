@@ -32,7 +32,12 @@
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
-
+/*Locations*/
+.demo-card-header-pic .card-header {
+    height: 20vw;
+    background-size: cover;
+    background-position: center;
+  }
 
 /*LOGIN ONLY*/
 
