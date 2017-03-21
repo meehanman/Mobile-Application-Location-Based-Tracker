@@ -1,0 +1,82 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "com.red_folder.phonegap.plugin.backgroundservice.sample": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        },
+        "com.red_folder.phonegap.plugin.backgroundservice": {
+            "PACKAGE_NAME": "technology.dean.backgroundTestApp"
+        }
+    }
+}
