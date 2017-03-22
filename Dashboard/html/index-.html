@@ -115,12 +115,17 @@
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
   </div>
 <!--End-breadcrumbs-->
+<div id="r-content"></div>
+  </div>
+</div>
 
+<!--end-main-container-part-->
+<script id='template' type='text/ractive'>
 <!--Action boxes-->
   <div class="container-fluid">
     <div class="quick-actions_homepage">
       <ul class="quick-actions">
-        <li class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i> <span class="label label-important">20</span> My Dashboard </a> </li>
+        <li class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i> <span class="label label-important">20</span> {{name}} </a> </li>
         <li class="bg_lg span3"> <a href="charts.html"> <i class="icon-signal"></i> Charts</a> </li>
         <li class="bg_ly"> <a href="widgets.html"> <i class="icon-inbox"></i><span class="label label-success">101</span> Widgets </a> </li>
         <li class="bg_lo"> <a href="tables.html"> <i class="icon-th"></i> Tables</a> </li>
@@ -396,22 +401,14 @@
               <p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment.</p>
             </div>
             <div id="tab3" class="tab-pane">
+              <input value={{name}} />
               <p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment. </p>
               <img src="img/demo/demo-image3.jpg" alt="demo-image"/></div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!--end-main-container-part-->
-<script id='template' type='text/ractive'>
-    <p>Hello, {{name}}!</p>
-    <input value="{{name}}"/>
-    {{#if name=='dean'}}
-    Meehan
-    {{/if}}
+    </div>
   </script>
 <!--Footer-part-->
 
@@ -445,7 +442,7 @@
 <script src='js/ractive.js'></script>
 <script>
    var ractive = new Ractive({
-     el: '#container',
+     el: '#r-content',
      template: '#template',
      data: { name: 'world' }
    });
