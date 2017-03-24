@@ -51,7 +51,7 @@ server.opts(/.*/, function(req, res, next) {
 //Authentication of Username and Password
 server.use(function(req, res, next) {
     //Deny Login for certain routes
-    if (req.route.path == "/") {
+    if (req.route.path == "/" || req.route.path.substring(0,5) == "/ping") {
         return next();
     }
 
@@ -740,6 +740,18 @@ server.post('/poll',
 
 
     });
+//Testing background service
+var x = "Dean"
+server.get("/ping/:pong", function(req,res){
+  x = req.params.pong;
+  res.json({"ping": x});
+});
+
+server.get("/ping",function(req,res){
+  res.json({"pong": x});
+});
+
+
 //Start Server
 server.listen(settings.port, settings.host, function() {
     console.log('%s listening at %s', server.name, server.url);
