@@ -189,6 +189,7 @@ $$(document).on('click', '#startBeaconTracking', function() {
     mainView.router.load({
         url: 'track.html'
     });
+    myApp.closePanel(true);
 });
 
 $$(document).on('click', '#btnAbout', function() {
@@ -346,44 +347,6 @@ myApp.onPageInit('event', function() {
     }else if(myApp.template7Data.event.myStatus=="invited"){
       statusPlaceholder = "Invited - Please RSVP";
     }
-
-    /**
-    if(statusPlaceholder!=="UNKNOWN"){
-        var pickerDevice = myApp.picker({
-            input: '#picker-status',
-            cols: [{
-                textAlign: 'center',
-                values: ["Going", "Can't Go"]
-            }],
-            closeByOutsideClick: true,
-            value: [statusPlaceholder],
-            onChange: function(p, values, displayValues) {
-                console.log(p, values, displayValues);
-
-                var status;
-                if(displayValues=="Going"){
-                  status = "accept";
-                }else{
-                  status = "decline";
-                }
-
-                $$.ajax({
-                    url: settings.host + "/event/" + myApp.template7Data.event._id + "/" + status,
-                    type: "POST",
-                    contentType: "application/json",
-                    "crossDomain": true,
-                    success: function(data, textStatus, jqXHR) {
-                      console.log("Status Change Success",data);
-                    },
-                    error: function(data,textStatus, jqXHR){
-                      console.warn("Status Change Fail",data);
-                    }
-                });
-            }
-        });
-    }else{
-      console.log(statusPlaceholder,"UNKNOWN",myApp.template7Data.event);
-    } **/
 });
 
 
@@ -508,23 +471,61 @@ $$(document).on('page:init', '.page[data-page="home"]', function(e) {
 
 
 $$(document).on('click', '#getGPS', function(e) {
-
-  console.log(getGPS());
+  $$('#getGPSoutput').html("Loading GPS...");
+  getGPS(function(data){
+    $$('#getGPSoutput').html(data);
+  });
 });
 
 $$(document).on('click', '#getWifi', function(e) {
-  console.log(getWifi());
+  $$('#getWifioutput').html("Loading Wifi...");
+  getWifi(function(data){
+    $$('#getWifioutput').html(data);
+  });
 });
 
-function getGPS(){
+$$(document).on('click','#pollServer', function(e){
+
+  var output = {
+    "gps": JSON.parse($$('#getGPSoutput').html()),
+    "beacon": [],
+    "access_point": JSON.parse($$('#getWifioutput').html())
+  };
+
+  $$.ajax({
+      url: settings.host + "/poll",
+      type: "POST",
+      data: JSON.stringify(output),
+      dataType: "application/json",
+      contentType: "application/json",
+      "crossDomain": true,
+      success: function(data, textStatus, jqXHR) {
+          data = JSON.parse(data);
+          console.warn("Poll Response",data);
+          $$('#pollServeroutput').html(JSON.stringify(data));
+      },
+      error: function(data, textStatus, jqXHR) {
+          console.log("Error:", data, output);
+      }
+  });
+});
+
+$$(document).on('click', '#poll', function(e) {
+  $$('#getWifioutput').html("Loading Wifi...");
+  getWifi(function(data){
+    $$('#getWifioutput').html(data);
+  });
+});
+
+function getGPS(callback){
   console.log("Getting GPS Results...");
   navigator.geolocation.getCurrentPosition(function(position){
-    var GPSLocation = {x:0,y:0};
-    console.log(GPSLocation)
-    GPSLocation.x = position.coords.latitude;
-    GPSLocation.y = position.coords.longitude;
-    console.log(GPSLocation);
-    return GPSLocation;
+    var GPSLocation = {
+      x:position.coords.latitude,
+      y:position.coords.longitude
+    };
+    console.log("GPS Location:",GPSLocation);
+    callback(JSON.stringify(GPSLocation));
   }, function(error){
     console.error("Failed at getting GPS results");
   });
@@ -532,26 +533,21 @@ function getGPS(){
 }
 
 function getBeacons(){
-    console.log("Getting Blu Results...");
+    console.log("Getting beacon Results...");
     console.log(startBeaconTracking());
 }
 
-function getWifi(){
+function getWifi(callback){
     console.log("Getting Wifi Results...");
     WifiWizard.getScanResults({numLevels: false}, function(data){
         console.log("Wifi Scan Results", data);
-        //output.innerHTML = "<br>" + output.innerHTML + JSON.stringify(data);
-
-        //Reset Scan Results Array
         var scanResults = [];
-
-        //Output a list of the properties
         for(var i=0;i<data.length;i++){
             console.log("<br><div><b>"+data[i].BSSID+"</b>("+data[i].SSID+")</div>");
             scanResults.push(data[i].BSSID);
         }
 
-        return scanResults;
+        callback(JSON.stringify(scanResults));
 
     },function(data){
         console.error("Failed to get Wifi Scan Results");
