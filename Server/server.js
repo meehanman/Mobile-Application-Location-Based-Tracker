@@ -11,6 +11,7 @@ mongoose.set("debug", true);
 //Include Mongo Tables
 var User = require('./app/models/user');
 var Location = require('./app/models/location');
+var Place = require('./app/models/place');
 var Event = require('./app/models/event');
 
 var settings = {
@@ -385,6 +386,21 @@ server.post('/location',
                   message: "Location Successfully Added"
               });
           });
+        });
+    });
+
+
+    //Get Places
+    server.get('/place', function(req, res) {
+        Place.find({}, function(error, places) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not list all locations.",
+                    error: error
+                });
+            }
+            res.json(places);
         });
     });
 
