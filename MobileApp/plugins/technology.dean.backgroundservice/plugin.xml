@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="technology.dean.backgroundservice"
+        version="0.1">
+
+   <name>Background Service Plugin - Sample Background Service technology.dean</name>
+
+   <description>
+      technology.dean BackgroundService
+   </description>
+
+   <license>MIT</license>
+
+   <engines>
+      <engine name="cordova" version=">=3.0.0"/>
+   </engines>
+
+   <!-- Load in the core background service -->
+   <dependency id="com.red_folder.phonegap.plugin.backgroundservice" url="https://github.com/Red-Folder/bgs-core.git" commit="9d947a9f1858284b312ad1032de6af590b33fa37" />
+
+   <!-- android -->
+   <platform name="android">
+
+      <source-file src="src/android/MyService.java" target-dir="src/technology/dean/backgroundservice/" />
+
+      <config-file target="AndroidManifest.xml" parent="/manifest/application">
+         <service android:name="technology.dean.backgroundservice.MyService">
+            <intent-filter>
+               <action android:name="technology.dean.backgroundservice.MyService"/>
+            </intent-filter>
+         </service>
+      </config-file>
+
+   </platform>
+</plugin>
