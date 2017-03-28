@@ -12,8 +12,8 @@ mongoose.set("debug", true);
 var User = require('./app/models/user');
 var Location = require('./app/models/location');
 var Event = require('./app/models/event');
-var Place = require('./app/models/event/place');
-var Track = require('./app/models/event/track');
+var Place = require('./app/models/place');
+var Track = require('./app/models/track');
 var settings = {
     host: "0.0.0.0",
     port: 9000
