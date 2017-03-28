@@ -72,6 +72,12 @@
         },
         "com.pylonproducts.wifiwizard": {
             "PACKAGE_NAME": "technology.dean"
+        },
+        "com.red_folder.phonegap.plugin.backgroundservice": {
+            "PACKAGE_NAME": "technology.dean"
+        },
+        "technology.dean.backgroundservice": {
+            "PACKAGE_NAME": "technology.dean"
         }
     },
     "dependent_plugins": {

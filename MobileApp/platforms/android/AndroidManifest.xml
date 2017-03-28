@@ -9,6 +9,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name="com.red_folder.phonegap.plugin.backgroundservice.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service android:name="technology.dean.backgroundservice.MyService">
+            <intent-filter>
+                <action android:name="technology.dean.backgroundservice.MyService" />
+            </intent-filter>
+        </service>
     </application>
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="24" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -27,4 +37,5 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>

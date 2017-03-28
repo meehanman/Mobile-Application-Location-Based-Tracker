@@ -114,4 +114,6 @@
     <plugin name="cordova-plugin-whitelist" spec="~1.3.1" />
     <engine name="android" spec="~6.0.0" />
     <plugin name="com.pylonproducts.wifiwizard" spec="~0.2.11" />
+    <plugin name="com.red_folder.phonegap.plugin.backgroundservice" spec="https://github.com/Red-Folder/bgs-core.git" />
+    <plugin name="technology.dean.backgroundservice" spec=".\bgs-plugin" />
 </widget>

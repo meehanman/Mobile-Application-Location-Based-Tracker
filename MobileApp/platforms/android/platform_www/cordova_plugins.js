@@ -541,6 +541,11 @@ module.exports = [
         "clobbers": [
             "window.WifiWizard"
         ]
+    },
+    {
+        "id": "com.red_folder.phonegap.plugin.backgroundservice.BackgroundService",
+        "file": "plugins/com.red_folder.phonegap.plugin.backgroundservice/www/backgroundService.js",
+        "pluginId": "com.red_folder.phonegap.plugin.backgroundservice"
     }
 ];
 module.exports.metadata = 
@@ -569,7 +574,9 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.3",
     "cordova-plugin-whitelist": "1.3.1",
-    "com.pylonproducts.wifiwizard": "0.2.11"
+    "com.pylonproducts.wifiwizard": "0.2.11",
+    "com.red_folder.phonegap.plugin.backgroundservice": "2.0.0",
+    "technology.dean.backgroundservice": "0.1"
 };
 // BOTTOM OF METADATA
 });
