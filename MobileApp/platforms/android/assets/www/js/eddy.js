@@ -14,7 +14,6 @@ function startBeaconTracking() {
 
 function onBackButtonDown() {
     evothings.eddystone.stopScan();
-    navigator.app.exitApp();
 }
 
 function startScan() {
@@ -24,6 +23,7 @@ function startScan() {
         // Update beacon data.
         beacon.timeStamp = Date.now();
         beacons[beacon.address] = beacon;
+        showMessage(JSON.stringify(beacons));
         return beacons;
     }, function (error) {
         showMessage('Eddystone scan error: ' + error);

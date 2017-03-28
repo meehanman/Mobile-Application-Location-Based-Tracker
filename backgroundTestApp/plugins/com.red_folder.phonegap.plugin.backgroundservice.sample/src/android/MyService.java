@@ -11,38 +11,38 @@ import android.util.Log;
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
 public class MyService extends BackgroundService {
-	
+
 	private final static String TAG = MyService.class.getSimpleName();
-	
+
 	private String mHelloTo = "World";
 
 	@Override
 	protected JSONObject doWork() {
 		JSONObject result = new JSONObject();
-		
-		try {
-			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
-			String now = df.format(new Date(System.currentTimeMillis())); 
 
-			String msg = "Hello " + this.mHelloTo + " - its currently " + now;
+		try {
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String now = df.format(new Date(System.currentTimeMillis()));
+
+			String msg = "Hi " + this.mHelloTo + " - its currently " + now;
 			result.put("Message", msg);
 
 			Log.d(TAG, msg);
 		} catch (JSONException e) {
 		}
-		
-		return result;	
+
+		return result;
 	}
 
 	@Override
 	protected JSONObject getConfig() {
 		JSONObject result = new JSONObject();
-		
+
 		try {
 			result.put("HelloTo", this.mHelloTo);
 		} catch (JSONException e) {
 		}
-		
+
 		return result;
 	}
 
@@ -53,8 +53,8 @@ public class MyService extends BackgroundService {
 				this.mHelloTo = config.getString("HelloTo");
 		} catch (JSONException e) {
 		}
-		
-	}     
+
+	}
 
 	@Override
 	protected JSONObject initialiseLatestResult() {
@@ -65,13 +65,13 @@ public class MyService extends BackgroundService {
 	@Override
 	protected void onTimerEnabled() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onTimerDisabled() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 

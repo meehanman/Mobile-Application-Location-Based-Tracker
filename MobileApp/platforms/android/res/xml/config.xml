@@ -69,6 +69,9 @@
         <param name="android-package" value="com.pylonproducts.wifiwizard.WifiWizard" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="BackgroundServicePlugin">
+        <param name="android-package" value="com.red_folder.phonegap.plugin.backgroundservice.BackgroundServicePlugin" />
+    </feature>
     <name>MALBT</name>
     <description>
         Final Year Assignment

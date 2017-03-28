@@ -1,24 +1,24 @@
-
 var app = {
     // Application Constructor
-    initialize: function () {
+    initialize: function() {
         this.bindEvents();
     }, // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function () {
+    bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     }, // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function () {
-      //Attempt to login automatically
+    onDeviceReady: function() {
+        //Attempt to login automatically
+        console.info("Logging in...");
         $('#login-button').click(login);
         //app.receivedEvent('deviceready');
     }, // Update DOM on a Received Event
-    receivedEvent: function (id) {
+    receivedEvent: function(id) {
         //TOOD: This could be removed
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
@@ -27,3 +27,81 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
     }
 };
+
+document.addEventListener('deviceready', function() {
+  console.warn("DEVICEREADY BGS");
+  backgroundservice.deviceReady();
+  console.log("BackgroundService","go()");
+  backgroundservice.go();
+}, true);
+
+var backgroundservice = {
+    myService: null,
+    deviceReady: function() {
+        var serviceName = 'technology.dean.backgroundservice.MyService';
+        var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService');
+        backgroundservice.myService = factory.create(serviceName);
+
+        backgroundservice.getStatus();
+    },
+    getStatus: function() {
+        backgroundservice.myService.getStatus(function(r) {
+            backgroundservice.displayResult(r);
+        }, function(e) {
+            backgroundservice.displayError(e);
+        });
+    },
+    displayResult: function(data) {
+        console.info("Is service running: " + data.ServiceRunning);
+    },
+    displayError: function() {
+        console.warn("We have an error");
+    },
+    updateHandler: function(data) {
+        if (data.LatestResult != null) {
+            try {
+                console.warn("BGS updateHandler:", data.LatestResult.Message);
+            } catch (err) {}
+        }
+    },
+    go: function() {
+        backgroundservice.myService.getStatus(function(r) {
+            backgroundservice.startService(r)
+        }, function(e) {
+            backgroundservice.displayError(e)
+        });
+        console.log("Checking status after startService()");
+        backgroundservice.getStatus();
+    },
+    startService: function(data) {
+        if (data.ServiceRunning) {
+            backgroundservice.enableTimer(data);
+        } else {
+            backgroundservice.myService.startService(function(r) {
+                backgroundservice.enableTimer(r)
+            }, function(e) {
+                backgroundservice.displayError(e)
+            });
+        }
+    },
+    enableTimer: function(data) {
+        if (data.TimerEnabled) {
+            backgroundservice.registerForUpdates(data);
+        } else {
+            backgroundservice.myService.enableTimer(60000, function(r) {
+                backgroundservice.registerForUpdates(r)
+            }, function(e) {
+                backgroundservice.displayError(e)
+            });
+        }
+    },
+    registerForUpdates: function(data) {
+        if (!data.RegisteredForUpdates) {
+            backgroundservice.myService.registerForUpdates(function(r) {
+                backgroundservice.updateHandler(r)
+            }, function(e) {
+                backgroundservice.handleError(e)
+            });
+        }
+    }
+}

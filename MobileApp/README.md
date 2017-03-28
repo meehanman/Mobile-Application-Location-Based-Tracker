@@ -10,7 +10,7 @@ or
 
 [Note: requires Android SDK to be installed]
 
-#Features 
+#Features
 
 - Built on Phonegap/Cordova
 
@@ -20,7 +20,8 @@ or
 
 - Project is within /www folder
 
-- Uses Framework7 
+- Uses Framework7
 
 - Handsbars like {{syntax}} called template7
 
+- BGS-Core for backgorund services `phonegap plugin add https://github.com/Red-Folder/bgs-core.git`

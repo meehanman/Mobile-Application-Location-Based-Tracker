@@ -11,7 +11,7 @@ var myApp = new Framework7({
         debugCounterLogin: 0,
         auth: {},
         meetings: {},
-        rooms: {},
+        locations: {},
         upcomingEvents: []
     }
 });
@@ -110,7 +110,7 @@ $$(document).on('click', '#logout-button', function() {
         debugCounterLogin: 0,
         auth: {},
         meetings: {},
-        rooms: {},
+        locations: {},
         upcomingEvents: []
     }
 
@@ -189,6 +189,7 @@ $$(document).on('click', '#startBeaconTracking', function() {
     mainView.router.load({
         url: 'track.html'
     });
+    myApp.closePanel(true);
 });
 
 $$(document).on('click', '#btnAbout', function() {
@@ -265,7 +266,7 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
             //If attendee has no image, assign a placeholder
             for(at in data.attendees){
               if(data.attendees[at].image==undefined){
-                data.attendees[at].image = "https://api.adorable.io/avatars/100/"+data.attendees[at].name;
+                data.attendees[at].image = "http://i.pravatar.cc/100?u="+data.attendees[at].name;
               }
             }
 
@@ -300,8 +301,6 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
 });
 
 $$(document).on('click', '#attendeeList', function(e){
-    console.warn(myApp.template7Data.event.attendees);
-
     mainView.router.load({
         url: 'event-attendees.html',
         context: myApp.template7Data.event
@@ -317,7 +316,6 @@ $$(document).on('click', '#openEventMap', function() {
 
 
 myApp.onPageInit('map', function() {
-    console.log("map reinit");
     new GMaps({
         div: '#map',
         lat: myApp.template7Data.event.location.gps.x,
@@ -326,14 +324,13 @@ myApp.onPageInit('map', function() {
 
 });
 
-// A button will call this function
+// A button will call this function http://stackoverflow.com/questions/22558441/phonegap-upload-image-to-server-on-form-submit
   //
   $$(document).on('click', '#btnEventPhoto', function(){
-    console.log("event Phoeo");
-    navigator.camera.getPicture(function(){
-      var smallImage = document.getElementById('smallImage');
-      smallImage.style.display = 'block';
-      smallImage.src = imageURI;
+    console.log("Event Photo");
+    navigator.camera.getPicture(function(ImageURI){
+      $$('#smallImage').css("display",'block');
+      $$('#smallImage').attr("src",ImageURI);
     }, function(){}, { quality: 50,
       destinationType: navigator.camera.DestinationType.FILE_URI,
       sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY });
@@ -350,44 +347,6 @@ myApp.onPageInit('event', function() {
     }else if(myApp.template7Data.event.myStatus=="invited"){
       statusPlaceholder = "Invited - Please RSVP";
     }
-
-
-    if(statusPlaceholder!=="UNKNOWN"){
-        var pickerDevice = myApp.picker({
-            input: '#picker-status',
-            cols: [{
-                textAlign: 'center',
-                values: ["Going", "Can't Go"]
-            }],
-            closeByOutsideClick: true,
-            value: [statusPlaceholder],
-            onChange: function(p, values, displayValues) {
-                console.log(p, values, displayValues);
-
-                var status;
-                if(displayValues=="Going"){
-                  status = "accept";
-                }else{
-                  status = "decline";
-                }
-
-                $$.ajax({
-                    url: settings.host + "/event/" + myApp.template7Data.event._id + "/" + status,
-                    type: "POST",
-                    contentType: "application/json",
-                    "crossDomain": true,
-                    success: function(data, textStatus, jqXHR) {
-                      console.log("Status Change Success",data);
-                    },
-                    error: function(data,textStatus, jqXHR){
-                      console.warn("Status Change Fail",data);
-                    }
-                });
-            }
-        });
-    }else{
-      console.log(statusPlaceholder,"UNKNOWN",myApp.template7Data.event);
-    }
 });
 
 
@@ -403,8 +362,36 @@ $$(document).on('click', '#btnReturnHome', function() {
 });
 
 
+$$(document).on('click', '#btnSelectLocation', function() {
+    getLocations(function(){
+      console.log("Dome");
+      mainView.router.load({
+          url: 'new-event-location.html',
+          context: myApp.template7Data
+      });
+      myApp.closePanel(true);
+    });
+});
 
-
+//Gets upcoming events and saves them to template7Data.upComingEvents
+function getLocations(callBack) {
+    $$.ajax({
+        url: settings.host + "/location",
+        type: "GET",
+        contentType: "application/json",
+        "crossDomain": true,
+        success: function(data, textStatus, jqXHR) {
+            data = JSON.parse(data);
+            myApp.template7Data.locations = data;
+            console.log(myApp.template7Data.locations);
+            callBack();
+        },
+        error: function(data, textStatus, jqXHR) {
+            console.log(data);
+            //myApp.alert(JSON.parse(data.responseText).message);
+        }
+    });
+}
 
 //Gets upcoming events and saves them to template7Data.upComingEvents
 function getUpcomingEvents(callBack) {
@@ -434,7 +421,7 @@ function getUpcomingEvents(callBack) {
                 //Attendees
                 for(at in data[i].attendees){
                   if(data[i].attendees[at].image==undefined){
-                    data[i].attendees[at].image = "https://api.adorable.io/avatars/100/"+data[i].attendees[at].name;
+                    data[i].attendees[at].image = "http://i.pravatar.cc/100?u="+data[i].attendees[at].name;
                   }
                 }
 
@@ -444,7 +431,7 @@ function getUpcomingEvents(callBack) {
             data = data.sort(function(a, b) {
                 return new Date(a.starts_at) - new Date(b.starts_at);
             });
-            myApp.template7Data.upcomingEvents = (data);
+            myApp.template7Data.upcomingEvents = data;
             //Call callback
             if (typeof callBack == 'function') {
                 callBack();
@@ -484,23 +471,61 @@ $$(document).on('page:init', '.page[data-page="home"]', function(e) {
 
 
 $$(document).on('click', '#getGPS', function(e) {
-
-  console.log(getGPS());
+  $$('#getGPSoutput').html("Loading GPS...");
+  getGPS(function(data){
+    $$('#getGPSoutput').html(data);
+  });
 });
 
 $$(document).on('click', '#getWifi', function(e) {
-  console.log(getWifi());
+  $$('#getWifioutput').html("Loading Wifi...");
+  getWifi(function(data){
+    $$('#getWifioutput').html(data);
+  });
 });
 
-function getGPS(){
+$$(document).on('click','#pollServer', function(e){
+
+  var output = {
+    "gps": JSON.parse($$('#getGPSoutput').html()),
+    "beacon": [],
+    "access_point": JSON.parse($$('#getWifioutput').html())
+  };
+
+  $$.ajax({
+      url: settings.host + "/poll",
+      type: "POST",
+      data: JSON.stringify(output),
+      dataType: "application/json",
+      contentType: "application/json",
+      "crossDomain": true,
+      success: function(data, textStatus, jqXHR) {
+          data = JSON.parse(data);
+          console.warn("Poll Response",data);
+          $$('#pollServeroutput').html(JSON.stringify(data));
+      },
+      error: function(data, textStatus, jqXHR) {
+          console.log("Error:", data, output);
+      }
+  });
+});
+
+$$(document).on('click', '#poll', function(e) {
+  $$('#getWifioutput').html("Loading Wifi...");
+  getWifi(function(data){
+    $$('#getWifioutput').html(data);
+  });
+});
+
+function getGPS(callback){
   console.log("Getting GPS Results...");
   navigator.geolocation.getCurrentPosition(function(position){
-    var GPSLocation = {x:0,y:0};
-    console.log(GPSLocation)
-    GPSLocation.x = position.coords.latitude;
-    GPSLocation.y = position.coords.longitude;
-    console.log(GPSLocation);
-    return GPSLocation;
+    var GPSLocation = {
+      x:position.coords.latitude,
+      y:position.coords.longitude
+    };
+    console.log("GPS Location:",GPSLocation);
+    callback(JSON.stringify(GPSLocation));
   }, function(error){
     console.error("Failed at getting GPS results");
   });
@@ -508,26 +533,21 @@ function getGPS(){
 }
 
 function getBeacons(){
-    console.log("Getting Blu Results...");
+    console.log("Getting beacon Results...");
     console.log(startBeaconTracking());
 }
 
-function getWifi(){
+function getWifi(callback){
     console.log("Getting Wifi Results...");
     WifiWizard.getScanResults({numLevels: false}, function(data){
         console.log("Wifi Scan Results", data);
-        //output.innerHTML = "<br>" + output.innerHTML + JSON.stringify(data);
-
-        //Reset Scan Results Array
         var scanResults = [];
-
-        //Output a list of the properties
         for(var i=0;i<data.length;i++){
             console.log("<br><div><b>"+data[i].BSSID+"</b>("+data[i].SSID+")</div>");
             scanResults.push(data[i].BSSID);
         }
 
-        return scanResults;
+        callback(JSON.stringify(scanResults));
 
     },function(data){
         console.error("Failed to get Wifi Scan Results");
