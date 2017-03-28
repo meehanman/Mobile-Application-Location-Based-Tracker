@@ -11,9 +11,9 @@ mongoose.set("debug", true);
 //Include Mongo Tables
 var User = require('./app/models/user');
 var Location = require('./app/models/location');
-var Place = require('./app/models/place');
 var Event = require('./app/models/event');
-
+var Place = require('./app/models/event/place');
+var Track = require('./app/models/event/track');
 var settings = {
     host: "0.0.0.0",
     port: 9000
@@ -389,21 +389,6 @@ server.post('/location',
         });
     });
 
-
-    //Get Places
-    server.get('/place', function(req, res) {
-        Place.find({}, function(error, places) {
-            if (error) {
-                res.json({
-                    title: "Failed",
-                    message: "Could not list all locations.",
-                    error: error
-                });
-            }
-            res.json(places);
-        });
-    });
-
 //Returns all evemts
 server.get('/event/:id',
     function(req, res) {
@@ -712,21 +697,51 @@ server.post('/event/:id/:status', function(req, res) {
 
 //Polling
 //Returns all evemts
+/*
+POST DATA
+{
+    "gps": {
+        "x": 54.581827,
+        "y": -5.93746520000002
+    },
+    "beacon": [
+        "e!3por3wpkrwpokrwpork3"
+    ],
+    "access_point": [
+        "dw:dw:dw:wd:wd:dw:dw:wd",
+        "dw:dw:dw:wd:wd:dw:dw:wd",
+        "dw:dw:dw:wd:wd:dw:dw:wd"
+    ]
+}
+*/
 server.post('/poll',
     function(req, res) {
-
-        var gps = req.body.gps ? JSON.parse(req.body.gps) : [];
-        var beacon = req.body.beacon ? JSON.parse(req.body.beacon) : [];
-        var access_point = req.body.access_point ? JSON.parse(req.body.access_point) : [];
 
         var Query = {
             $or: []
         }
+
+        var gps           = req.body.gps;
+        var beacon        = req.body.beacon;
+        var access_point  = req.body.access_point;
+
         for (i in access_point) {
             Query.$or.push({
                 access_point: access_point[i]
             })
         }
+
+        for (i in beacon) {
+            Query.$or.push({
+                beacon: beacon[i]
+            })
+        }
+
+        console.log("POLL//");
+        console.log(gps);
+        console.log(beacon);
+        console.log(access_point);
+        console.log(Query);
 
         //Let's check if there are any locations that match up ;)
         Location.find(Query, "name access_point gps", function(error, locations) {
@@ -757,7 +772,7 @@ server.post('/poll',
 
     });
 //Testing background service
-var x = "Dean"
+var x = "Default"
 server.get("/ping/:pong", function(req,res){
   x = req.params.pong;
   res.json({"ping": x});
