@@ -7,6 +7,12 @@
         "files": {}
     },
     "installed_plugins": {
+        "com.pylonproducts.wifiwizard": {
+            "PACKAGE_NAME": "technology.dean"
+        },
+        "com.red_folder.phonegap.plugin.backgroundservice": {
+            "PACKAGE_NAME": "technology.dean"
+        },
         "cordova-plugin-battery-status": {
             "PACKAGE_NAME": "technology.dean"
         },
@@ -68,12 +74,6 @@
             "PACKAGE_NAME": "technology.dean"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "technology.dean"
-        },
-        "com.pylonproducts.wifiwizard": {
-            "PACKAGE_NAME": "technology.dean"
-        },
-        "com.red_folder.phonegap.plugin.backgroundservice": {
             "PACKAGE_NAME": "technology.dean"
         },
         "technology.dean.backgroundservice": {

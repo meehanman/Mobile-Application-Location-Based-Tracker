@@ -1,6 +1,19 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "id": "com.pylonproducts.wifiwizard.WifiWizard",
+        "file": "plugins/com.pylonproducts.wifiwizard/www/WifiWizard.js",
+        "pluginId": "com.pylonproducts.wifiwizard",
+        "clobbers": [
+            "window.WifiWizard"
+        ]
+    },
+    {
+        "id": "com.red_folder.phonegap.plugin.backgroundservice.BackgroundService",
+        "file": "plugins/com.red_folder.phonegap.plugin.backgroundservice/www/backgroundService.js",
+        "pluginId": "com.red_folder.phonegap.plugin.backgroundservice"
+    },
+    {
         "id": "cordova-plugin-battery-status.battery",
         "file": "plugins/cordova-plugin-battery-status/www/battery.js",
         "pluginId": "cordova-plugin-battery-status",
@@ -533,24 +546,13 @@ module.exports = [
             "navigator.notification",
             "navigator"
         ]
-    },
-    {
-        "id": "com.pylonproducts.wifiwizard.WifiWizard",
-        "file": "plugins/com.pylonproducts.wifiwizard/www/WifiWizard.js",
-        "pluginId": "com.pylonproducts.wifiwizard",
-        "clobbers": [
-            "window.WifiWizard"
-        ]
-    },
-    {
-        "id": "com.red_folder.phonegap.plugin.backgroundservice.BackgroundService",
-        "file": "plugins/com.red_folder.phonegap.plugin.backgroundservice/www/backgroundService.js",
-        "pluginId": "com.red_folder.phonegap.plugin.backgroundservice"
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "com.pylonproducts.wifiwizard": "0.2.11",
+    "com.red_folder.phonegap.plugin.backgroundservice": "2.0.0",
     "cordova-plugin-battery-status": "1.1.2",
     "cordova-plugin-ble": "2.0.1",
     "cordova-plugin-camera": "2.1.1",
@@ -574,8 +576,6 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.3",
     "cordova-plugin-whitelist": "1.3.1",
-    "com.pylonproducts.wifiwizard": "0.2.11",
-    "com.red_folder.phonegap.plugin.backgroundservice": "2.0.0",
     "technology.dean.backgroundservice": "0.1"
 };
 // BOTTOM OF METADATA
