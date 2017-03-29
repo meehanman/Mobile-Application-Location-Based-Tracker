@@ -24,10 +24,17 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.SupplicantState;
 import android.content.Context;
 import android.util.Log;
+//Shared preferences
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class MyService extends BackgroundService {
 
     private WifiManager wifiManager;
+    private JSONObject config = new JSONObject();
+    private static String MY_PREFS_NAME = "MyServiceConfig";
+    private static String LOG_NAME = "DeansLocationService";
+
     @Override
     protected JSONObject doWork() {
         JSONObject result = new JSONObject();
@@ -39,15 +46,14 @@ public class MyService extends BackgroundService {
             // Following three lines simply produce a text string with Hello World and the date & time (UK format)
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             String now = df.format(new Date(System.currentTimeMillis()));
-            String msg = "Hello Dean - its currently " + now;
 
             // We output the message to the logcat
-            Log.d("MyService", msg);
+            Log.d(LOG_NAME, now+" (Config:)");
+            Log.d(LOG_NAME, this.config.toString());
 
-            getScanResults();
 
             // We also provide the same message in our JSON Result
-            result.put("Message", msg);
+            result.put("Message", getScanResults());
         } catch (JSONException e) {
             // In production code, you would have some exception handling here
         }
@@ -57,13 +63,36 @@ public class MyService extends BackgroundService {
 
     @Override
     protected JSONObject getConfig() {
-        return null;
+      // Restore preferences
+      SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        try{
+          this.config.put("name", prefs.getString("name", "Undefined"));
+          this.config.put("onLoadValue", prefs.getString("name", "Undefined"));
+        }catch(Exception e){
+            Log.d(LOG_NAME, e.toString());
+        }
+          Log.d(LOG_NAME,"getConfig Called:Config below that is being returned");
+          Log.d(LOG_NAME,this.config.toString());
+        return this.config;
     }
 
     @Override
-    protected void setConfig(JSONObject config) {
+	  protected void setConfig(JSONObject config) {
+        Log.d(LOG_NAME,"SetConfig Called:Config below that was passed in");
+        Log.d(LOG_NAME, config.toString());
 
-    }
+       SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+       try{
+       editor.putString("onLoadValue", config.getString("onLoadValue"));
+       editor.putString("name", config.getString("name"));
+     }catch(Exception e){
+       Log.d(LOG_NAME, e.toString());
+       }
+       editor.commit();
+
+       //Update Config
+       getConfig();
+	  }
 
     @Override
     protected JSONObject initialiseLatestResult() {
@@ -73,8 +102,9 @@ public class MyService extends BackgroundService {
     /**
      * Returns HTML from Ping url
      */
-    public static String getHTML(String urlToRead) throws Exception {
-        Log.d("MyService", "getHTML called for " + urlToRead);
+    public String getHTML(String urlToRead) throws Exception {
+        Log.d(LOG_NAME, "getHTML called for " + urlToRead);
+
         URL yahoo = new URL(urlToRead);
         URLConnection yc = yahoo.openConnection();
         BufferedReader in = new BufferedReader(
@@ -92,34 +122,39 @@ public class MyService extends BackgroundService {
      * This method uses the callbackContext.success method to send a JSONArray
      * of the scanned networks.
      *
-     * @param callbackContext A Cordova callback context
-     * @param data            JSONArray with [0] == JSONObject
-     * @return true
      */
     public String getScanResults() {
-        Log.d("MyService", "getScanResults Start");
+        Log.d(LOG_NAME, "getScanResults()");
 
         List<ScanResult> scanResults = wifiManager.getScanResults();
         JSONArray returnList = new JSONArray();
 
         for (ScanResult scan : scanResults) {
-            Log.d("MyService", "ScanResults For Loop::");
             try {
                 returnList.put(scan.BSSID);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("MyService", e.toString());
+                Log.d(LOG_NAME, e.toString());
             }
         }
-        Log.d("MyService", "Rtn String::");
-
         try {
             getHTML("https://cloud.dean.technology/ping/"+returnList.toString());
         } catch (Exception e) {
-            Log.d("MyService", "Oh shit! Error");
+            Log.d(LOG_NAME, "Oh shit! Error");
+            Log.d(LOG_NAME, e.getClass().getCanonicalName());
             e.printStackTrace();
-            Log.d("MyService", e.getClass().getCanonicalName());
         }
+
+            //Lets pretend we get a responce from the server that says scan every 30 seconds
+            /*
+            try{
+              Log.d(LOG_NAME, "setMilliseconds Time to 3000");
+            super.setMilliseconds(3000);
+          }catch(Exception e){
+            e.printStackTrace();
+            Log.d(LOG_NAME, e.toString());
+          }
+          */
 
         return returnList.toString();
     }

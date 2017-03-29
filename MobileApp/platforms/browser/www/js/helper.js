@@ -510,6 +510,13 @@ $$(document).on('click','#pollServer', function(e){
   });
 });
 
+$$(document).on('click','#setConfig', function(e){
+  backgroundservice.setConfiguration({"name":"DDean"});
+});
+$$(document).on('click','#toggleService',function(e){
+  backgroundservice.toggleService();
+});
+
 $$(document).on('click', '#poll', function(e) {
   $$('#getWifioutput').html("Loading Wifi...");
   getWifi(function(data){

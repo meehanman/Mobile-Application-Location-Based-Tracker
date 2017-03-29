@@ -7,28 +7,8 @@
         <param name="browser-package" value="Device" />
     </feature>
     <name>MALBT</name>
-    <description>
-        Final Year Assignment
-    </description>
-    <author email="EventMap@dean.technology" href="http://dean.technology">
-        Dean Meehan
-    </author>
-    <allow-intent href="market:*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <access launch-external="yes" origin="geo:*" />
-    <access origin="*://*.googleapis.com/*" subdomains="true" />
-    <access origin="*://*.gstatic.com/*" subdomains="true" />
-    <access origin="*://*.google.com/*" subdomains="true" />
-    <access origin="*://*.googleusercontent.com/*" subdomains="true" />
-    <access origin="*" />
-    <allow-intent href="*" />
-    <allow-navigation href="*" />
+    <description>Final Year Assignment</description>
+    <author email="MATLB@dean.technology" href="http://dean.technology/">Dean Meehan</author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="14" />
 </widget>

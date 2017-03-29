@@ -31,8 +31,6 @@ var app = {
 document.addEventListener('deviceready', function() {
   console.warn("DEVICEREADY BGS");
   backgroundservice.deviceReady();
-  console.log("BackgroundService","go()");
-  backgroundservice.go();
 }, true);
 
 var backgroundservice = {
@@ -41,8 +39,7 @@ var backgroundservice = {
         var serviceName = 'technology.dean.backgroundservice.MyService';
         var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService');
         backgroundservice.myService = factory.create(serviceName);
-
-        backgroundservice.getStatus();
+        backgroundservice.go();
     },
     getStatus: function() {
         backgroundservice.myService.getStatus(function(r) {
@@ -50,6 +47,10 @@ var backgroundservice = {
         }, function(e) {
             backgroundservice.displayError(e);
         });
+    },
+    setConfiguration(config){
+      config.onLoadValue = "Dean";
+      backgroundservice.myService.setConfiguration(config, function(){console.warn("Set config Success");}, function(e){console.warn("Set config Fail",e);});
     },
     displayResult: function(data) {
         console.info("Is service running: " + data.ServiceRunning);
@@ -65,7 +66,9 @@ var backgroundservice = {
         }
     },
     go: function() {
+        backgroundservice.setConfiguration({"name":"CalledAtGO()"});
         backgroundservice.myService.getStatus(function(r) {
+          $$('#toggleService').attr("value","Stop Service");
             backgroundservice.startService(r)
         }, function(e) {
             backgroundservice.displayError(e)
@@ -84,11 +87,32 @@ var backgroundservice = {
             });
         }
     },
+    stopService: function(){
+      backgroundservice.myService.stopService(function(){console.warn("Set config Success");}, function(e){console.warn("Set config Fail",e);});
+    },
+    disableTimer: function(){
+      backgroundservice.myService.disableTimer(function(){console.warn("Set config Success");}, function(e){console.warn("Set config Fail",e);});
+    },
+    toggleService: function(){
+      backgroundservice.myService.getStatus(function(data) {
+        if (data.ServiceRunning) {
+            backgroundservice.stopService();
+            backgroundservice.disableTimer();
+            $$('#toggleService').attr("value","Start Service");
+          }else{
+            backgroundservice.startService(data);
+            backgroundservice.enableTimer(data);
+            $$('#toggleService').attr("value","Stop Service");
+          }
+      }, function(e) {
+          backgroundservice.displayError(e)
+      });
+    },
     enableTimer: function(data) {
         if (data.TimerEnabled) {
             backgroundservice.registerForUpdates(data);
         } else {
-            backgroundservice.myService.enableTimer(60000, function(r) {
+            backgroundservice.myService.enableTimer(15*60000, function(r) {
                 backgroundservice.registerForUpdates(r)
             }, function(e) {
                 backgroundservice.displayError(e)

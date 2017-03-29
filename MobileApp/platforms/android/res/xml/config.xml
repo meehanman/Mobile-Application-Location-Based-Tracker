@@ -73,16 +73,8 @@
         <param name="onload" value="true" />
     </feature>
     <name>MALBT</name>
-    <description>
-        Final Year Assignment
-    </description>
-    <author email="EventMap@dean.technology" href="http://dean.technology">
-        Dean Meehan
-    </author>
-    <allow-intent href="market:*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
+    <description>Final Year Assignment</description>
+    <author email="MATLB@dean.technology" href="http://dean.technology/">Dean Meehan</author>
     <content src="index.html" />
     <icon density="ldpi" src="www/img/eventMap/evLogoLogin.png" />
     <icon density="mdpi" src="www/img/eventMap/evLogoLogin.png" />
@@ -102,14 +94,6 @@
     <splash density="port-xhdpi" src="www/img/eventMap/evLogoLogin.png" />
     <splash density="port-xxhdpi" src="www/img/eventMap/evLogoLogin.png" />
     <splash density="port-xxxhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="geo:*" />
-    <access launch-external="yes" origin="geo:*" />
-    <access origin="*://*.googleapis.com/*" subdomains="true" />
-    <access origin="*://*.gstatic.com/*" subdomains="true" />
-    <access origin="*://*.google.com/*" subdomains="true" />
-    <access origin="*://*.googleusercontent.com/*" subdomains="true" />
     <access origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />

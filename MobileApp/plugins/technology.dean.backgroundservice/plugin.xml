@@ -18,9 +18,9 @@
 
    <!-- Load in the core background service -->
    <dependency id="com.red_folder.phonegap.plugin.backgroundservice" url="https://github.com/Red-Folder/bgs-core.git" commit="9d947a9f1858284b312ad1032de6af590b33fa37" />
-   <!-- Include the wifi module -->
+   <!-- Include the wifi module
    <dependency id="com.pylonproducts.wifiwizard" url="https://github.com/parsonsmatt/WifiWizard.git" commit="5f059ac2f9c1b78b6fc1ef427c3a63504b3fff83" />
-
+    -->
    <!-- android -->
    <platform name="android">
 
