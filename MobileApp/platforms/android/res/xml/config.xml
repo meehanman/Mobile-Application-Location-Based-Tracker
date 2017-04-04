@@ -1,5 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="technology.dean" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <feature name="WifiWizard">
+        <param name="android-package" value="com.pylonproducts.wifiwizard.WifiWizard" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="BackgroundServicePlugin">
+        <param name="android-package" value="com.red_folder.phonegap.plugin.backgroundservice.BackgroundServicePlugin" />
+    </feature>
     <feature name="Battery">
         <param name="android-package" value="org.apache.cordova.batterystatus.BatteryListener" />
     </feature>
@@ -65,20 +72,9 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="WifiWizard">
-        <param name="android-package" value="com.pylonproducts.wifiwizard.WifiWizard" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="BackgroundServicePlugin">
-        <param name="android-package" value="com.red_folder.phonegap.plugin.backgroundservice.BackgroundServicePlugin" />
-    </feature>
     <name>MALBT</name>
-    <description>
-        Final Year Assignment
-    </description>
-    <author email="EventMap@dean.technology" href="http://dean.technology">
-        Dean Meehan
-    </author>
+    <description>Final Year Assignment</description>
+    <author email="MATLB@dean.technology" href="http://dean.technology/">Dean Meehan</author>
     <content src="index.html" />
     <icon density="ldpi" src="www/img/eventMap/evLogoLogin.png" />
     <icon density="mdpi" src="www/img/eventMap/evLogoLogin.png" />
@@ -98,18 +94,6 @@
     <splash density="port-xhdpi" src="www/img/eventMap/evLogoLogin.png" />
     <splash density="port-xxhdpi" src="www/img/eventMap/evLogoLogin.png" />
     <splash density="port-xxxhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <allow-intent href="market:*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <access launch-external="yes" origin="geo:*" />
-    <access origin="*://*.googleapis.com/*" subdomains="true" />
-    <access origin="*://*.gstatic.com/*" subdomains="true" />
-    <access origin="*://*.google.com/*" subdomains="true" />
-    <access origin="*://*.googleusercontent.com/*" subdomains="true" />
     <access origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
