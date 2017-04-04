@@ -46,7 +46,7 @@ Install Supervisor
 
 Install NPM Requirements from package.json
 
-Security setup with Basic Authentication over TLS/HTTPS
+Security setup with Basic Authentication over TLS/HTTPS using (apache and nodejs)[https://gist.github.com/meehanman/005d6d942c8979fb68356c688ea2459a]
 
 # Postman Config
 
