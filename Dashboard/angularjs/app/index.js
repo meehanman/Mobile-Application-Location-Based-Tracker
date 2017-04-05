@@ -1,4 +1,4 @@
-var app = angular.module('MATBLDashboard', ['ui.router']);
+var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot']);
 
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
   function($httpProvider, $stateProvider, $urlRouterProvider) {

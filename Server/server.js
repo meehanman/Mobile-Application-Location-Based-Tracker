@@ -52,7 +52,7 @@ server.opts(/.*/, function(req, res, next) {
 //Authentication of Username and Password
 server.use(function(req, res, next) {
     //Deny Login for certain routes
-    if (req.route.path == "/" || req.route.path.substring(0,5) == "/ping") {
+    if (req.route.path == "/favicon.ico" || req.route.path == "/" || req.route.path.substring(0,5) == "/ping") {
         return next();
     }
 
@@ -124,6 +124,9 @@ server.get('/',
         });
     });
 
+server.get('/favicon.ico', function(req, res) {
+  res.json({});
+});
 //Get current user inforamtion
 server.get('/whoami',
     function(req, res) {
