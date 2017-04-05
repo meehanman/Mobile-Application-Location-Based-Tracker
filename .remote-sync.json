@@ -1,0 +1,16 @@
+{
+  "uploadOnSave": true,
+  "useAtomicWrites": false,
+  "deleteLocal": false,
+  "hostname": "cloud.dean.technology",
+  "port": "22",
+  "target": "/home/dean/project/FYP-MALBT/",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "dean",
+  "password": "D4cn14u6",
+  "watch": [],
+  "transport": "scp"
+}
