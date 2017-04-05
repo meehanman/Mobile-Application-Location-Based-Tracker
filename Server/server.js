@@ -737,14 +737,21 @@ server.post('/poll',
             })
         }
 
-        console.log("POLL//");
+        console.log("Poll request from user "+req.user.name);
         console.log(gps);
         console.log(beacon);
         console.log(access_point);
         console.log(Query);
 
+        //If there is nothing to check, then return an empty array
+        if(Query['$or']==[]){
+          console.log("no data sent for /poll");
+          res.json([]);
+          next();
+        }
+
         //Let's check if there are any locations that match up ;)
-        Location.find(Query, "name access_point gps", function(error, locations) {
+        Location.find(Query, function(error, locations) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -752,6 +759,7 @@ server.post('/poll',
                     error: error
                 });
             }
+            console.log("User location matched: "+locations.length);
             res.json(locations);
         });
 
