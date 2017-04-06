@@ -27,7 +27,11 @@ import android.util.Log;
 //Shared preferences
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
+//Bluetooth
+import com.evothings.BLE;
+/**
+* @Author: Dean Meehan
+*/
 public class MyService extends BackgroundService {
 
     private WifiManager wifiManager;
@@ -35,6 +39,7 @@ public class MyService extends BackgroundService {
     private static String MY_PREFS_NAME = "MyServiceConfig";
     private static String LOG_NAME = "DeansLocationService";
 
+    ///Do work is run by the background service every n miliseconds.
     @Override
     protected JSONObject doWork() {
         JSONObject result = new JSONObject();
@@ -48,7 +53,7 @@ public class MyService extends BackgroundService {
             String now = df.format(new Date(System.currentTimeMillis()));
 
             // We output the message to the logcat
-            Log.d(LOG_NAME, now+" (Config:)");
+            Log.d(LOG_NAME, now+" (getConfig:)");
             Log.d(LOG_NAME, this.config.toString());
 
 
@@ -96,26 +101,44 @@ public class MyService extends BackgroundService {
 
     @Override
     protected JSONObject initialiseLatestResult() {
+        Log.d(LOG_NAME, "initialiseLatestResult called()");
         return null;
     }
 
     /**
      * Returns HTML from Ping url
      */
-    public String getHTML(String urlToRead) throws Exception {
-        Log.d(LOG_NAME, "getHTML called for " + urlToRead);
+    public String postHTML(String urlToRead, JSONObject data) throws Exception {
+        Log.d(LOG_NAME, "postHTML called");
 
-        URL yahoo = new URL(urlToRead);
-        URLConnection yc = yahoo.openConnection();
+        //Setup connection
+        URL url = new URL(urlToRead);
+        HttpURLConnection  httpConnection = (HttpURLConnection ) url.openConnection();
+        httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        httpConnection.setRequestProperty("Authorization", "Basic ZDNhbi5tZWVoYW5AaG90bWFpbC5jb206UGFzc3dvcmQ=");
+        httpConnection.setRequestMethod("POST");
+
+
+        //Get writer from output stream
+        OutputStream os = httpConnection.getOutputStream();
+        OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+
+        //Write, flush and close the connection
+        osw.write(data.toString());
+        osw.flush();
+        osw.close();
+
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(
-                        yc.getInputStream()));
+                        httpConnection.getInputStream()));
         String inputLine;
 
         while ((inputLine = in.readLine()) != null)
-            System.out.println(inputLine);
+            Log.d(LOG_NAME, inputLine);
         in.close();
-        return inputLine;
+
+        //Return data
+        return "Posted to "+urlToRead+" :: "+data.toString();
     }
 
     /**
@@ -126,37 +149,33 @@ public class MyService extends BackgroundService {
     public String getScanResults() {
         Log.d(LOG_NAME, "getScanResults()");
 
+        //Scan Wifi for current BSSIDs used for tracking
         List<ScanResult> scanResults = wifiManager.getScanResults();
-        JSONArray returnList = new JSONArray();
+        JSONArray accessPointsList = new JSONArray();
 
         for (ScanResult scan : scanResults) {
             try {
-                returnList.put(scan.BSSID);
+                accessPointsList.put(scan.BSSID);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d(LOG_NAME, e.toString());
             }
         }
         try {
-            getHTML("https://cloud.dean.technology/ping/"+returnList.toString());
+            //Build JSON Oject
+            JSONObject postData = new JSONObject();
+            postData.put("access_point", accessPointsList);
+
+            //Log results of sending html post
+            Log.d(LOG_NAME, postHTML("https://cloud.dean.technology/poll", postData));
+
         } catch (Exception e) {
             Log.d(LOG_NAME, "Oh shit! Error");
             Log.d(LOG_NAME, e.getClass().getCanonicalName());
             e.printStackTrace();
         }
 
-            //Lets pretend we get a responce from the server that says scan every 30 seconds
-            /*
-            try{
-              Log.d(LOG_NAME, "setMilliseconds Time to 3000");
-            super.setMilliseconds(3000);
-          }catch(Exception e){
-            e.printStackTrace();
-            Log.d(LOG_NAME, e.toString());
-          }
-          */
-
-        return returnList.toString();
+        return accessPointsList.toString();
     }
 
 }

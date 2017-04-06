@@ -511,7 +511,7 @@ $$(document).on('click','#pollServer', function(e){
 });
 
 $$(document).on('click','#setConfig', function(e){
-  backgroundservice.setConfiguration({"name":"DDean"});
+  backgroundservice.setConfiguration({"name":"DDean-new"});
 });
 $$(document).on('click','#toggleService',function(e){
   backgroundservice.toggleService();

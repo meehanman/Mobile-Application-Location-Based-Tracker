@@ -1,4 +1,4 @@
-var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot']);
+var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule']);
 
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
   function($httpProvider, $stateProvider, $urlRouterProvider) {
@@ -18,15 +18,30 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
       .state('crm', {
         url: '/crm',
         parent: 'common',
-        //templateUrl: '/app/crm/crm.html',
         template: '<div><h4>CRM</h4></div>',
-        //controller: 'CrmCtrl'
       })
       .state('login', {
         url: '/login',
         templateUrl: 'app/pages/login/tpl.login.html',
+        controller: 'LoginCtrl'
       });
 
     $urlRouterProvider.otherwise('/dashboard');
   }
 ]);
+
+app.run(['$rootScope', '$location', '$http', 'Auth', function ($rootScope, $location, $http, Auth) {
+
+    $rootScope.$on('$routeChangeStart', function (event) {
+
+        if (!Auth.isLoggedIn()) {
+            console.log('DENY');
+            event.preventDefault();
+            $location.path('/login');
+        }
+        else {
+            console.log('ALLOW');
+            $location.path('/dashboarded');
+        }
+    });
+}]);

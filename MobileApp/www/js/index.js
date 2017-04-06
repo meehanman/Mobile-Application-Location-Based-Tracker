@@ -112,7 +112,7 @@ var backgroundservice = {
         if (data.TimerEnabled) {
             backgroundservice.registerForUpdates(data);
         } else {
-            backgroundservice.myService.enableTimer(15*60000, function(r) {
+            backgroundservice.myService.enableTimer(0.5*60000, function(r) {
                 backgroundservice.registerForUpdates(r)
             }, function(e) {
                 backgroundservice.displayError(e)
