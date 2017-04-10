@@ -1,0 +1,42 @@
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href ng-click="nav('account')" class="tip-bottom"><i class="icon-home"></i> Account</a></div>
+    <h1>Account</h1>
+  </div>
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+  <div class="container-fluid">
+    <h3>Details</h3>
+    <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+              <div class="widget-title"> <span class="icon"> <i class="icon-list"></i> </span>
+                <h5>My Info</h5>
+              </div>
+              <table class="table table-striped">
+              <tbody stle="text-align:center;">
+                <tr class="even">
+                  <td>ID</td>
+                  <td>{{user.id}}</td>
+                </tr>
+                <tr class="odd">
+                  <td>Full Name</td>
+                  <td>{{user.name | capitalize}}</td>
+                </tr>
+                <tr class="even">
+                  <td>Email</td>
+                  <td>{{user.email}}</td>
+                </tr>
+                <tr class="odd">
+                  <td>Location</td>
+                  <td>{{user.location}}</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+
+  </div>
+<!--End-Action boxes-->

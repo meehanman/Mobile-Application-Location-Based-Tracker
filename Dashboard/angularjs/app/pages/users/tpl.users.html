@@ -1,0 +1,45 @@
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href ng-click="nav('users')" class="tip-bottom"><i class="icon-home"></i> Users</a></div>
+    <h1>Users</h1>
+  </div>
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+  <div class="container-fluid">
+    <div class="quick">
+      <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+              <h5>All Users</h5>
+              <div id="search">
+                <input type="text" placeholder="Search here..." ng-model="searchText" style="color:black; background-color:white;">
+                <button type="submit" class="tip-bottom" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+              </div>
+            </div>
+            <div class="widget-content nopadding" ng-if="users">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th style="width:50px;">Image</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in users | filter:searchText">
+                    <td><img ng-src="{{user.image}}" height="50" width="50"/></td>
+                    <td>{{user.id}}</td>
+                    <td>{{user.name | capitalize}}</td>
+                    <td>{{user.email}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="alert alert-info" ng-if="!users">
+              Loading...
+            </div>
+          </div>
+    </div>
+  </div>
+<!--End-Action boxes-->

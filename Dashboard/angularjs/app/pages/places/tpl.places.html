@@ -1,0 +1,43 @@
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href ng-click="nav('places')" class="tip-bottom"><i class="icon-home"></i> Users</a></div>
+    <h1>Places</h1>
+  </div>
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+  <div class="container-fluid">
+    <div class="quick">
+      <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+              <h5>All Places</h5>
+              <div id="search">
+                <input type="text" placeholder="Search here..." ng-model="searchText" style="color:black; background-color:white;">
+                <button type="submit" class="tip-bottom" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+              </div>
+            </div>
+            <div class="widget-content nopadding" ng-if="locations">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="place in places | filter:searchText">
+                    <td>{{place.name}}</td>
+                    <td>{{place.description}}</td>
+                    <td>{{place.type}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="alert alert-info" ng-if="!locations">
+              Loading...
+            </div>
+          </div>
+    </div>
+  </div>
+<!--End-Action boxes-->
