@@ -16,39 +16,48 @@
           <h5>Add new user</h5>
         </div>
         <div class="widget-content nopadding">
-          <form class="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate" ng-validate="validationOptions">
+          <form class="form-horizontal">
             <div class="control-group">
-              <label class="control-label">Your Name</label>
+              <label class="control-label">Your Name*</label>
               <div class="controls">
-                <input type="text" name="required" id="required">
+                <input ng-model="form.name" type="text" name="name" required placeholder="John Doe">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Your Email</label>
+              <label class="control-label">Your Email*</label>
               <div class="controls">
-                <input type="text" name="email" id="email">
+                <input ng-model="form.email" type="email" name="email" required placeholder="john.doe@email.com">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Your Password</label>
+              <label class="control-label">Your Password*</label>
               <div class="controls">
-                <input type="text" name="email" id="email">
+                <input ng-model="password" ng-change="validatePasswords(password,password1)" type="password" name="password">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Confirm your password</label>
               <div class="controls">
-                <input type="text" name="email" id="email">
+                <input ng-model="password1" ng-change="validatePasswords(password,password1)" type="password" name="password1">
+                <div ng-show="validatePasswordMessage">{{validatePasswordMessage}}</div>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Profile Image</label>
+              <label class="control-label">Your location</label>
               <div class="controls">
-                <input type="input" name="email" id="email">
+                <input ng-model="form.location" type="text" name="location" placeholder="London, UK">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Profile Image* (max 5MB)</label>
+              <div class="controls">
+                  <input type="file" ng-model="image" ng-change="form.image='data:'+image.filetype +';base64,'+ image.base64" accept="image/*" maxsize="5000" base-sixty-four-input>
+                  <img ng-src="{{form.image}}" ng-show="form.image" width="50px" height="50px" />
               </div>
             </div>
             <div class="form-actions">
-              <input type="submit" value="Validate" class="btn btn-success">
+              <input type="submit" ng-click="addUser()" value="Add User" ng-disabled="!form.name||!form.email||!form.password||!form.image||formSending" class="btn btn-success">
+              <div ng-show="responseMessage">{{responseMessage}}</div>
             </div>
           </form>
         </div>

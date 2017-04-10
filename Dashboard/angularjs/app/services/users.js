@@ -13,13 +13,24 @@ var getUsers = function(callback){
 }
 
 var addUser = function(userObject, callback){
-
+  console.log("AddUser",userObject)
   //Quick Validation
-  if(!userObject.name || !userObject.email || !userObject.password || !userObject.location){
+  if(!userObject.name || !userObject.email || !userObject.password || !userObject.image){
     alert("Please fill out all the fields");
   }
 
-  $http.get('https://cloud.dean.technology/user').then(function(data){
+  $http({
+    method: 'POST',
+    url: 'https://cloud.dean.technology/user',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    },
+    data: userObject
+  }).then(function(data){
     console.log(data);
     callback(data);
   }, function(fail){
@@ -30,7 +41,7 @@ var addUser = function(userObject, callback){
 }
 
 return{
-  getUsers
+  getUsers, addUser
 }
 
 }]);

@@ -147,6 +147,7 @@ var upload = function(imageRaw, saveImageCallback) {
     if(imageRaw==undefined){
       return false;
     }
+
     var imageBuffer = decodeBase64Image(imageRaw);
     var filename = stringGen(10);
     if (imageBuffer.type.split("/")[0] == "image") {
@@ -164,8 +165,12 @@ var upload = function(imageRaw, saveImageCallback) {
     }
 
     function decodeBase64Image(dataString) {
+        //TODO: Check this input begins with data: and contains the base64 bit
+        
         var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
             response = {};
+
+            console.log(matches[0],matches[1],matches[2]);
 
         if (matches.length !== 3) {
             return new Error('Invalid input string');
@@ -181,6 +186,7 @@ var upload = function(imageRaw, saveImageCallback) {
 //Adding a User
 server.post('/user',
     function(req, res, next) {
+      console.log(req.body);
         //Salt and Hash Password
         passwordhash(req.body.password).hash(function(error, hash) {
             if (error) {

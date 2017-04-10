@@ -22,15 +22,15 @@
 <!--sidebar-menu-->
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li ng-class="{active: LocationSplit(location) === 'dashboard'}"><a href ng-click="nav('dashboard')"><i class="icon icon-home"></i> <span>Dashboard {{LocationSplit(location)}}</span></a> </li>
+    <li ng-class="{active: LocationSplit(location) === 'dashboard'}"><a href ng-click="nav('dashboard')"><i class="icon icon-home"></i> <span>Dashboard {{menu}}</span></a> </li>
     <li class="submenu"> <a href ng-click="menuSet('users')"><i class="icon icon-th-list"></i> <span>Users</span></a>
-      <ul style="display: block;" ng-show="menu=='users' || LocationSplit(location) === 'users'">
+      <ul ng-style="menu=='users' && {'display': 'block'}" ng-show="menu=='users' || LocationSplit(location) === 'users'">
         <li ng-class="{active: location === 'users'}"><a href ng-click="nav('users')">Manage Users</a></li>
         <li ng-class="{active: location === 'users.add'}"><a href ng-click="nav('users/add')">Add User</a></li>
       </ul>
     </li>
     <li class="submenu"> <a href ng-click="menuSet('locations')"><i class="icon icon-th-list"></i> <span>Locations</span></a>
-      <ul style="display: block;" ng-show="menu=='locations' || LocationSplit(location) === 'locations'">
+      <ul ng-style="menu=='locations' && {'display': 'block'}" ng-show="menu=='locations' || LocationSplit(location) === 'locations'">
         <li ng-class="{active: location === 'locations'}"><a href ng-click="nav('locations')">Manage Locations</a></li>
         <li ng-class="{active: location === 'locations.add'}"><a href ng-click="nav('locations/add')">Add Locations</a></li>
       </ul>

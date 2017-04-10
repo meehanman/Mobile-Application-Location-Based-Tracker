@@ -1,4 +1,4 @@
-var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule', 'ngValidate']);
+var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule', 'naif.base64']);
 
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
     function($httpProvider, $stateProvider, $urlRouterProvider) {
