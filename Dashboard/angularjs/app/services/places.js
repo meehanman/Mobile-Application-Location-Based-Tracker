@@ -1,23 +1,27 @@
 app.factory('Places', ['$rootScope', '$http', function($rootScope, $http){
 var places;
 
-var getPlaces = function(callback){
-  $http.get('https://cloud.dean.technology/place').then(function(place){
-    places = place.data;
-    console.log(places);
-    callback(places);
-  }, function(fail){
-    console.log("Failed to get locationss",fail);
-    return false;
-  });
-}
+var get = function(callback){
+    $http.get('https://cloud.dean.technology/place').then(function(success){
+      places = success.data;
+      callback(success);
+    }, function(fail){
+      callback(fail);
+    });
+  }
 
-var addPlace = function(placeObject, callback){
-  console.log("Adding Place",placeObject)
+  var del = function(id, callback){
+      $http.delete('https://cloud.dean.technology/place/'+id).then(function(success){
+        callback(success);
+      }, function(fail){
+        callback(fail);
+      });
+    }
 
+var add = function(form, callback){
   $http({
     method: 'POST',
-    url: 'https://cloud.dean.technology/user',
+    url: 'https://cloud.dean.technology/place',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     transformRequest: function(obj) {
         var str = [];
@@ -25,19 +29,16 @@ var addPlace = function(placeObject, callback){
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
     },
-    data: userObject
-  }).then(function(data){
-    console.log(data);
-    callback(data);
+    data: form
+  }).then(function(success){
+    callback(success);
   }, function(fail){
-    console.log("Failed to add user",fail);
-    alert(fail.message);
-    return false;
+    callback(faila);
   });
 }
 
 return{
-  getPlaces, addPlace
+  add, get, del
 }
 
 }]);

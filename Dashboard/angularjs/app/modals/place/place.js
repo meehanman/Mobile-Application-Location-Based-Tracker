@@ -1,21 +1,9 @@
-/*
-$scope.addPlace = function() {
-    ModalService.showModal({
-        templateUrl: 'app/modals/place/tpl.place.html',
-        controller: "PlaceModalCtrl"
-    }).then(function(modal) {
-        modal.element.modal();
-        modal.close.then(function(result) {
-            $scope.message = "You said " + result;
-            console.log(result);
-        });
-    });
-};
-*/
-app.controller('PlaceModalCtrl', function($scope, close){
+app.controller('PlaceModalCtrl', function($scope, title, places, close){
+  $scope.title = title;
+  $scope.places = places;
 
   $scope.close = function(result) {
-  	close(result, 500);
+  	close(result, 250);
   };
 
 });

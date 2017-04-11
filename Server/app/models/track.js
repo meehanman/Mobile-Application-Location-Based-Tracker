@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 Stores all tracking information we recieve on a user
 **/
 var trackSchema = new Schema({
-    user:  {_id: Schema.Types.ObjectId, name: String},
+    user: {type: Schema.Types.ObjectId, required: true},
     beacon: String,
     access_point: String,
     gps: { x: Number, y: Number },

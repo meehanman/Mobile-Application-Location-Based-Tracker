@@ -54,6 +54,8 @@ var middleware = require('./app/use/auth');
 server.use(restify.CORS());
 server.use(restify.authorizationParser());
 server.use(restify.bodyParser({mapParams: false}));
+
+//Authentication
 server.use(function(req, res, next) {
     //Don't request Login for these routes
     if (req.route.path == "/favicon.ico" || req.route.path == "/" || req.route.path.substring(0, 5) == "/ping") {

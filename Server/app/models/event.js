@@ -8,10 +8,10 @@ var eventSchema = new Schema({
   image: String,
   type: { type: String, required: true, enum: ["meeting","event","party","converence","lecture","other"]},
   location: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
-  addedBy: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
   attendees: [{_id: {type: Schema.Types.ObjectId, required: true}, status: {type: String, required: true, enum: ["invited","accepted","declined","attended"]}}],
   starts_at: { type: Date, required: true},
   ends_at: { type: Date, required: true},
+  addedBy: { type: Schema.Types.ObjectId, required: true},
   created_at: Date,
   updated_at: Date
 });

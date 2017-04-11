@@ -28,10 +28,7 @@ var locationSchema = new Schema({
         x: Number,
         y: Number
     },
-    addedBy: {
-        _id: Schema.Types.ObjectId,
-        name: String
-    },
+    addedBy: { type: Schema.Types.ObjectId, required: true},
     created_at: Date,
     updated_at: Date
 });

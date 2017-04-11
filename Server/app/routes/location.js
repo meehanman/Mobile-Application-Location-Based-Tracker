@@ -60,10 +60,7 @@ module.exports = function(server) {
                     y: req.body.gps.y
                 },
                 place: place,
-                addedBy: {
-                    _id: req.user._id,
-                    name: req.user.name
-                }
+                addedBy: req.user._id
             });
 
             location.save(function(error) {

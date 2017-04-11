@@ -5,7 +5,9 @@ $scope.showModal = function() {
         controller: "GeneralModalCtrl",
         inputs: {
           title: "My Title",
-          message: "Dean is awesome!"
+          message: "Dean is awesome!",
+          trueOption: "True",
+          falseOption: "Fasle"
         }
     }).then(function(modal) {
         modal.element.modal();
@@ -16,12 +18,15 @@ $scope.showModal = function() {
     });
 };
 */
-app.controller('GeneralModalCtrl', function($scope, title, message, close){
+app.controller('GeneralModalCtrl', function($scope, title, message, trueOption, falseOption, close){
+
+  $scope.title = title;
+  $scope.message = message;
+  $scope.trueOption = trueOption;
+  $scope.falseOption = falseOption;
 
   $scope.close = function(result) {
   	close(result, 500);
   };
-
-  $scope.message = title+" "+message;
 
 });
