@@ -36,6 +36,7 @@ var addUser = function(userObject, callback){
   }, function(fail){
     console.log("Failed to add user",fail);
     alert(fail.message);
+    callback(fail);
     return false;
   });
 }

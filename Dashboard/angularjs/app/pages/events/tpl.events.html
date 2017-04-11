@@ -1,0 +1,34 @@
+<!--breadcrumbs-->
+<div id="content-header">
+    <div id="breadcrumb"> <a href ng-click="nav('users')" class="tip-bottom"><i class="icon-home"></i> Users</a></div>
+    <h1>Events</h1>
+</div>
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+<div class="container-fluid">
+    <div class="quick">
+        <hr>
+        <div class="widget-box" ng-if="events">
+            <div class="widget-title"> <span class="icon"> <i class="icon-refresh"></i> </span>
+              <h5>All Events</h5>
+              <div id="search">
+                  <input type="text" placeholder="Search here..." ng-model="searchText" style="color:black; background-color:white;">
+                  <button type="submit" class="tip-bottom" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+              </div>
+            </div>
+            <div class="widget-content nopadding updates" ng-repeat="event in events | filter:searchText">
+                <div class="new-update clearfix"><i class="icon-ok-sign"></i>
+                    <div class="update-done"><strong><a href>{{event.name}}</a></strong>
+                      <br>
+                      {{event.description}}</div>
+                    <div class="update-date"><span class="update-day">{{event.starts_at | date:'dd'}}</span>{{event.starts_at | date:'MMM'}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-info" ng-if="!events">
+            Loading...
+        </div>
+    </div>
+</div>
+<!--End-Action boxes-->

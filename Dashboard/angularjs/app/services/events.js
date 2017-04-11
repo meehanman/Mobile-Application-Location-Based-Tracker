@@ -1,23 +1,22 @@
-app.factory('Places', ['$rootScope', '$http', function($rootScope, $http){
-var places;
+app.factory('Events', ['$rootScope', '$http', function($rootScope, $http){
+var events;
 
-var getPlaces = function(callback){
-  $http.get('https://cloud.dean.technology/place').then(function(place){
-    places = place.data;
-    console.log(places);
-    callback(places);
+var getEvents = function(callback){
+  $http.get('https://cloud.dean.technology/event').then(function(events){
+    events = events.data;
+    console.log(events);
+    callback(events);
   }, function(fail){
-    console.log("Failed to get locationss",fail);
+    console.log("Failed to get Events",fail);
     return false;
   });
 }
 
-var addPlace = function(placeObject, callback){
-  console.log("Adding Place",placeObject)
+var addEvent = function(eventObject, callback){
 
   $http({
     method: 'POST',
-    url: 'https://cloud.dean.technology/user',
+    url: 'https://cloud.dean.technology/event',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     transformRequest: function(obj) {
         var str = [];
@@ -25,7 +24,7 @@ var addPlace = function(placeObject, callback){
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
     },
-    data: userObject
+    data: eventObject
   }).then(function(data){
     console.log(data);
     callback(data);
@@ -37,7 +36,7 @@ var addPlace = function(placeObject, callback){
 }
 
 return{
-  getPlaces, addPlace
+  getEvents, addEvent
 }
 
 }]);

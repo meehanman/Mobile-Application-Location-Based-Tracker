@@ -1,0 +1,55 @@
+<!--breadcrumbs-->
+<div id="content-header">
+    <div id="breadcrumb">
+        <a href ng-click="nav('events')" class="tip-bottom"><i class="icon-home"></i> Events</a>
+        <a href ng-click="nav('events/add')" class="tip-bottom"> Add</a></div>
+    <h1>Add Event</h1>
+</div>
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+<div class="container-fluid"><hr>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>Add new Event</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">Your Name*</label>
+              <div class="controls">
+                <input ng-model="form.name" type="text" name="name" required placeholder="John Doe">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Your Email*</label>
+              <div class="controls">
+                <input ng-model="form.email" type="email" name="email" required placeholder="john.doe@email.com">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Your location</label>
+              <div class="controls">
+                <input ng-model="form.location" type="text" name="location" placeholder="London, UK">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Profile Image* (max 5MB)</label>
+              <div class="controls">
+                  <input type="file" ng-model="image" ng-change="form.image='data:'+image.filetype +';base64,'+ image.base64" accept="image/*" maxsize="5000" base-sixty-four-input>
+                  <img ng-src="{{form.image}}" ng-show="form.image" width="50px" height="50px" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <input type="submit" ng-click="addEvent()" value="Add User" ng-disabled="true" class="btn btn-success">
+              <div ng-show="responseMessage">{{responseMessage}}</div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End-Action boxes-->

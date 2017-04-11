@@ -1,4 +1,4 @@
-var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule', 'naif.base64']);
+var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule', 'naif.base64', 'angularModalService']);
 
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
     function($httpProvider, $stateProvider, $urlRouterProvider) {
@@ -29,6 +29,18 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
                 parent: 'common',
                 templateUrl: 'app/pages/users.add/tpl.users.add.html',
                 controller: 'UserAddCtrl'
+            })
+            .state('events', {
+                url: '/events',
+                parent: 'common',
+                templateUrl: 'app/pages/events/tpl.events.html',
+                controller: 'EventsCtrl'
+            })
+            .state('events.add', {
+                url: '/events/add',
+                parent: 'common',
+                templateUrl: 'app/pages/events.add/tpl.events.add.html',
+                controller: 'EventAddCtrl'
             })
             .state('locations', {
                 url: '/locations',
