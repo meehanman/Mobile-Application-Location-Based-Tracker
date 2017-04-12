@@ -20,7 +20,7 @@
             <div class="control-group">
               <label class="control-label">ID</label>
               <div class="controls">
-                <input ng-model="location.id" disabled="" type="text">
+                <input ng-model="location._id" disabled type="text">
               </div>
             </div>
             <div class="control-group">
@@ -36,40 +36,85 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Street</label>
+              <label class="control-label">Type</label>
               <div class="controls">
-                <input ng-model="location.addressStreet" ng-disabled="!editing" type="text" name="editressStreet" required >
+                <input ng-model="location.type" ng-disabled="!editing" type="text">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">City</label>
+              <label class="control-label">Floor</label>
               <div class="controls">
-                <input ng-model="location.addressCity" ng-disabled="!editing" type="text" name="editressCity" required>
+                <input ng-model="location.floor" type="number" name="name" ng-disabled="!editing">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Postcode</label>
+              <label class="control-label">Place</label>
               <div class="controls">
-                <input ng-model="location.addressPostcode" ng-disabled="!editing" type="text" name="editressPostcode" required>
+                <input type="button" ng-disabled="true" class="btn" value="Select Location Place" ng-click="selectPlace()" />
+                <input ng-model="PlaceName" ng-show="PlaceName" type="text" disabled="true" name="name">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Country</label>
+              <label class="control-label">Max people</label>
               <div class="controls">
-                <input ng-model="location.addressCountry" ng-disabled="!editing" type="text" name="editressCountry" required>
+                <input ng-model="location.max_people" ng-disabled="!editing" type="number">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Parent location</label>
+              <label class="control-label">Services <br><br>
+                <input type="button" ng-click="addService()" style="color:#238822;" ng-show="editing" class="btn icon-info-plus" value="+">
+                <input type="button" ng-click="removeService()" style="color:#b50909;" ng-show="editing" class="btn icon-info-minus" value="-">
+              </label>
               <div class="controls">
-                <input type="button" class="btn" value="Select Parent location" ng-disabled="!editing" ng-click="selectParent()" />
-                <input ng-model="parentlocationName" ng-show="parentlocationName" type="text" disabled="true" name="name">
+                    <div class="todo">
+                      <ul>
+                        <li class="clearfix" ng-repeat="service in location.services">
+                          <div class="txt"> <input ng-disabled="!editing" ng-model="service.name" type="text" placeholder="Name e.g. Projector"> </div>
+                          <div> <textarea ng-disabled="!editing" style="margin-left:20px;" ng-model="service.description" placeholder="Description e.g. Contains HDMI and VGA"></textarea></div>
+                        </li>
+                      </ul>
+                    </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Beacon ID</label>
+              <div class="controls">
+                <input ng-model="location.beacon" type="text" ng-disabled="!editing" placeholder="i.e. 3!636f6b65634063656575000000212326">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Access Point BSSID</label>
+              <div class="controls">
+                <input ng-model="location.access_point" type="text" ng-disabled="!editing" placeholder="88:A6:C6:26:95:23">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" ng-click="selectGPS()">GPS</label>
+              <div class="controls" ng-model-options="{ updateOn: 'blur' }">
+                <input ng-model="location.gps.x" type="text" ng-disabled="!editing" placeholder="GPS X">
+                <input ng-model="location.gps.y" type="text" ng-disabled="!editing" placeholder="GPS Y">
+                <br>
+                <input ng-show="editing" ng-model="address" type="text" placeholder="Search Address" style=" margin-top: 40px;"/>
+                <ng-map ng-show="editing" zoom="16" center="{{address}}" style="width:600px; height:400px" zoom-control="true"
+  zoom-control-options="{style:'LARGE', position:'LEFT_CENTER'}" scale-control="true" street-view-control="false" pan-control="false" map-type-control="false">
+                          <marker id="address-marker" position="@{{address}}"
+                        optimized="true" draggable="true" on-dragend="onDragEnd(this)"
+                        animation="DROP">
+                        </marker>
+                </ng-map>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Location Image (max 5MB)</label>
+              <div class="controls">
+                  <input type="file" ng-disabled="!editing" ng-model="image" ng-change="location.image='data:'+image.filetype +';base64,'+ image.base64" accept="image/*" maxsize="5000" base-sixty-four-input>
+                  <img ng-src="{{location.image}}" ng-show="location.image" width="50px" height="50px" />
               </div>
             </div>
             <div class="form-actions">
               <div class="alert alert-info" ng-show="statusText">{{statusText}}</div>
               <input type="submit" ng-click="refresh(); editing = false" value="Reset" ng-disabled="false" class="btn">
-              <input type="submit" ng-click="editing = true" value="Edit" ng-show="!editing" ng-disabled="false" class="btn btn-warning pull-right">
+              <input type="submit" ng-click="redrawMap(); editing = true" value="Edit" ng-show="!editing" ng-disabled="false" class="btn btn-warning pull-right">
               <input type="submit" ng-click="update()" value="Save" ng-show="editing" ng-disabled="false" class="btn btn-success pull-right">
             </div>
           </form>

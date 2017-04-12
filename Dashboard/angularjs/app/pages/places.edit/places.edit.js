@@ -10,7 +10,6 @@ app.controller('PlacesEditCtrl', ['$scope', '$stateParams', 'Places', 'ModalServ
         $scope.place = {};
         $scope.parentPlaceName = undefined;
         Places.getOne($stateParams.id, function(result) {
-            console.log(result);
             $scope.place.id = $stateParams.id;
             $scope.place.name = result.data.name;
             $scope.place.description = result.data.description;

@@ -104,7 +104,6 @@ module.exports = function(server) {
     server.put('/place', function(req, res, next) {
         Place.findById(req.body.id, function(error, place) {
             if (error) {
-                console.log("error1",error);
                 res.json({
                     title: "Failed",
                     message: "Could not Edit Place",
