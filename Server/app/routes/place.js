@@ -64,7 +64,7 @@ module.exports = function(server) {
             save();
         }
 
-        var save = function(s) {
+        var save = function() {
             place.save(function(error) {
                 if (error) {
                     res.json({

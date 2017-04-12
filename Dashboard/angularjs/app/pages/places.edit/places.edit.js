@@ -31,10 +31,8 @@ app.controller('PlacesEditCtrl', ['$scope', '$stateParams', 'Places', 'ModalServ
             if (data.status === 200) {
                 $scope.status(data.data.message);
                 $scope.refresh();
-            } else {
-                $scope.status(data.data.message);
             }
-
+            $scope.status(data.data.message);
         });
     }
 

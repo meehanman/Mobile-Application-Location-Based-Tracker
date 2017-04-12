@@ -1,17 +1,18 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var User = mongoose.model('User').schema;
 
 var eventSchema = new Schema({
   name: { type: String, required: true},
-  owner: {_id: Schema.Types.ObjectId, name: String},
   description: String,
+  owner: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
   image: String,
   type: { type: String, required: true, enum: ["meeting","event","party","converence","lecture","other"]},
   location: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
   attendees: [{_id: {type: Schema.Types.ObjectId, required: true}, status: {type: String, required: true, enum: ["invited","accepted","declined","attended"]}}],
   starts_at: { type: Date, required: true},
   ends_at: { type: Date, required: true},
-  addedBy: { type: Schema.Types.ObjectId, required: true},
+  addedBy: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
   created_at: Date,
   updated_at: Date
 });

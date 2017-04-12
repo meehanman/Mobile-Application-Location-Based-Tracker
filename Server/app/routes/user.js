@@ -1,7 +1,7 @@
 module.exports = function(server) {
     var User = require('../models/user');
     var passwordhash = require('password-hash-and-salt');
-    
+
     //Returns all users
     server.get('/user', function(req, res) {
         User.find({}, function(error, users) {
@@ -51,7 +51,6 @@ module.exports = function(server) {
 
     //Adding a User
     server.post('/user', function(req, res, next) {
-        console.log(req.body);
         //Salt and Hash Password
         passwordhash(req.body.password).hash(function(error, hash) {
             if (error) {
@@ -81,10 +80,7 @@ module.exports = function(server) {
                         id: 0,
                         name: "CS"
                     },
-                    addedBy: {
-                        _id: req.user._id,
-                        name: req.user.name
-                    }
+                    addedBy: req.user._id
                 })
 
                 user.save(function(error) {

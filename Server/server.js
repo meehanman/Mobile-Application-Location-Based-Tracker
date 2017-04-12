@@ -36,10 +36,10 @@ server.fs = fs;
 
 //Include Mongo Tables
 var User = require('./app/models/user');
-var Location = require('./app/models/location');
-var Event = require('./app/models/event');
 var Place = require('./app/models/place');
+var Location = require('./app/models/location');
 var Track = require('./app/models/track');
+var Event = require('./app/models/event');
 
 server.opts(/.*/, function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

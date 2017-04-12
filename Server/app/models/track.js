@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var User = mongoose.model('User').schema;
+
 /**
 Stores all tracking information we recieve on a user
 **/
 var trackSchema = new Schema({
-    user: {type: Schema.Types.ObjectId, required: true},
+    user: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
     beacon: String,
     access_point: String,
     gps: { x: Number, y: Number },

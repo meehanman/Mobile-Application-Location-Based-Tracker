@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Place = mongoose.model('Place').schema;
+var User = mongoose.model('User').schema;
 
 var locationSchema = new Schema({
     name: {
@@ -18,17 +20,15 @@ var locationSchema = new Schema({
         name: String,
         description: String
     }],
-    place: {
-        _id: Schema.Types.ObjectId,
-        name: String
-    },
+    place: {type: Schema.Types.ObjectId, required: true, ref: 'Place'},
+    image: String,
     beacon: String,
     access_point: String,
     gps: {
         x: Number,
         y: Number
     },
-    addedBy: { type: Schema.Types.ObjectId, required: true},
+    addedBy: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
     created_at: Date,
     updated_at: Date
 });
@@ -46,7 +46,6 @@ locationSchema.pre('save', function(next) {
 // the schema is useless so far
 // we need to create a model using it
 var Location = mongoose.model('Location', locationSchema);
-
 
 // make this available to our users in our Node applications
 module.exports = Location;

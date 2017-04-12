@@ -24,32 +24,10 @@
   <ul>
     <!-- Home/Dashboard -->
     <li ng-class="{active: LocationSplit(location) === 'dashboard'}"><a href ng-click="nav('dashboard')"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-
-    <!-- Events -->
-    <li class="submenu"> <a href ng-click="menuSet('events')"><i class="icon icon-calendar"></i> <span>Events</span></a>
-      <ul ng-style="menu=='events' && {'display': 'block'}" ng-show="menu=='events' || LocationSplit(location) === 'events'">
-        <li ng-class="{active: location === 'events'}"><a href ng-click="nav('events')">Manage Events</a></li>
-        <li ng-class="{active: location === 'events.add'}"><a href ng-click="nav('events/add')">Add Event</a></li>
-      </ul>
-    </li>
-
-    <!-- Users -->
-    <li class="submenu"> <a href ng-click="menuSet('users')"><i class="icon icon-user"></i> <span>Users</span></a>
-      <ul ng-style="menu=='users' && {'display': 'block'}" ng-show="menu=='users' || LocationSplit(location) === 'users'">
-        <li ng-class="{active: location === 'users'}"><a href ng-click="nav('users')">Manage Users</a></li>
-        <li ng-class="{active: location === 'users.add'}"><a href ng-click="nav('users/add')">Add User</a></li>
-      </ul>
-    </li>
-    <!-- Locations -->
-    <li class="submenu"> <a href ng-click="menuSet('locations')"><i class="icon icon-th-list"></i> <span>Locations</span></a>
-      <ul ng-style="menu=='locations' && {'display': 'block'}" ng-show="menu=='locations' || LocationSplit(location) === 'locations'">
-        <li ng-class="{active: location === 'locations'}"><a href ng-click="nav('locations')">Manage Locations</a></li>
-        <li ng-class="{active: location === 'locations.add'}"><a href ng-click="nav('locations/add')">Add Locations</a></li>
-      </ul>
-    </li>
-
-    <!-- Places -->
-    <li ng-class="{active: LocationSplit(location) === 'places'}"><a href ng-click="nav('places')"><i class="icon icon-home"></i> <span>Places</span></a> </li>
+    <li ng-class="{active: LocationSplit(location) === 'events'}"><a href ng-click="nav('events')"><i class="icon icon-calendar"></i> <span>Events</span></a> </li>
+    <li ng-class="{active: LocationSplit(location) === 'users'}"><a href ng-click="nav('users')"><i class="icon icon-user"></i> <span>Users</span></a> </li>
+    <li ng-class="{active: LocationSplit(location) === 'locations'}"><a href ng-click="nav('locations')"><i class="icon icon-list"></i> <span>Location</span></a> </li>
+    <li ng-class="{active: LocationSplit(location) === 'places'}"><a href ng-click="nav('places')"><i class="icon icon-th-list"></i> <span>Places</span></a> </li>
   </ul>
 </div>
 <!--sidebar-menu-->

@@ -28,4 +28,5 @@ placeSchema.pre('save', function(next) {
 });
 
 var Place = mongoose.model('Place', placeSchema);
+
 module.exports = Place;

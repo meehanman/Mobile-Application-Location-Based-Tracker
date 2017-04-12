@@ -1,0 +1,133 @@
+<!--breadcrumbs-->
+<div id="content-header">
+  <div id="breadcrumb">
+    <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i></a>
+    <a href ng-click="nav('locations')" class="tip-bottom"> Locations</a>
+    <a href ng-click="nav('locations/add')" class="tip-bottom"> Add</a>
+  </div>
+  <div class="row-fluid">
+  <div class="span6"><h1>Add Location</h1></div>
+</div>
+</div>
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+<div class="container-fluid"><hr>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>Add new location</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">Name*</label>
+              <div class="controls">
+                <input ng-model="form.name" type="text" name="name" required placeholder="Location Name e.g Room101">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Description</label>
+              <div class="controls">
+                <textarea ng-model="form.description" type="text" name="description" required></textarea>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Type*</label>
+              <div class="controls">
+                <select name="select2-container" ng-model="typeDropdown" ng-change="typeDropdown != 'Other' ? form.type = typeDropdown : form.type = ''">
+                  <option disabled value="">Please select an option</option>
+                  <option value="Auditorium">Auditorium</option>
+                  <option value="Classroom">Classroom</option>
+                  <option value="Computer Room">Computer Room</option>
+                  <option value="Conference Hall">Conference Hall</option>
+                  <option value="Lecture Hall">Lecture Hall</option>
+                  <option value="Meeting Room">Meeting Room</option>
+                  <option value="Office">Office</option>
+                  <option value="Other">Other</option>
+                </select>
+                <input ng-show="typeDropdown == 'Other'" ng-model="form.type" type="text" placeholder="Please specificy location type" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Floor</label>
+              <div class="controls">
+                <input ng-model="form.floor" type="number" name="name" required>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Place*</label>
+              <div class="controls">
+                <input type="button" class="btn" value="Select Location Place" ng-click="selectPlace()" />
+                <input ng-model="PlaceName" ng-show="PlaceName" type="text" disabled="true" name="name">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Max people</label>
+              <div class="controls">
+                <input ng-model="form.max_people" type="number">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Services <br><br>
+                <input type="button" ng-click="addService()" style="color:#238822;" class="btn icon-info-plus" value="+">
+                <input type="button" ng-click="removeService()" style="color:#b50909;" class="btn icon-info-minus" value="-">
+              </label>
+              <div class="controls">
+                    <div class="todo">
+                      <ul>
+                        <li class="clearfix" ng-repeat="service in form.services">
+                          <div class="txt"> <input ng-model="service.name" type="text" placeholder="Name e.g. Projector"> </div>
+                          <div> <textarea style="margin-left:20px;" ng-model="service.description" placeholder="Description e.g. Contains HDMI and VGA"></textarea></div>
+                        </li>
+                      </ul>
+                    </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Beacon ID</label>
+              <div class="controls">
+                <input ng-model="form.beacon" type="text" placeholder="i.e. 3!636f6b65634063656575000000212326">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Access Point BSSID</label>
+              <div class="controls">
+                <input ng-model="form.access_point" type="text" placeholder="88:A6:C6:26:95:23">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" ng-click="selectGPS()">GPS</label>
+              <div class="controls" ng-model-options="{ updateOn: 'blur' }">
+                <input ng-model="form.gps.x" type="text" placeholder="GPS X">
+                <input ng-model="form.gps.y" type="text" placeholder="GPS Y">
+                <br>
+                <input ng-model="address" type="text" placeholder="Search Address" style=" margin-top: 40px;"/>
+                <ng-map zoom="16" center="{{address}}" style="width:600px; height:400px" zoom-control="true"
+  zoom-control-options="{style:'LARGE', position:'LEFT_CENTER'}" scale-control="true" street-view-control="false" pan-control="false" map-type-control="false">
+                          <marker id="address-marker" position="@{{address}}"
+                        optimized="true" draggable="true" on-dragend="onDragEnd(this)"
+                        animation="DROP">
+                        </marker>
+                </ng-map>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Location Image (max 5MB)</label>
+              <div class="controls">
+                  <input type="file" ng-model="image" ng-change="form.image='data:'+image.filetype +';base64,'+ image.base64" accept="image/*" maxsize="5000" base-sixty-four-input>
+                  <img ng-src="{{form.image}}" ng-show="form.image" width="50px" height="50px" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <div class="alert alert-info" ng-show="statusText">{{statusText}}</div>
+              <input type="submit" ng-click="add()" value="Add Place" ng-disabled="false" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End-Action boxes-->

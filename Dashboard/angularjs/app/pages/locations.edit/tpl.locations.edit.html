@@ -1,9 +1,9 @@
 <!--breadcrumbs-->
 <div id="content-header">
     <div id="breadcrumb">
-        <a href ng-click="nav('plcaes')" class="tip-bottom"><i class="icon-home"></i> Places</a>
+        <a href ng-click="nav('locations')" class="tip-bottom"><i class="icon-home"></i> Locations</a>
         <a class="tip-bottom"> Edit</a></div>
-    <h1>Edit Place</h1>
+    <h1>Edit Location</h1>
 </div>
 <!--End-breadcrumbs-->
 
@@ -13,57 +13,57 @@
     <div class="span12">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-          <h5>Edit {{place.name}}</h5>
+          <h5>Edit {{location.name}}</h5>
         </div>
         <div class="widget-content nopediting">
           <form class="form-horizontal">
             <div class="control-group">
               <label class="control-label">ID</label>
               <div class="controls">
-                <input ng-model="place.id" disabled="" type="text">
+                <input ng-model="location.id" disabled="" type="text">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Name</label>
               <div class="controls">
-                <input ng-model="place.name" ng-disabled="!editing" type="text">
+                <input ng-model="location.name" ng-disabled="!editing" type="text">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Description</label>
               <div class="controls">
-                <textarea ng-model="place.description" ng-disabled="!editing" required></textarea>
+                <textarea ng-model="location.description" ng-disabled="!editing" required></textarea>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Street</label>
               <div class="controls">
-                <input ng-model="place.addressStreet" ng-disabled="!editing" type="text" name="editressStreet" required >
+                <input ng-model="location.addressStreet" ng-disabled="!editing" type="text" name="editressStreet" required >
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">City</label>
               <div class="controls">
-                <input ng-model="place.addressCity" ng-disabled="!editing" type="text" name="editressCity" required>
+                <input ng-model="location.addressCity" ng-disabled="!editing" type="text" name="editressCity" required>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Postcode</label>
               <div class="controls">
-                <input ng-model="place.addressPostcode" ng-disabled="!editing" type="text" name="editressPostcode" required>
+                <input ng-model="location.addressPostcode" ng-disabled="!editing" type="text" name="editressPostcode" required>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Country</label>
               <div class="controls">
-                <input ng-model="place.addressCountry" ng-disabled="!editing" type="text" name="editressCountry" required>
+                <input ng-model="location.addressCountry" ng-disabled="!editing" type="text" name="editressCountry" required>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Parent Place</label>
+              <label class="control-label">Parent location</label>
               <div class="controls">
-                <input type="button" class="btn" value="Select Parent Place" ng-disabled="!editing" ng-click="selectParent()" />
-                <input ng-model="parentPlaceName" ng-show="parentPlaceName" type="text" disabled="true" name="name">
+                <input type="button" class="btn" value="Select Parent location" ng-disabled="!editing" ng-click="selectParent()" />
+                <input ng-model="parentlocationName" ng-show="parentlocationName" type="text" disabled="true" name="name">
               </div>
             </div>
             <div class="form-actions">

@@ -1,6 +1,5 @@
 app.controller('PlacesAddCtrl', ['$scope', 'Places', 'ModalService', function($scope, Places, ModalService) {
     $scope.parentPlaceName = "";
-    $scope.form = {"name":"EEECS Building","description":"School of Electronics, Electrical Engineering and Computer Science","addressStreet":"18 Malone Rd","addressCity":"Belfast","addressPostcode":"BT9 5BN","addressCountry":"UK"};
 
     $scope.add = function() {
         Places.add($scope.form, function(data) {
