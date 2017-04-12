@@ -10,8 +10,8 @@ var placeSchema = new Schema({
     postcode: {type: String, required: true},
     country: {type: String, required: true}
   },
-  parentPlace: {type: Schema.Types.ObjectId,required: false},
-  addedBy: {type: Schema.Types.ObjectId,required: true},
+  parentPlace: {type: Schema.Types.ObjectId, required: false, ref: 'Place'},
+  addedBy: {type: Schema.Types.ObjectId, required: true},
   created_at: Date,
   updated_at: Date
 });

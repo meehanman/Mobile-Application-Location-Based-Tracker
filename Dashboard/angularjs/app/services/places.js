@@ -10,6 +10,15 @@ var get = function(callback){
     });
   }
 
+  var getOne = function(id, callback){
+      $http.get('https://cloud.dean.technology/place/'+id).then(function(success){
+        places = success.data;
+        callback(success);
+      }, function(fail){
+        callback(fail);
+      });
+    }
+
   var del = function(id, callback){
       $http.delete('https://cloud.dean.technology/place/'+id).then(function(success){
         callback(success);
@@ -18,27 +27,46 @@ var get = function(callback){
       });
     }
 
-var add = function(form, callback){
-  $http({
-    method: 'POST',
-    url: 'https://cloud.dean.technology/place',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    transformRequest: function(obj) {
-        var str = [];
-        for(var p in obj)
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        return str.join("&");
-    },
-    data: form
-  }).then(function(success){
-    callback(success);
-  }, function(fail){
-    callback(faila);
-  });
-}
+    var add = function(form, callback){
+      $http({
+        method: 'POST',
+        url: 'https://cloud.dean.technology/place',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+        },
+        data: form
+      }).then(function(success){
+        callback(success);
+      }, function(fail){
+        callback(faila);
+      });
+    }
+
+    var update = function(form, callback){
+      $http({
+        method: 'PUT',
+        url: 'https://cloud.dean.technology/place',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+        },
+        data: form
+      }).then(function(success){
+        callback(success);
+      }, function(fail){
+        callback(fail);
+      });
+    }
 
 return{
-  add, get, del
+  add, get, getOne, del, update
 }
 
 }]);

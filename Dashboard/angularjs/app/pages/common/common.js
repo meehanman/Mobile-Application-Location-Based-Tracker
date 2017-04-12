@@ -3,6 +3,7 @@ app.controller('CommonCtrl', ['$scope', 'Auth', '$location', '$state', function(
     $scope.logout = Auth.logout;
 
     $scope.nav = function(location){
+      console.log("Nav", location);
       //Reset side-menu
       $scope.menu = 'None';
       $location.path('/'+location);

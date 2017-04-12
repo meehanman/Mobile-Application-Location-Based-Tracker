@@ -1,10 +1,8 @@
 module.exports = function(server) {
     var Place = require('../models/place');
 
-    //Get's places
-    //Returns all users
     server.get('/place', function(req, res) {
-        Place.find({}, function(error, places) {
+        Place.find({}).populate('parentPlace', 'name').exec(function(error, places) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -16,7 +14,22 @@ module.exports = function(server) {
         });
     });
 
-    //Adding a Place
+    server.get('/place/:id', function(req, res) {
+        Place.findOne({
+            _id: req.params.id
+        }).populate('parentPlace', 'name').exec(function(error, place) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not list all places.",
+                    error: error
+                });
+            }
+
+            res.json(place);
+        });
+    });
+
     server.post('/place', function(req, res, next) {
         var place = new Place({
             name: req.body.name,
@@ -47,8 +60,8 @@ module.exports = function(server) {
                 save();
             });
         } else {
-          //Otherwise just save without adding a parent place
-          save();
+            //Otherwise just save without adding a parent place
+            save();
         }
 
         var save = function(s) {
@@ -69,7 +82,6 @@ module.exports = function(server) {
         }
     });
 
-    //Adding a Place
     server.del('/place/:id', function(req, res, next) {
         Place.findByIdAndRemove({
             _id: req.params.id
@@ -85,6 +97,48 @@ module.exports = function(server) {
                 title: "Success",
                 message: removed.name + " deleted.",
                 place: removed
+            });
+        });
+    });
+
+    server.put('/place', function(req, res, next) {
+        Place.findById(req.body.id, function(error, place) {
+            if (error) {
+                console.log("error1",error);
+                res.json({
+                    title: "Failed",
+                    message: "Could not Edit Place",
+                    error: error
+                });
+            }
+
+            place.name = req.body.name;
+            place.description = req.body.description;
+            place.address.street = req.body.addressStreet;
+            place.address.streetcity = req.body.addressCity;
+            place.address.streetpostcode = req.body.addressPostcode;
+            place.address.streetcountry = req.body.addressCountry;
+
+            if(req.body.parentPlace){
+              place.parentPlace = req.body.parentPlace;
+            }else{
+                place.parentPlace = undefined;
+            }
+
+            place.save(function(error, updatedPlace) {
+                if (error) {
+                    console.log(error);
+                    res.json({
+                        title: "Failed",
+                        message: "Could not Edit Place",
+                        error: error
+                    });
+                }
+                res.json({
+                    title: "Success",
+                    message: place.name + " updated.",
+                    place: updatedPlace
+                });
             });
         });
     });

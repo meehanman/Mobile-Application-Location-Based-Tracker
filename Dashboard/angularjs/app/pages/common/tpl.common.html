@@ -49,13 +49,7 @@
     </li>
 
     <!-- Places -->
-    <!-- Locations -->
-    <li class="submenu"> <a href ng-click="menuSet('places')"><i class="icon icon-th-list"></i> <span>Places</span></a>
-      <ul ng-style="menu=='places' && {'display': 'block'}" ng-show="menu=='places' || LocationSplit(location) === 'locations'">
-        <li ng-class="{active: location === 'places.add'}"><a href ng-click="nav('places/add')">Add Places</a></li>
-        <li ng-class="{active: location === 'places'}"><a href ng-click="nav('places')">Manage Places</a></li>
-      </ul>
-    </li>
+    <li ng-class="{active: LocationSplit(location) === 'places'}"><a href ng-click="nav('places')"><i class="icon icon-home"></i> <span>Places</span></a> </li>
   </ul>
 </div>
 <!--sidebar-menu-->

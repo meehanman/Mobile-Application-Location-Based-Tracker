@@ -4,13 +4,12 @@ app.controller('PlacesAddCtrl', ['$scope', 'Places', 'ModalService', function($s
 
     $scope.add = function() {
         Places.add($scope.form, function(data) {
-            console.log(data);
             $scope.form = {};
             $scope.parentPlaceName = "";
         });
     }
 
-    $scope.select = function() {
+    $scope.selectParent = function() {
         Places.get(function(places) {
                 ModalService.showModal({
                     templateUrl: 'app/modals/place/tpl.place.html',

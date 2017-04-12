@@ -1,10 +1,9 @@
 <!--breadcrumbs-->
 <div id="content-header">
     <div id="breadcrumb">
-        <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i></a>
-        <a href ng-click="nav('places')" class="tip-bottom"> Places</a>
-        <a href ng-click="nav('places/add')" class="tip-bottom"> Add</a></div>
-    <h1>Add Place</h1>
+        <a href ng-click="nav('plcaes')" class="tip-bottom"><i class="icon-home"></i> Places</a>
+        <a href ng-click="nav('plcaes/edit')" class="tip-bottom"> Edit</a></div>
+    <h1>Edit Place</h1>
 </div>
 <!--End-breadcrumbs-->
 
@@ -14,56 +13,64 @@
     <div class="span12">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-          <h5>Add new place</h5>
+          <h5>Edit {{place.name}}</h5>
         </div>
-        <div class="widget-content nopadding">
+        <div class="widget-content nopediting">
           <form class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">ID</label>
+              <div class="controls">
+                <input ng-model="place.id" disabled="" type="text">
+              </div>
+            </div>
             <div class="control-group">
               <label class="control-label">Name</label>
               <div class="controls">
-                <input ng-model="form.name" type="text" name="name" required placeholder="Building Name">
+                <input ng-model="place.name" ng-disabled="!editing" type="text">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Description</label>
               <div class="controls">
-                <textarea ng-model="form.description" type="text" name="description" required></textarea>
+                <textarea ng-model="place.description" ng-disabled="!editing" required></textarea>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Street</label>
               <div class="controls">
-                <input ng-model="form.addressStreet" type="text" name="addressStreet" required >
+                <input ng-model="place.addressStreet" ng-disabled="!editing" type="text" name="editressStreet" required >
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">City</label>
               <div class="controls">
-                <input ng-model="form.addressCity" type="text" name="addressCity" required>
+                <input ng-model="place.addressCity" ng-disabled="!editing" type="text" name="editressCity" required>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Postcode</label>
               <div class="controls">
-                <input ng-model="form.addressPostcode" type="text" name="addressPostcode" required>
+                <input ng-model="place.addressPostcode" ng-disabled="!editing" type="text" name="editressPostcode" required>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Country</label>
               <div class="controls">
-                <input ng-model="form.addressCountry" type="text" name="addressCountry" required>
+                <input ng-model="place.addressCountry" ng-disabled="!editing" type="text" name="editressCountry" required>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Parent Place</label>
               <div class="controls">
-                <input type="button" class="btn" value="Select Parent Place" ng-click="selectParent()" />
+                <input type="button" class="btn" value="Select Parent Place" ng-disabled="!editing" ng-click="selectParent()" />
                 <input ng-model="parentPlaceName" ng-show="parentPlaceName" type="text" disabled="true" name="name">
               </div>
             </div>
             <div class="form-actions">
-              <input type="submit" ng-click="add()" value="Add Place" ng-disabled="false" class="btn btn-success">
-              <div ng-show="form">{{form}}</div>
+              <div class="alert alert-info" ng-show="statusText">{{statusText}}</div>
+              <input type="submit" ng-click="refresh(); editing = false" value="Reset" ng-disabled="false" class="btn">
+              <input type="submit" ng-click="editing = true" value="Edit" ng-show="!editing" ng-disabled="false" class="btn btn-warning pull-right">
+              <input type="submit" ng-click="update()" value="Save" ng-show="editing" ng-disabled="false" class="btn btn-success pull-right">
             </div>
           </form>
         </div>

@@ -60,6 +60,12 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
                 templateUrl: 'app/pages/places.add/tpl.places.add.html',
                 controller: 'PlacesAddCtrl'
             })
+            .state('places.edit', {
+                url: '/places/edit/:id',
+                parent: 'common',
+                templateUrl: 'app/pages/places.edit/tpl.places.edit.html',
+                controller: 'PlacesEditCtrl'
+            })
             .state('account', {
                 url: '/account',
                 parent: 'common',
