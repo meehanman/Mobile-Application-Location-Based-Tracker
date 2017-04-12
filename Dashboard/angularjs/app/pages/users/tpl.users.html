@@ -38,8 +38,8 @@
                       <div class="btn-group">
                         <button data-toggle="dropdown" class="btn dropdown-toggle btn-mini">Manage User <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                          <li><a href>Edit User</a></li>
-                          <li><a href>Delete User</a></li>
+                          <li><a href ng-click="nav('user/edit/'+user._id)">Edit</a></li>
+                          <li><a href ng-click="del(user)">Delete</a></li>
                         </ul>
                       </div>
                     </td>

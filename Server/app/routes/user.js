@@ -100,4 +100,23 @@ module.exports = function(server) {
             });
         });
     });
+
+    server.del('/user/:id', function(req, res, next) {
+        User.findByIdAndRemove({
+            _id: req.params.id
+        }, function(error, removed) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not delete user",
+                    error: error
+                });
+            }
+            res.json({
+                title: "Success",
+                message: removed.name + " deleted.",
+                user: removed
+            });
+        });
+    });
 }

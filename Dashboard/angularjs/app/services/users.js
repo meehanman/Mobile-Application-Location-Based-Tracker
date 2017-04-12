@@ -41,8 +41,16 @@ var addUser = function(userObject, callback){
   });
 }
 
+var del = function(id, callback){
+    $http.delete('https://cloud.dean.technology/user/'+id).then(function(success){
+      callback(success);
+    }, function(fail){
+      callback(fail);
+    });
+  }
+
 return{
-  getUsers, addUser
+  getUsers, addUser, del
 }
 
 }]);
