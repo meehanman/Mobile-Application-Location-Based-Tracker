@@ -7,8 +7,15 @@ var getUsers = function(callback){
     console.log(user);
     callback(users);
   }, function(fail){
-    console.log("Failed to get users",fail);
-    return false;
+    callback(fail);
+  });
+}
+
+var getOne = function(id,callback){
+  $http.get('https://cloud.dean.technology/user/'+id).then(function(user){
+    callback(user);
+  }, function(fail){
+    callback(fail);
   });
 }
 
@@ -31,13 +38,9 @@ var addUser = function(userObject, callback){
     },
     data: userObject
   }).then(function(data){
-    console.log(data);
     callback(data);
   }, function(fail){
-    console.log("Failed to add user",fail);
-    alert(fail.message);
     callback(fail);
-    return false;
   });
 }
 
@@ -49,8 +52,27 @@ var del = function(id, callback){
     });
   }
 
+  var update = function(user, callback){
+    $http({
+      method: 'PUT',
+      url: 'https://cloud.dean.technology/user',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function(obj) {
+          var str = [];
+          for(var p in obj)
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          return str.join("&");
+      },
+      data: user
+    }).then(function(success){
+      callback(success);
+    }, function(fail){
+      callback(fail);
+    });
+  }
+
 return{
-  getUsers, addUser, del
+  getUsers, addUser, del, getOne, update
 }
 
 }]);

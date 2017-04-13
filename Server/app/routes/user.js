@@ -28,14 +28,14 @@ module.exports = function(server) {
     });
 
     //Returns a user by their ID
-    server.get('/user/:_id', function(req, res) {
+    server.get('/user/:id', function(req, res) {
         User.findOne({
-            _id: req.params._id
+            _id: req.params.id
         }, function(error, user) {
             if (error) {
                 res.json({
                     title: "Failed",
-                    message: "Could not find user with id:" + req.params._id,
+                    message: "Could not find user with id:" + req.params.id,
                     error: error
                 });
             }
@@ -44,7 +44,8 @@ module.exports = function(server) {
                 name: user.name,
                 email: user.email,
                 admin: user.admin,
-                groups: user.groups
+                location: user.location,
+                image: user.image
             });
         });
     });
@@ -73,7 +74,7 @@ module.exports = function(server) {
                     name: req.body.name,
                     email: req.body.email,
                     password: hash,
-                    admin: true,
+                    admin: req.body.admin,
                     location: req.body.location,
                     image: req.body.image,
                     groups: {
@@ -117,6 +118,54 @@ module.exports = function(server) {
                 message: removed.name + " deleted.",
                 user: removed
             });
+        });
+    });
+
+    server.put('/user', function(req, res, next) {
+        User.findById(req.body.id, function(error, user) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not edit user",
+                    error: error
+                });
+            }
+
+            var save = function(s) {
+                console.log(s);
+
+                user.name = req.body.name;
+                user.location = req.body.location;
+                user.admin = req.body.admin;
+
+                user.save(function(error, updated) {
+                    if (error) {
+                        res.json({
+                            title: "Failed",
+                            message: "Could not edit User",
+                            error: error
+                        });
+                    }
+                    res.json({
+                        title: "Success",
+                        message: user.name + " edited",
+                    });
+                });
+            }
+
+            //If the image begins with data: then it's a new image to upload
+            if (req.body.image != undefined && req.body.image.startsWith("data:")) {
+                server.upload(req.body.image, function(img) {
+                    if (img != false) {
+                        user.image = img;
+                    } else {
+                        delete req.body.image;
+                    }
+                    save();
+                });
+            } else {
+                save();
+            }
         });
     });
 }

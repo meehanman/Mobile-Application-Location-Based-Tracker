@@ -30,6 +30,12 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
                 templateUrl: 'app/pages/users.add/tpl.users.add.html',
                 controller: 'UserAddCtrl'
             })
+            .state('users.edit', {
+                url: '/users/edit/:id',
+                parent: 'common',
+                templateUrl: 'app/pages/users.edit/tpl.users.edit.html',
+                controller: 'UsersEditCtrl'
+            })
             .state('events', {
                 url: '/events',
                 parent: 'common',

@@ -1,8 +1,14 @@
 <!--breadcrumbs-->
-  <div id="content-header">
-    <div id="breadcrumb"> <a href ng-click="nav('users')" class="tip-bottom"><i class="icon-home"></i> Users</a></div>
-    <h1>Users</h1>
+<div id="content-header">
+  <div id="breadcrumb">
+    <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i></a>
+    <a href ng-click="nav('users')" class="tip-bottom"> Users</a>
   </div>
+  <div class="row-fluid">
+  <div class="span6"><h1>Users</h1></div>
+  <div class="span6"><h1><input type="button" class="btn btn-success pull-right" style="margin-right:20px;" value="Add User" ng-click="nav('users/add')"/></h1></div>
+</div>
+</div>
 <!--End-breadcrumbs-->
 
 <!--Action boxes-->
@@ -21,9 +27,9 @@
                 <thead>
                   <tr>
                     <th style="width:50px;">Image</th>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Location</th>
                     <th>Options</th>
                   </tr>
                 </thead>
@@ -31,14 +37,14 @@
                   <tr ng-repeat="user in users | filter:searchText">
                     <td><img ng-show="user.image" ng-src="{{user.image}}" height="50" width="50"/>
                     <img ng-hide="user.image" ng-src="app/img/default.png" height="50" width="50"/></td>
-                    <td>{{user.id}}</td>
                     <td>{{user.name | capitalize}}</td>
                     <td>{{user.email}}</td>
+                    <td>{{user.location}}</td>
                     <td>
                       <div class="btn-group">
                         <button data-toggle="dropdown" class="btn dropdown-toggle btn-mini">Manage User <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                          <li><a href ng-click="nav('user/edit/'+user._id)">Edit</a></li>
+                          <li><a href ng-click="nav('users/edit/'+user.id)">Edit</a></li>
                           <li><a href ng-click="del(user)">Delete</a></li>
                         </ul>
                       </div>

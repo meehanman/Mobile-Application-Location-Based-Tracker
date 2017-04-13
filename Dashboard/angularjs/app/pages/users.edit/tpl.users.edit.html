@@ -1,0 +1,69 @@
+<!--breadcrumbs-->
+<div id="content-header">
+    <div id="breadcrumb">
+        <a href ng-click="nav('users')" class="tip-bottom"><i class="icon-home"></i> Users</a>
+        <a class="tip-bottom"> Edit</a></div>
+    <h1>Edit User</h1>
+</div>
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+<div class="container-fluid"><hr>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>Edit {{user.name}}</h5>
+        </div>
+        <div class="widget-content nopediting">
+          <form class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">ID</label>
+              <div class="controls">
+                <input ng-model="user.id" disabled type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Full Name</label>
+              <div class="controls">
+                <input ng-model="user.name" ng-disabled="!editing" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Email</label>
+              <div class="controls">
+                <input ng-model="user.email" ng-disabled="!editing" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Admin</label>
+              <div class="controls">
+                <input ng-model="user.admin" ng-disabled="!editing" type="checkbox">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Location</label>
+              <div class="controls">
+                <input ng-model="user.location" ng-disabled="!editing" type="text">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Image (max 5MB)</label>
+              <div class="controls">
+                  <input type="file" ng-disabled="!editing" ng-model="image" ng-change="user.image='data:'+image.filetype +';base64,'+ image.base64" accept="image/*" maxsize="5000" base-sixty-four-input>
+                  <img ng-src="{{user.image}}" ng-show="user.image" width="50px" height="50px" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <div class="alert alert-info" ng-show="statusText">{{statusText}}</div>
+              <input type="submit" ng-click="refresh(); editing = false" value="Reset" ng-disabled="false" class="btn">
+              <input type="submit" ng-click="editing = true" value="Edit" ng-show="!editing" ng-disabled="false" class="btn btn-warning pull-right">
+              <input type="submit" ng-click="update()" value="Save" ng-show="editing" ng-disabled="false" class="btn btn-success pull-right">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End-Action boxes-->
