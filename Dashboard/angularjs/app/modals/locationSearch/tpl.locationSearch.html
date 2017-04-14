@@ -1,0 +1,54 @@
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{title}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="widget-box">
+                      <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                        <h5>{{tableTitle}}</h5>
+                        <div id="search">
+                          <input type="text" placeholder="Search here..." ng-model="searchText" style="color:black; background-color:white;">
+                          <button type="submit" class="tip-bottom" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+                        </div>
+                      </div>
+                      <div class="widget-content nopadding" ng-if="locations">
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>Image</th>
+                              <th>Name</th>
+                              <th>Type</th>
+                              <th>Address</th>
+                              <th>Services</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="location in locations | filter:searchText">
+                              <td><img ng-show="location.image" ng-src="{{location.image}}" width="100px">
+                              <img ng-hide="location.image" ng-src="app/img/default-location.png" width="100px" src="app/img/default.png" class="ng-hide"></td>
+                              <td>{{location.name}}</td>
+                              <td>{{location.type}}</td>
+                              <td ng-if="location.place.address.street">{{location.place.address.street+', '+location.place.address.city+', '+location.place.address.postcode+', '+location.place.address.country}}</td>
+                              <td ng-if="!location.place.address.street">Unknown Address</td>
+                              <td><span class="badge badge-info" ng-repeat="service in location.services">{{service.name}}</span></td>
+                              <td>
+                                <button type="button" ng-click="close(place)" class="btn btn-default btn-small" data-dismiss="modal">Select</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="alert alert-info" ng-if="!locations">
+                        Loading...
+                      </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="close('None')" class="btn btn-error" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

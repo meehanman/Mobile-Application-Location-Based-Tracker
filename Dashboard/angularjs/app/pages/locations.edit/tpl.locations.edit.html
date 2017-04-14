@@ -91,8 +91,8 @@
             <div class="control-group">
               <label class="control-label" ng-click="selectGPS()">GPS</label>
               <div class="controls" ng-model-options="{ updateOn: 'blur' }">
-                <input ng-model="location.gps.x" type="text" ng-disabled="!editing" placeholder="GPS X">
-                <input ng-model="location.gps.y" type="text" ng-disabled="!editing" placeholder="GPS Y">
+                <input ng-model="location.gps[0]" type="text" ng-disabled="!editing" placeholder="GPS X">
+                <input ng-model="location.gps[1]" type="text" ng-disabled="!editing" placeholder="GPS Y">
                 <br>
                 <input ng-show="editing" ng-model="address" type="text" placeholder="Search Address" style=" margin-top: 40px;"/>
                 <ng-map ng-show="editing" zoom="16" center="{{address}}" style="width:600px; height:400px" zoom-control="true"

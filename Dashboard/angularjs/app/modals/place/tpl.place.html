@@ -6,43 +6,43 @@
                 <h4 class="modal-title">{{title}}</h4>
             </div>
             <div class="modal-body">
-              <div class="widget-box">
+                <div class="widget-box">
                     <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
-                      <h5>All Places</h5>
-                      <div id="search">
-                        <input type="text" placeholder="Search here..." ng-model="searchText" style="color:black; background-color:white;">
-                        <button type="submit" class="tip-bottom" data-original-title="Search"><i class="icon-search icon-white"></i></button>
-                      </div>
+                        <h5>All Places</h5>
+                        <div id="search">
+                            <input type="text" placeholder="Search here..." ng-model="searchText" style="color:black; background-color:white;">
+                            <button type="submit" class="tip-bottom" data-original-title="Search"><i class="icon-search icon-white"></i></button>
+                        </div>
                     </div>
                     <div class="widget-content nopadding" ng-if="places">
-                      <table class="table table-bordered table-striped">
-                        <thead>
-                          <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Address</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr ng-repeat="place in places | filter:searchText">
-                            <td>{{place.name}}</td>
-                            <td>{{place.description}}</td>
-                            <td>{{place.address.street+', '+place.address.city+', '+place.address.postcode+', '+place.address.country}}</td>
-                            <td>
-                              <button type="button" ng-click="close(place)" class="btn btn-default btn-small" data-dismiss="modal">Select</button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Address</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="place in places | filter:searchText">
+                                    <td>{{place.name}}</td>
+                                    <td>{{place.description}}</td>
+                                    <td>{{place.address.street+', '+place.address.city+', '+place.address.postcode+', '+place.address.country}}</td>
+                                    <td>
+                                        <button type="button" ng-click="close(place)" class="btn btn-default btn-small" data-dismiss="modal">Select</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="alert alert-info" ng-if="!places">
-                      Loading...
+                        Loading...
                     </div>
-                  </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" ng-click="close('None')" class="btn btn-error" data-dismiss="modal">No Parent Place</button>
+                <button type="button" ng-click="close()" class="btn btn-error" data-dismiss="modal">No Parent Place</button>
             </div>
         </div>
     </div>

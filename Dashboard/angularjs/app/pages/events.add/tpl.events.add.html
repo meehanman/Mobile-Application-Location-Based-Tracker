@@ -8,48 +8,102 @@
 <!--End-breadcrumbs-->
 
 <!--Action boxes-->
-<div class="container-fluid"><hr>
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="widget-box">
-        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-          <h5>Add new Event</h5>
+<div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Add new Event</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label">Name*</label>
+                            <div class="controls">
+                                <input ng-model="form.name" type="text" required placeholder="John Doe">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Description</label>
+                            <div class="controls">
+                                <textarea ng-model="form.description" placeholder="Short description about the event"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Type*</label>
+                            <div class="controls">
+                                <select name="select2-container" ng-model="form.type">
+                                  <option disabled value="">Please select an option</option>
+                                  <option value="meeting">Meeting</option>
+                                  <option value="event">Event</option>
+                                  <option value="party">Party</option>
+                                  <option value="conference">Conference</option>
+                                  <option value="lecture">Lecture</option>
+                                  <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Event Time</label>
+                            <div class="controls">
+                                <div class="dropdown form-group">
+                                    <label>Start Date</label>
+                                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" data-ng-model="dateRangeStart">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <datetimepicker data-ng-model="dateRangeStart" data-datetimepicker-config="{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed' }" data-on-set-time="startDateOnSetTime()" data-before-render="startDateBeforeRender($dates)"></datetimepicker>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown form-group">
+                                    <label>End Date</label>
+                                    <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" data-ng-model="dateRangeEnd">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <datetimepicker data-ng-model="dateRangeEnd" data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed' }" data-on-set-time="endDateOnSetTime()" data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
+                                    </ul>
+                                </div>
+                                <p>Selected Date: {{ dateRangeStart}} - {{ dateRangeEnd }}</p>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Owner</label>
+                                <div class="controls">
+                                    <input ng-model="owner.name" type="text" disabled />
+                                    <input ng-model="form.owner" type="hidden">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Event Image(max 5MB)</label>
+                                <div class="controls">
+                                    <input type="file" ng-model="image" ng-change="form.image='data:'+image.filetype +';base64,'+ image.base64" accept="image/*" maxsize="5000" base-sixty-four-input>
+                                    <img ng-src="{{form.image}}" ng-show="form.image" width="50px" height="50px" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Location</label>
+                                <div class="controls">
+                                    <input ng-model="form.location" type="button" value="Select Location" ng-click="selectLocation()"/>
+                                    {{form.location}}
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                {{form}}
+                                <input type="submit" ng-click="addEvent()" value="Add User" ng-disabled="true" class="btn btn-success">
+                                <div ng-show="responseMessage">{{responseMessage}}</div>
+                            </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="widget-content nopadding">
-          <form class="form-horizontal">
-            <div class="control-group">
-              <label class="control-label">Your Name*</label>
-              <div class="controls">
-                <input ng-model="form.name" type="text" name="name" required placeholder="John Doe">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Your Email*</label>
-              <div class="controls">
-                <input ng-model="form.email" type="email" name="email" required placeholder="john.doe@email.com">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Your location</label>
-              <div class="controls">
-                <input ng-model="form.location" type="text" name="location" placeholder="London, UK">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Profile Image* (max 5MB)</label>
-              <div class="controls">
-                  <input type="file" ng-model="image" ng-change="form.image='data:'+image.filetype +';base64,'+ image.base64" accept="image/*" maxsize="5000" base-sixty-four-input>
-                  <img ng-src="{{form.image}}" ng-show="form.image" width="50px" height="50px" />
-              </div>
-            </div>
-            <div class="form-actions">
-              <input type="submit" ng-click="addEvent()" value="Add User" ng-disabled="true" class="btn btn-success">
-              <div ng-show="responseMessage">{{responseMessage}}</div>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
-<!--End-Action boxes-->
+    <!--End-Action boxes-->

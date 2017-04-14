@@ -1,7 +1,13 @@
 <!--breadcrumbs-->
 <div id="content-header">
-    <div id="breadcrumb"> <a href ng-click="nav('users')" class="tip-bottom"><i class="icon-home"></i> Users</a></div>
-    <h1>Events</h1>
+  <div id="breadcrumb">
+    <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i></a>
+    <a href ng-click="nav('events')" class="tip-bottom"> Events</a>
+  </div>
+  <div class="row-fluid">
+  <div class="span6"><h1>Events</h1></div>
+  <div class="span6"><h1><input type="button" class="btn btn-success pull-right" style="margin-right:20px;" value="Add Events" ng-click="nav('events/add')"/></h1></div>
+</div>
 </div>
 <!--End-breadcrumbs-->
 
@@ -11,7 +17,7 @@
         <hr>
         <div class="widget-box" ng-if="events">
             <div class="widget-title"> <span class="icon"> <i class="icon-refresh"></i> </span>
-              <h5>All Events</h5>
+              <h5>All Event</h5>
               <div id="search">
                   <input type="text" placeholder="Search here..." ng-model="searchText" style="color:black; background-color:white;">
                   <button type="submit" class="tip-bottom" data-original-title="Search"><i class="icon-search icon-white"></i></button>

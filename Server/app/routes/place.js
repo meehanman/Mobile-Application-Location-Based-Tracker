@@ -31,39 +31,6 @@ module.exports = function(server) {
     });
 
     server.post('/place', function(req, res, next) {
-        var place = new Place({
-            name: req.body.name,
-            description: req.body.description,
-            address: {
-                street: req.body.addressStreet,
-                city: req.body.addressCity,
-                postcode: req.body.addressPostcode,
-                country: req.body.addressCountry
-            },
-            addedBy: req.user._id
-        });
-
-        //If there is a parentPalce defined
-        if (req.body.parentPlace != undefined) {
-            Place.findOne({
-                _id: req.body.parentPlace
-            }, function(error, parentPlace) {
-                if (error) {
-                    res.json({
-                        title: "Failed",
-                        message: "Parent Place provided was incorrect",
-                    });
-                    next();
-                }
-
-                place.parentPlace = req.body.parentPlace;
-                save();
-            });
-        } else {
-            //Otherwise just save without adding a parent place
-            save();
-        }
-
         var save = function() {
             place.save(function(error) {
                 if (error) {
@@ -79,6 +46,38 @@ module.exports = function(server) {
                     message: "Place Successfully Added"
                 });
             });
+        }
+
+        var place = new Place({
+            name: req.body.name,
+            description: req.body.description,
+            address: {
+                street: req.body.addressStreet,
+                city: req.body.addressCity,
+                postcode: req.body.addressPostcode,
+                country: req.body.addressCountry
+            },
+            addedBy: req.user._id
+        });
+
+        //If there is a parentPalce defined
+        if (!(req.body.parentPlace == undefined || req.body.parentPlace == 'undefined')) {
+            Place.findOne({
+                _id: req.body.parentPlace
+            }, function(error, parentPlace) {
+                if (error) {
+                    res.json({
+                        title: "Failed",
+                        message: "Parent Place provided was incorrect",
+                    });
+                    next();
+                }
+                place.parentPlace = req.body.parentPlace;
+                save();
+            });
+        } else {
+            //Otherwise just save without adding a parent place
+            save();
         }
     });
 
@@ -118,9 +117,9 @@ module.exports = function(server) {
             place.address.streetpostcode = req.body.addressPostcode;
             place.address.streetcountry = req.body.addressCountry;
 
-            if(req.body.parentPlace){
-              place.parentPlace = req.body.parentPlace;
-            }else{
+            if (req.body.parentPlace) {
+                place.parentPlace = req.body.parentPlace;
+            } else {
                 place.parentPlace = undefined;
             }
 

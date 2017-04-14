@@ -24,14 +24,13 @@ var locationSchema = new Schema({
     image: String,
     beacon: String,
     access_point: String,
-    gps: {
-        x: Number,
-        y: Number
-    },
+    gps: [],
     addedBy: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
     created_at: Date,
     updated_at: Date
 });
+
+locationSchema.index({ gps: '2dsphere' });
 
 locationSchema.pre('save', function(next) {
     now = new Date();

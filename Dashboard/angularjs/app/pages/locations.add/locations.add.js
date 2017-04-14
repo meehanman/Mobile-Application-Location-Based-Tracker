@@ -42,7 +42,8 @@ app.controller('LocationsAddCtrl', ['$scope', '$timeout', 'Places', 'Locations',
                 }).then(function(modal) {
                     modal.element.modal();
                     modal.close.then(function(result) {
-                        if(result!==undefined){
+                        if(result!=undefined){
+                          console.log(result);
                           $scope.form.place = result._id;
                           $scope.address = result.address.street+", "+result.address.city+", "+result.address.postcode;
                           $scope.PlaceName = result.name;
@@ -53,26 +54,7 @@ app.controller('LocationsAddCtrl', ['$scope', '$timeout', 'Places', 'Locations',
         };
 
         $scope.onDragEnd = function (marker, $event) {
-            $scope.form.gps = {};
-            $scope.form.gps.x = marker.latLng.lat();
-            $scope.form.gps.y = marker.latLng.lng();
-            geocoder = new $event.google.maps.Geocoder();
-            geocoder.geocode({
-                'latLng': new $event.google.maps.LatLng($scope.form.gps.x, $scope.form.gps.y)
-            }, function (results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    if (results[0]) {
-                        var formatted_address = results[0].formatted_address;
-                        $timeout(function () {
-                            $scope.address = formatted_address;
-                        }, 300);
-                    } else {
-                        alert('No results found');
-                    }
-                } else {
-                    alert('Geocoder failed due to: ' + status);
-                }
-            });
+            $scope.form.gps = [marker.latLng.lat(), marker.latLng.lng()];
         };
 
         $scope.status = function(s) {

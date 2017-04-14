@@ -1,4 +1,4 @@
-var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule', 'naif.base64', 'angularModalService', 'ngMap']);
+var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule', 'naif.base64', 'angularModalService', 'ngMap', 'ui.bootstrap.datetimepicker']);
 
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
     function($httpProvider, $stateProvider, $urlRouterProvider) {

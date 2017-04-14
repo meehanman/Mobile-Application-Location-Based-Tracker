@@ -100,8 +100,8 @@
             <div class="control-group">
               <label class="control-label" ng-click="selectGPS()">GPS</label>
               <div class="controls" ng-model-options="{ updateOn: 'blur' }">
-                <input ng-model="form.gps.x" type="text" placeholder="GPS X">
-                <input ng-model="form.gps.y" type="text" placeholder="GPS Y">
+                <input ng-model="form.gps[0]" type="text" placeholder="GPS X">
+                <input ng-model="form.gps[1]" type="text" placeholder="GPS Y">
                 <br>
                 <input ng-model="address" type="text" placeholder="Search Address" style=" margin-top: 40px;"/>
                 <ng-map zoom="16" center="{{address}}" style="width:600px; height:400px" zoom-control="true"

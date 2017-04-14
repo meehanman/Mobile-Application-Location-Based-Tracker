@@ -31,11 +31,26 @@ module.exports = function(server) {
         });
     });
 
+    server.get('/location/near/:x/:y/:distance', function(req, res) {
+        Location.find({ gps: { "$near": { "$geometry": { "type": "Point", "coordinates": [ req.params.x,req.params.y ], }, "$maxDistance": req.params.distance } } })
+        .populate('place').exec(function(error, location) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not find location.",
+                    error: error
+                });
+            }
+            console.log(location);
+            res.json(location);
+        });
+    });
+
     //Adding a Location
     server.post('/location', function(req, res, next) {
 
         //Build Objects that have been stringified
-        req.body.gps ? req.body.gps = JSON.parse(req.body.gps) : undefined;
+        req.body.gps && JSON.parse(req.body.gps).length==2 ? req.body.gps = JSON.parse(req.body.gps) : undefined;
         req.body.services ? req.body.services = JSON.parse(req.body.services) : undefined;
 
         var save = function() {
@@ -105,7 +120,7 @@ module.exports = function(server) {
     });
 
     server.put('/location', function(req, res, next) {
-        req.body.gps ? req.body.gps = JSON.parse(req.body.gps) : undefined;
+        req.body.gps && JSON.parse(req.body.gps).length==2 ? req.body.gps = JSON.parse(req.body.gps) : undefined;
         req.body.services ? req.body.services = JSON.parse(req.body.services) : undefined;
 
         Location.findById(req.body.id, function(error, location) {

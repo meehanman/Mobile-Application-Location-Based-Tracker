@@ -1,5 +1,7 @@
 app.controller('LocationsEditCtrl', ['$scope', '$stateParams', 'Locations', 'Places', 'ModalService', '$timeout', 'NgMap', function($scope, $stateParams, Locations, Places, ModalService, $timeout, NgMap) {
     $scope.location = {};
+    $scope.form = {};
+    $scope.form.gps = [];
 
     $scope.parentlocationName = undefined;
     $scope.editing = false;
@@ -55,26 +57,7 @@ app.controller('LocationsEditCtrl', ['$scope', '$stateParams', 'Locations', 'Pla
     }
 
     $scope.onDragEnd = function (marker, $event) {
-        $scope.location.gps = {};
-        $scope.location.gps.x = marker.latLng.lat();
-        $scope.location.gps.y = marker.latLng.lng();
-        geocoder = new $event.google.maps.Geocoder();
-        geocoder.geocode({
-            'latLng': new $event.google.maps.LatLng($scope.location.gps.x, $scope.location.gps.y)
-        }, function (results, status) {
-            if (status === google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                    var formatted_address = results[0].formatted_address;
-                    $timeout(function () {
-                        $scope.address = formatted_address;
-                    }, 300);
-                } else {
-                    alert('No results found');
-                }
-            } else {
-                alert('Geocoder failed due to: ' + status);
-            }
-        });
+        $scope.location.gps = [marker.latLng.lat(), marker.latLng.lng()];
     };
 
 
