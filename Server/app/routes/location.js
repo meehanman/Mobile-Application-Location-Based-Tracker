@@ -32,7 +32,7 @@ module.exports = function(server) {
     });
 
     server.get('/location/near/:x/:y/:distance', function(req, res) {
-        Location.find({ gps: { "$near": { "$geometry": { "type": "Point", "coordinates": [ req.params.x,req.params.y ], }, "$maxDistance": req.params.distance } } })
+        Location.find({ gps: { "$near": { "$geometry": { "type": "Point", "coordinates": [ req.params.x,req.params.y ], }, "$maxDistance": req.params.distance, "distanceField": "distance" } } })
         .populate('place').exec(function(error, location) {
             if (error) {
                 res.json({
@@ -41,7 +41,7 @@ module.exports = function(server) {
                     error: error
                 });
             }
-            console.log(location);
+            console.log(location[0])
             res.json(location);
         });
     });

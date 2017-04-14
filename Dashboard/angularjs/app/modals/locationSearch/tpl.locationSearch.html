@@ -6,6 +6,7 @@
                 <h4 class="modal-title">{{title}}</h4>
             </div>
             <div class="modal-body">
+                <p>Filter Locations</p>
                 <div class="widget-box">
                       <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
                         <h5>{{tableTitle}}</h5>
@@ -31,11 +32,11 @@
                               <img ng-hide="location.image" ng-src="app/img/default-location.png" width="100px" src="app/img/default.png" class="ng-hide"></td>
                               <td>{{location.name}}</td>
                               <td>{{location.type}}</td>
-                              <td ng-if="location.place.address.street">{{location.place.address.street+', '+location.place.address.city+', '+location.place.address.postcode+', '+location.place.address.country}}</td>
+                              <td ng-if="location.place.address.street">{{location.place.name+', '+location.place.address.city}}</td>
                               <td ng-if="!location.place.address.street">Unknown Address</td>
                               <td><span class="badge badge-info" ng-repeat="service in location.services">{{service.name}}</span></td>
                               <td>
-                                <button type="button" ng-click="close(place)" class="btn btn-default btn-small" data-dismiss="modal">Select</button>
+                                <button type="button" ng-click="close(location)" class="btn btn-default btn-small" data-dismiss="modal">Select</button>
                               </td>
                             </tr>
                           </tbody>

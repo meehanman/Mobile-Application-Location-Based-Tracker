@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = mongoose.model('User').schema;
+var Location = mongoose.model('Location').schema;
 
 var eventSchema = new Schema({
   name: { type: String, required: true},
@@ -8,8 +9,8 @@ var eventSchema = new Schema({
   owner: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
   image: String,
   type: { type: String, required: true, enum: ["meeting","event","party","conference","lecture","other"]},
-  location: {_id: {type: Schema.Types.ObjectId, required: true}, name: String},
-  attendees: [{_id: {type: Schema.Types.ObjectId, required: true}, status: {type: String, required: true, enum: ["invited","accepted","declined","attended"]}}],
+  location: {type: Schema.Types.ObjectId, required: true, ref: 'Location'},
+  attendees: [{user: {type: Schema.Types.ObjectId, required: true, ref: 'User'}, status: {type: String, required: true, enum: ["invited","accepted","declined","attended"]}}],
   starts_at: { type: Date, required: true},
   ends_at: { type: Date, required: true},
   addedBy: {type: Schema.Types.ObjectId, required: true, ref: 'User'},

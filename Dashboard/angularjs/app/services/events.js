@@ -1,7 +1,7 @@
 app.factory('Events', ['$rootScope', '$http', function($rootScope, $http){
 var events;
 
-var getEvents = function(callback){
+var get = function(callback){
   $http.get('https://cloud.dean.technology/event').then(function(events){
     events = events.data;
     console.log(events);
@@ -12,8 +12,13 @@ var getEvents = function(callback){
   });
 }
 
-var addEvent = function(eventObject, callback){
-
+var add = function(eventObject, callback){
+  //String attendees to array of userID's
+  var temp=[];
+  for(var i=0;i<eventObject.attendees.length;i++){
+    temp.push(eventObject.attendees[i].id);
+  }
+  eventObject.attendees = JSON.stringify(temp);
   $http({
     method: 'POST',
     url: 'https://cloud.dean.technology/event',
@@ -30,13 +35,12 @@ var addEvent = function(eventObject, callback){
     callback(data);
   }, function(fail){
     console.log("Failed to add user",fail);
-    alert(fail.message);
-    return false;
+    callback(fail);
   });
 }
 
 return{
-  getEvents, addEvent
+  get, add
 }
 
 }]);

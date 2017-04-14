@@ -1,7 +1,7 @@
-app.controller('EventsCtrl', [ '$scope', 'Events', function($scope, Locations){
+app.controller('EventsCtrl', [ '$scope', 'Events', function($scope, Events){
 
     $scope.events;
-    Locations.getEvents(function(events){
+    Events.get(function(events){
       $scope.events = events;
     });
 }]);

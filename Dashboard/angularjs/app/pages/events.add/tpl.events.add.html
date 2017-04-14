@@ -21,7 +21,7 @@
                         <div class="control-group">
                             <label class="control-label">Name*</label>
                             <div class="controls">
-                                <input ng-model="form.name" type="text" required placeholder="John Doe">
+                                <input ng-model="form.name" type="text" required placeholder="My Event">
                             </div>
                         </div>
                         <div class="control-group">
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">Type*</label>
+                            <label class="control-label">Type</label>
                             <div class="controls">
                                 <select name="select2-container" ng-model="form.type">
                                   <option disabled value="">Please select an option</option>
@@ -51,12 +51,12 @@
                                     <label>Start Date</label>
                                     <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown">
                                         <div class="input-group date">
-                                            <input type="text" class="form-control" data-ng-model="dateRangeStart">
+                                            <input type="text" class="form-control" data-ng-model="form.starts_at">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <datetimepicker data-ng-model="dateRangeStart" data-datetimepicker-config="{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed' }" data-on-set-time="startDateOnSetTime()" data-before-render="startDateBeforeRender($dates)"></datetimepicker>
+                                        <datetimepicker data-ng-model="form.starts_at" data-datetimepicker-config="{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed' }" data-on-set-time="startDateOnSetTime()" data-before-render="startDateBeforeRender($dates)"></datetimepicker>
                                     </ul>
                                 </div>
 
@@ -64,15 +64,15 @@
                                     <label>End Date</label>
                                     <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown">
                                         <div class="input-group date">
-                                            <input type="text" class="form-control" data-ng-model="dateRangeEnd">
+                                            <input type="text" class="form-control" data-ng-model="form.ends_at">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <datetimepicker data-ng-model="dateRangeEnd" data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed' }" data-on-set-time="endDateOnSetTime()" data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
+                                        <datetimepicker data-ng-model="form.ends_at" data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed' }" data-on-set-time="endDateOnSetTime()" data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
                                     </ul>
                                 </div>
-                                <p>Selected Date: {{ dateRangeStart}} - {{ dateRangeEnd }}</p>
+                                <p>Selected Date: {{ form.starts_at }} - {{ form.ends_at }}</p>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">Owner</label>
@@ -91,14 +91,23 @@
                             <div class="control-group">
                                 <label class="control-label">Location</label>
                                 <div class="controls">
-                                    <input ng-model="form.location" type="button" value="Select Location" ng-click="selectLocation()"/>
-                                    {{form.location}}
+                                    <input ng-model="form.location" type="button" value="Select Location" ng-click="selectLocation()" />
+                                    <input ng-model="locationName" ng-show="locationName" type="text" disabled="true">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Invite Users</label>
+                                <div class="controls">
+                                  <div style="padding-right: 30px;">
+                                    <multiple-autocomplete after-select-item="beforeSelectItem" ng-model="form.attendees" object-property="name" suggestions-arr="users">
+                                    </multiple-autocomplete>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-actions">
                                 {{form}}
-                                <input type="submit" ng-click="addEvent()" value="Add User" ng-disabled="true" class="btn btn-success">
-                                <div ng-show="responseMessage">{{responseMessage}}</div>
+                                <input type="submit" ng-click="addEvent()" value="Add Event" class="btn btn-success pull-right">
+                                <div ng-show="statusText">{{statusText}}</div>
                             </div>
                     </form>
                     </div>

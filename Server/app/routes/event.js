@@ -1,5 +1,6 @@
 module.exports = function(server) {
     var Event = require('../models/event');
+    var Location = require('../models/location');
     var User  = require('../models/user');
 
     //Returns all evemts
@@ -52,14 +53,6 @@ module.exports = function(server) {
     //Adding an event
     server.post('/event',
         function(req, res, next) {
-            //If type is not defined then throw error
-            if (!(req.body.type.toLowerCase() in req.global.eventType)) {
-                res.json({
-                    title: "Failed",
-                    message: "Event type must be of type " + Object.keys(req.global.eventType),
-                    error: error
-                });
-            }
 
             Location.findOne({
                 _id: req.body.location
@@ -89,25 +82,23 @@ module.exports = function(server) {
                         }
                         var event = new Event({
                             name: req.body.name,
-                            owner: {
-                                _id: owner._id,
-                                name: owner.name
-                            },
+                            owner: req.body.owner,
                             description: req.body.description,
                             image: req.body.image,
                             type: req.body.type,
-                            location: {
-                                _id: location._id,
-                                name: location.name
-                            },
-                            addedBy: {
-                                _id: req.user._id,
-                                name: req.user.name
-                            },
-                            attendees: req.body.attendees,
+                            location: req.body.location,
+                            addedBy: req.user._id,
+                            attendees: [],
                             starts_at: new Date(req.body.starts_at),
                             ends_at: new Date(req.body.ends_at)
                         });
+
+                        //Populate the Attendees
+                        req.body.attendees = JSON.parse(req.body.attendees);
+                        for(var i=0;i<req.body.attendees.length;i++){
+                          var attende = req.body.attendees[i];
+                          event.attendees.push({user: attende, status: "invited"});
+                        }
 
                         event.save(function(error) {
                             if (error) {
