@@ -1,5 +1,6 @@
 module.exports = function(server) {
     var Track = require('../models/track');
+    var Location = require('../models/location');
 
     //Polling
     //Returns all evemts
@@ -96,5 +97,5 @@ module.exports = function(server) {
       res.json({"pong": x});
     });
 
-    
+
 }

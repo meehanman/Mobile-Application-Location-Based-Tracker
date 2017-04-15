@@ -58,11 +58,21 @@ var whoami = function(callback){
     console.log("Failed to Login",fail);
   });
 }
+
+var getNotifications = function(callback){
+  $http.get('https://cloud.dean.technology/notifications').then(function(data){
+    callback(data);
+  }, function(fail){
+    console.log("Failed to get notifications",fail);
+    callback(fail);
+  });
+}
+
 var getUser = function(){
   return user;
 }
 return{
-  login, logout, isLoggedIn, getUser
+  login, logout, isLoggedIn, getUser, getNotifications
 }
 
 }]);
