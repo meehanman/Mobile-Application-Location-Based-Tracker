@@ -65,8 +65,9 @@
               <ul class="recent-posts">
                 <li ng-repeat="event in pastEvents">
                   <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
-                  <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
-                    <p><a href>{{event.name}}</a> </p>
+                  <div class="article-post">
+                    <span class="user-info"> <b><a href>{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
+                    <p>{{event.description}}</p>
                   </div>
                 <li>
                   <button class="btn btn-warning btn-mini">View All</button>
