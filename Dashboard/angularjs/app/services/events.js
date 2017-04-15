@@ -39,8 +39,16 @@ var add = function(eventObject, callback){
   });
 }
 
+var del = function(id, callback){
+    $http.delete('https://cloud.dean.technology/event/'+id).then(function(success){
+      callback(success);
+    }, function(fail){
+      callback(fail);
+    });
+  }
+
 return{
-  get, add
+  get, add, del
 }
 
 }]);

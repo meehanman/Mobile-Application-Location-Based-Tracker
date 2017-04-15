@@ -120,6 +120,25 @@ module.exports = function(server) {
             });
         });
 
+        server.del('/event/:id', function(req, res, next) {
+            Event.findByIdAndRemove({
+                _id: req.params.id
+            }, function(error, removed) {
+                if (error) {
+                    res.json({
+                        title: "Failed",
+                        message: "Could not delete event",
+                        error: error
+                    });
+                }
+                res.json({
+                    title: "Success",
+                    message: removed.name + " deleted.",
+                    place: removed
+                });
+            });
+        });
+
     //Add another user to an event
     server.post('/event/:eventID/attendee',
         function(req, res, next) {
