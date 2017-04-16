@@ -43,7 +43,7 @@ module.exports = function(server) {
         });
     });
 
-    //Returns all evemts sorted by time
+    //Returns all events sorted by time after this morning
     server.get('/event/upcoming', function(req, res) {
         var startOfToday = new Date();
         startOfToday.setHours(0, 0, 0, 0);
@@ -79,7 +79,7 @@ module.exports = function(server) {
         });
     });
 
-    //Returns all evemts sorted by time
+    //Returns all events sorted by time from yesterday
     server.get('/event/previous', function(req, res) {
         var startOfToday = new Date();
         startOfToday.setHours(0, 0, 0, 0);
@@ -88,7 +88,7 @@ module.exports = function(server) {
                 $lte: startOfToday
             }
         }).sort({
-            starts_at: 1
+            starts_at: -1
         }).populate('attendees').exec(function(error, events) {
             if (error) {
                 res.json({
@@ -102,12 +102,9 @@ module.exports = function(server) {
         });
     });
 
-    //Gets information about a certain event
-    server.get('/event/:id',
-        function(req, res) {
-            Event.findOne({
-                _id: req.params.id
-            }, function(error, event) {
+    //Gets all information about a certain event
+    server.get('/event/:id', function(req, res) {
+            Event.findOne({_id: req.params.id}).populate('location').populate('attendees.user', 'name image').exec(function(error, event) {
                 if (error) {
                     res.json({
                         title: "Failed",
@@ -115,22 +112,8 @@ module.exports = function(server) {
                         error: error
                     });
                 }
-                Location.findOne({
-                    _id: event.location._id
-                }, function(error, location) {
-                    if (error) {
-                        res.json({
-                            title: "Failed",
-                            message: "Could not find event location",
-                            _id: event.location._id,
-                            name: event.location.name,
-                            error: error
-                        });
-                    }
-                    event = event.toJSON();
-                    event.location = location.toJSON();
-                    res.json(event);
-                });
+
+                res.json(event);
             });
         });
 
@@ -226,7 +209,7 @@ module.exports = function(server) {
         });
     });
 
-    //Edits the status for a user in an event
+    //Edits the status for the current user in an event
     server.put('/event/:eventID/:status', function(req, res, next) {
         console.log(req.params.user);
         if (!req.params.eventID || !req.params.status) {
@@ -289,149 +272,7 @@ module.exports = function(server) {
         });
     });
 
-
-    //Remove user from event
-    server.del('/event/:eventID/attendee',
-        function(req, res, next) {
-            if (!eventID || !req.body.attendee) {
-                res.json({
-                    title: "Failed",
-                    message: "Please provide an event id and attendee to remove.",
-                    error: error
-                });
-            }
-            Event.findOne({
-                _id: req.params.eventID
-            }, function(error, event) {
-                if (error) {
-                    res.json({
-                        title: "Failed",
-                        message: "Could not find event",
-                        error: error
-                    });
-                }
-                User.findOne({
-                    _id: req.body.attendee
-                }, function(error, user) {
-                    if (error) {
-                        res.json({
-                            title: "Failed",
-                            message: "Could not find user with ID: " + req.body.attendee,
-                            error: error
-                        });
-                    }
-                    event.attendees = event.attendees.filter(function(el) {
-                        return el._id !== user._id;
-                    });
-
-                    event.save(function(err, eventSave) {
-                        if (error) {
-                            res.json({
-                                title: "Failed",
-                                message: "Could not add user to event.",
-                                error: error
-                            });
-                        }
-                        res.json({
-                            title: "Success",
-                            name: event.name,
-                            attendee: user.name,
-                            message: "User successfully removed from event."
-                        });
-                    });
-
-                });
-            });
-        });
-
-    server.post('/event/:id/:status', function(req, res) {
-        req.params.status = req.params.status.toLowerCase();
-        if (req.params.status == "accept" || req.params.status == "decline") {
-
-            if (req.params.status == "accept") {
-                req.params.status = req.global.eventStatus.accepted;
-            }
-
-            if (req.params.status == "decline") {
-                req.params.status = req.global.eventStatus.declined;
-            }
-
-            Event.findOne({
-                _id: req.params.id
-            }, function(error, event) {
-                if (error) {
-                    console.log("Error");
-                    res.json({
-                        title: "Failed",
-                        message: "Could not list event.",
-                        error: error
-                    });
-                }
-                //Find the current user
-                var match = false;
-                for (var i = 0; i < event.attendees.length; i++) {
-                    if (String(event.attendees[i]._id) == String(req.user._id)) {
-                        event.attendees[i].status = req.params.status;
-                        match = true;
-                        break;
-                    }
-                }
-
-                if (match) {
-                    event.save(function(error) {
-                        if (error) {
-                            res.json({
-                                title: "Failed",
-                                message: "Could not update event",
-                                error: error
-                            });
-                        }
-                        res.json({
-                            title: "Success",
-                            status: req.params.status,
-                            name: event.name,
-                            message: "User status for event changed"
-                        });
-                    })
-                } else {
-                    res.json({
-                        title: "Failed",
-                        message: "User not invited to event",
-                    });
-                }
-
-            });
-        } else {
-            res.json({
-                title: "Failed",
-                message: "Event status for user may only be set to accepted or declined",
-                status: req.params.status,
-                expected: [req.global.eventStatus.accepted, req.global.eventStatus.declined]
-            });
-        }
-    });
-
-    //Returns the events a user is invited to
-    server.get('/user/events', function(req, res) {
-        Event.find({
-            'attendees': {
-                $elemMatch: {
-                    _id: req.user._id
-                }
-            }
-        }, function(error, events) {
-            if (error) {
-                res.json({
-                    title: "Failed",
-                    message: "Could not get events for user",
-                    error: error
-                });
-            }
-            res.json(events);
-        });
-    });
-
-    //Returns all events that the user needs to accept or deny
+    //Returns all events that the user is invited to
     server.get('/notifications', function(req, res) {
         Event.find({
             'attendees': {

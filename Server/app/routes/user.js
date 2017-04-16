@@ -4,6 +4,33 @@ module.exports = function(server) {
 
     //Returns all users
     server.get('/user', function(req, res) {
+        User.findOne({
+            user: req.user._id
+        }, function(error, users) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not list all users.",
+                    error: error
+                });
+            }
+            var out = [];
+            for (i in users) {
+                var user = users[i];
+                out.push({
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    location: user.location,
+                    image: user.image
+                })
+            }
+            res.json(out);
+        });
+    });
+
+    //Returns all users
+    server.get('/user/all', function(req, res) {
         User.find({}, function(error, users) {
             if (error) {
                 res.json({

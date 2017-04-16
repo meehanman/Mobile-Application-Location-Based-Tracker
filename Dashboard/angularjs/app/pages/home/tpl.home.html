@@ -1,91 +1,91 @@
 <!--breadcrumbs-->
-  <div id="content-header">
+<div id="content-header">
     <div id="breadcrumb"> <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
-  </div>
+</div>
 <!--End-breadcrumbs-->
 
 <!--Action boxes-->
-  <div class="container-fluid">
+<div class="container-fluid">
     <div class="quick-actions_homepage">
-      <ul class="quick-actions">
-        <li class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i> <span class="label label-important">20</span> My Dashboard </a> </li>
-        <li class="bg_lg span3"> <a href="charts.html"> <i class="icon-signal"></i> Charts</a> </li>
-        <li class="bg_ly"> <a href="widgets.html"> <i class="icon-inbox"></i><span class="label label-success">101</span> Widgets </a> </li>
-        <li class="bg_lo"> <a href="tables.html"> <i class="icon-th"></i> Tables</a> </li>
-        <li class="bg_ls"> <a href="grid.html"> <i class="icon-fullscreen"></i> Full width</a> </li>
-        <li class="bg_lo span3"> <a href="form-common.html"> <i class="icon-th-list"></i> Forms</a> </li>
-        <li class="bg_ls"> <a href="buttons.html"> <i class="icon-tint"></i> Buttons</a> </li>
-        <li class="bg_lb"> <a href="interface.html"> <i class="icon-pencil"></i>Elements</a> </li>
-        <li class="bg_lg"> <a href="calendar.html"> <i class="icon-calendar"></i> Calendar</a> </li>
-        <li class="bg_lr"> <a href="error404.html"> <i class="icon-info-sign"></i> Error</a> </li>
-
-      </ul>
+        <ul class="quick-actions">
+            <li class="bg_lb">
+                <a href> <i class="icon-dashboard"></i> <span class="label label-important">20</span> My Dashboard </a>
+            </li>
+        </ul>
     </div>
 
     <hr/>
     <div class="row-fluid">
 
-      <!-- Left Side -->
-      <div class="span6">
+        <!-- Left Side -->
+        <div class="span6">
 
-        <div class="widget-box">
-          <div class="widget-title" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
-            <h5>Your Upcoming Events</h5>
-          </div>
-          <div class="widget-content nopadding collapse in" id="collapseG2">
-            <ul class="recent-posts">
-              <li ng-repeat="event in upcomingEvents">
-                <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
-                <div class="article-post">
-                  <span class="user-info"> <b><a href>{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
-                  <p>{{event.description}}</p>
-                  <p>
-                      <button data-model="event.dropdown = false" ng-show="!event.dropdown" class="btn btn-mini" ng-class="{ 'btn-success': event.requestedUserStatus=='accepted', 'btn-danger': event.requestedUserStatus=='declined', 'btn-warning': event.requestedUserStatus=='invited'}" ng-click="event.dropdown = true">
+            <div class="widget-box">
+                <div class="widget-title" data-toggle="collapse" href="#collapseG1"><span class="icon"><i class="icon-chevron-down"></i></span>
+                    <h5>Your Upcoming Events</h5>
+                </div>
+                <div class="widget-content nopadding collapse in" id="collapseG1">
+                    <ul class="recent-posts">
+                        <li ng-repeat="event in upcomingEvents">
+                            <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
+                            <div class="article-post">
+                                <span class="user-info"> <b><a href>{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
+                                <p>{{event.description}}</p>
+                                <p>
+                                    <button data-model="event.dropdown = false" ng-show="!event.dropdown" class="btn btn-mini" ng-class="{ 'btn-success': event.requestedUserStatus=='accepted', 'btn-danger': event.requestedUserStatus=='declined', 'btn-warning': event.requestedUserStatus=='invited'}"
+                                        ng-click="event.dropdown = true">
                         <span ng-if="event.requestedUserStatus=='invited'">Please respond to invitation <span class="caret"></span></span>
                         <span ng-if="event.requestedUserStatus!='invited'">{{event.requestedUserStatus | capitalize}}</span></span>
                       </button>
-                      <button ng-if="event.dropdown" ng-show="event.dropdown" data-toggle="dropdown" class="btn btn-success btn-mini">
+                                    <button ng-if="event.dropdown" ng-show="event.dropdown" data-toggle="dropdown" class="btn btn-success btn-mini">
                         <span ng-click="updateEventStatus(event._id, 'accepted')">Accept</span>
                       </button>
-                      <button ng-if="event.dropdown" ng-show="event.dropdown" data-toggle="dropdown" class="btn btn-danger btn-mini">
+                                    <button ng-if="event.dropdown" ng-show="event.dropdown" data-toggle="dropdown" class="btn btn-danger btn-mini">
                         <span ng-click="updateEventStatus(event._id, 'declined')">Decline</span>
                       </button>
-                  </p>
+                                </p>
+                            </div>
+                            <li>
+                                <button class="btn btn-warning btn-mini">View All</button>
+                            </li>
+                    </ul>
                 </div>
-              <li>
-                <button class="btn btn-warning btn-mini">View All</button>
-              </li>
-            </ul>
-          </div>
-          <div class="widget-box">
-            <div class="widget-title" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
-              <h5>Your Past Events</h5>
             </div>
-            <div class="widget-content nopadding collapse in" id="collapseG2">
-              <ul class="recent-posts">
-                <li ng-repeat="event in pastEvents">
-                  <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
-                  <div class="article-post">
-                    <span class="user-info"> <b><a href>{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
-                    <p>{{event.description}}</p>
-                  </div>
-                <li>
-                  <button class="btn btn-warning btn-mini">View All</button>
-                </li>
-              </ul>
+            <div class="widget-box">
+                <div class="widget-title" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
+                    <h5>Your Past Events</h5>
+                </div>
+                <div class="widget-content nopadding collapse in" id="collapseG2">
+                    <ul class="recent-posts">
+                        <li ng-repeat="event in pastEvents">
+                            <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
+                            <div class="article-post">
+                                <span class="user-info"> <b><a href>{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
+                                <p>{{event.description}}</p>
+                            </div>
+                            <li>
+                                <button class="btn btn-warning btn-mini">View All</button>
+                            </li>
+                    </ul>
+                </div>
             </div>
-          </div>
+
         </div>
 
-      </div>
-
-      <!-- Right Side -->
-      <div class="span6">
-
-      </div>
+        <!-- Right Side -->
+        <div class="span6">
+            <div class="widget-box">
+                <div class="widget-title" data-toggle="collapse" href="#collapseR1"><span class="icon"><i class="icon-chevron-down"></i></span>
+                    <h5>Chart Test</h5>
+                </div>
+                <div class="widget-content collapse in" id="collapseR1">
+                    <canvas id="pie" style="height:100px;" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 
 
-<!--End-Action boxes-->
+    <!--End-Action boxes-->
 
-  </div>
+</div>
