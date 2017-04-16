@@ -2,7 +2,7 @@
 # MALBT Server
 
 This server provides a restful api interface for the MALBT dashboard running on
-the url `https://cloud.dean.technology`
+the url <https://cloud.dean.technology>
 
 ## API Reference
 
@@ -48,16 +48,14 @@ by providing a function that simply deletes the saved user Authorization token.
 
 
 ### ```GET /whoami```
-As there is no login function, there is a route available that will return basic
-information about a user as long as Authentication is correct.
+> As there is no login function, there is a route available that will return basic
+> information about a user as long as Authentication is correct.
 
-> **Returns:** A user object containing basic user information
+**Returns:** A user object containing basic user information
 
 ### ```GET /favicon.ico```
 
-> **Returns:** Returns a favicon for the project
-
----
+**Returns:** Returns a favicon for the project
 
 ## User Routes
 
@@ -78,38 +76,86 @@ information about a user as long as Authentication is correct.
 
 ### ```PUT /user```
 **Returns:** Passing in a User object will edit the user details that have changed
- (Restricted to admin users)
+(Restricted to admin users)
 
----
+## Event Routes
 
- ## Event Routes
-
- ### ```GET /event```
+### ```GET /event```
 **Returns:** Returns all the current user's events sorted with newest first
 
- ### ```GET /event/all```
+### ```GET /event/all```
 **Returns:** Returns all events sorted with newest first (Restricted to admin users)
 
- ### ```GET /event/upcoming```
+### ```GET /event/upcoming```
 **Returns:** Returns all the current user's events from today on, sorted with next first
 
- ### ```GET /event/previous```
+### ```GET /event/previous```
 **Returns:** Returns all the current user's past events, sorted with most recent first
 
- ### ```GET /event/:id```
+### ```GET /event/:id```
 **Returns:** Returns all data about an event with the id :id (Restricted to admin users)
 
- ### ```POST /event```
+### ```POST /event```
 **Returns:** Creates a new event
 
- ### ```DELETE /event/:id```
+### ```DELETE /event/:id```
 **Returns:** Deletes an event with the id :id (Users can delete their own events, while admins can delete all events)
 
- ### ```PUT /event/:id```
+### ```PUT /event/:id```
 **Returns:** Edits an event with the id :id with the object provided.
 
- ### ```PUT /event/:id/:status```
+### ```PUT /event/:id/:status```
 **Returns:** Changes the status for the current logged in user for the event :id to the status :status
 
- ### ```PUT /notifications```
+### ```PUT /notifications```
 **Returns:** Returns an object detailing events the current logged in user needs to accept or decline (Events stuck in the invited status)
+
+## Location Routes
+
+The location object holds more specific information about a lecture hall, classroom,
+or room within a place. They should be specified with basic details plus location
+specific information such as `floor`, max people, services available, `beaconid`, `gps
+coordinates` and `access point BSSID`. These are used for tracking attendance and
+utilization.
+
+### ```GET /location```
+**Returns:** Returns all locations
+
+### ```GET /location/:id```
+**Returns:** Returns all data stored about a location with id :id
+
+### ```GET /location/near/:x/:y/:distance```
+**Returns:** Returns all locations in order of distance to a geolocation :x, :y limited to a distance in meters specified in :distance
+
+### ```POST /location```
+**Returns:** Adds a new location (Restricted to admin users)
+
+### ```DELETE /location/:id```
+**Returns:** Deletes the location with :id (Restricted to admin users)
+
+### ```PUT /location```
+**Returns:** Edits a location, the location is specified from the location object PUT's `id` field (Restricted to admin users)
+
+## Place Routes
+
+The place object is used by locations to specify where they are. They contain
+basic location information such as address and also can contain a parent place.
+The idea behind this will allow buildings and groups of buildings to be linked
+together such as "EEECS Building, Ashby Building, Students Union can all have
+the parent place Queens University Belfast. The EEECS Building can then be
+the master place of 'EEECS Stranmillis Rd' and 'EEECS Elmwood'"
+
+### ```GET /place```
+**Returns:** Returns all locations
+
+### ```GET /place/:id```
+**Returns:** Returns all data stored about a place with id :id
+
+### ```POST /place```
+**Returns:** Adds a new place (Restricted to admin users)
+
+### ```DELETE /place/:id```
+**Returns:** Deletes the place with :id (Restricted to admin users)
+
+### ```PUT /place```
+**Returns:** Edits a place, the place is specified from the place object PUT's `id` field (Restricted to admin users)
