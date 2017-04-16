@@ -1,5 +1,11 @@
 app.controller('LoginCtrl', function($scope, Auth){
-    $scope.username = "d3an.meehan@hotmail.com";
-    $scope.password = "D4cn14u6";
-    $scope.auth = Auth;
+    $scope.username = "";
+    $scope.password = "";
+    $scope.message;
+
+    $scope.login = function(){
+      Auth.login($scope.username, $scope.password, function(data){
+        $scope.message = data.data.message;
+      });
+    }
 });

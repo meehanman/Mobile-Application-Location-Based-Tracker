@@ -28,17 +28,17 @@ var isLoggedIn = function(){
     load();
     return(user)? user : false;
 }
-var login = function(u,p){
+var login = function(u,p, callback){
   //Save Auth Header to Storage
   setAuthHeader(btoa(u+":"+p));
   //Set Auth Header for all remaining requests
   setAuthHeader(localStorageService.get('authEncoded'));
   //Authenticate the user with the header set
-  whoami(function(){
+  whoami(function(data){
     if(isLoggedIn()){
       $location.path('/dashboard');
     }else{
-      alert("Username or Password Incorrect.");
+      callback(data);
     }
   });
 }
@@ -51,11 +51,10 @@ var whoami = function(callback){
   $http.get('https://cloud.dean.technology/whoami').then(function(user){
     setUser(user.data);
     console.info(user.data.name+" logged in",user);
-    if(typeof callback === "function"){
-      callback();
-    }
+    callback(user);
   }, function(fail){
     console.log("Failed to Login",fail);
+    callback(fail);
   });
 }
 

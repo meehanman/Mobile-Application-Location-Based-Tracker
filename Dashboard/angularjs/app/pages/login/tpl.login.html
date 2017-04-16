@@ -16,7 +16,8 @@
             </div>
         </div>
         <div class="form-actions">
-            <span class="pull-right"><a type="submit" ng-click="auth.login(username, password)" class="btn btn-success"> Login</a></span>
+            <div class="alert alert-info" ng-show="message">{{message}}</div>
+            <span class="pull-right"><a type="submit" ng-click="login()" class="btn btn-success"> Login</a></span>
         </div>
     </form>
 </div>

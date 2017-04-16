@@ -17,7 +17,7 @@
 <div class="container-fluid">
     <div class="quick">
         <hr>
-        <div class="widget-box" ng-if="events">
+        <div class="widget-box" ng-if="events.length>0">
             <div class="widget-title"> <span class="icon"> <i class="icon-refresh"></i> </span>
                 <h5>All Event</h5>
                 <div id="search">
@@ -53,6 +53,9 @@
         </div>
         <div class="alert alert-info" ng-if="!events">
             Loading...
+        </div>
+        <div class="alert alert-info" ng-if="events.length==0">
+            There are no events.
         </div>
     </div>
 </div>

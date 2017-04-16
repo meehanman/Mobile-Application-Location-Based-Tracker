@@ -4,9 +4,7 @@ module.exports = function(server) {
 
     //Returns all users
     server.get('/user', function(req, res) {
-        User.findOne({
-            user: req.user._id
-        }, function(error, users) {
+        User.findOne({}, function(error, users) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -44,7 +42,7 @@ module.exports = function(server) {
                 var user = users[i];
                 out.push({
                     id: user._id,
-                    name: user.name,
+                    name: user.name.replace(/\b\w/g, l => l.toUpperCase()),
                     email: user.email,
                     location: user.location,
                     image: user.image
@@ -101,7 +99,7 @@ module.exports = function(server) {
                     name: req.body.name,
                     email: req.body.email,
                     password: hash,
-                    admin: req.body.admin,
+                    admin: !!req.body.admin,
                     location: req.body.location,
                     image: req.body.image,
                     groups: {
@@ -148,30 +146,31 @@ module.exports = function(server) {
         });
     });
 
-    server.put('/user', function(req, res, next) {
-        User.findById(req.body.id, function(error, user) {
+    server.put('/user/:id', function(req, res, next) {
+        User.findById(req.params.id, function(error, user) {
             if (error) {
                 res.json({
                     title: "Failed",
                     message: "Could not edit user",
                     error: error
                 });
+                console.log("ERROR");
             }
 
-            var save = function(s) {
-                console.log(s);
-
+            var save = function() {
                 user.name = req.body.name;
                 user.location = req.body.location;
-                user.admin = req.body.admin;
+                user.admin = !!req.body.admin;
 
                 user.save(function(error, updated) {
                     if (error) {
+                        console.log("Save3");
                         res.json({
                             title: "Failed",
                             message: "Could not edit User",
                             error: error
                         });
+                        return;
                     }
                     res.json({
                         title: "Success",

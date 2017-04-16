@@ -14,7 +14,7 @@
 <!--Action boxes-->
   <div class="container-fluid">
     <div class="quick">
-      <div class="widget-box">
+      <div class="widget-box" ng-if="places.length>0">
             <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
               <h5>All Places</h5>
               <div id="search">
@@ -57,9 +57,12 @@
                 </tbody>
               </table>
             </div>
-            <div class="alert alert-info" ng-if="!places">
-              Loading...
-            </div>
+          </div>
+          <div class="alert alert-info" ng-if="!places">
+            Loading...
+          </div>
+          <div class="alert alert-info" ng-if="places.length==0">
+              There are no places.
           </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 app.controller('locationsCtrl', [ '$scope', 'Locations', 'ModalService', function($scope, Locations, ModalService){
-    $scope.locations = [];
+    $scope.locations;
 
     $scope.refresh = function() {
         Locations.get(function(locations) {

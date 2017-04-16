@@ -104,87 +104,74 @@ module.exports = function(server) {
 
     //Gets all information about a certain event
     server.get('/event/:id', function(req, res) {
-            Event.findOne({_id: req.params.id}).populate('location').populate('attendees.user', 'name image').exec(function(error, event) {
-                if (error) {
-                    res.json({
-                        title: "Failed",
-                        message: "Could not list event.",
-                        error: error
-                    });
-                }
-
-                res.json(event);
-            });
+        Event.findOne({
+            _id: req.params.id
+        }).populate('location', 'name').populate('attendees.user', 'name image').exec(function(error, event) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not list event.",
+                    error: error
+                });
+            }
+            res.json(event);
         });
+    });
 
     //Adds a new event
     server.post('/event',
         function(req, res, next) {
 
-            Location.findOne({
-                _id: req.body.location
-            }, function(error, location) {
-                if (error) {
-                    res.json({
-                        title: "Failed",
-                        message: "No location found with ID provided",
-                        error: error
+          if(!req.body.image){
+            res.json({
+                title: "Failed",
+                message: "Event Add Failed. You must submit an image.",
+                error: error
+            });
+          }
+
+            server.upload(req.body.image, function(img) {
+                if (img != false) {
+                    req.body.image = img;
+                } else {
+                    delete req.body.image;
+                }
+                var event = new Event({
+                    name: req.body.name,
+                    owner: req.body.owner,
+                    description: req.body.description,
+                    image: req.body.image,
+                    type: req.body.type,
+                    location: req.body.location,
+                    addedBy: req.user._id,
+                    attendees: [],
+                    starts_at: new Date(req.body.starts_at),
+                    ends_at: new Date(req.body.ends_at)
+                });
+
+                //Populate the Attendees
+                req.body.attendees = JSON.parse(req.body.attendees);
+                for (var i = 0; i < req.body.attendees.length; i++) {
+                    var attende = req.body.attendees[i];
+                    event.attendees.push({
+                        user: attende,
+                        status: "invited"
                     });
                 }
-                User.findOne({
-                    _id: req.body.owner
-                }, function(error, owner) {
+
+                event.save(function(error) {
                     if (error) {
                         res.json({
                             title: "Failed",
-                            message: "No owner found with ID provided",
+                            message: "Event Add Failed",
                             error: error
                         });
                     }
-                    server.upload(req.body.image, function(img) {
-                        if (img != false) {
-                            req.body.image = img;
-                        } else {
-                            delete req.body.image;
-                        }
-                        var event = new Event({
-                            name: req.body.name,
-                            owner: req.body.owner,
-                            description: req.body.description,
-                            image: req.body.image,
-                            type: req.body.type,
-                            location: req.body.location,
-                            addedBy: req.user._id,
-                            attendees: [],
-                            starts_at: new Date(req.body.starts_at),
-                            ends_at: new Date(req.body.ends_at)
-                        });
-
-                        //Populate the Attendees
-                        req.body.attendees = JSON.parse(req.body.attendees);
-                        for (var i = 0; i < req.body.attendees.length; i++) {
-                            var attende = req.body.attendees[i];
-                            event.attendees.push({
-                                user: attende,
-                                status: "invited"
-                            });
-                        }
-
-                        event.save(function(error) {
-                            if (error) {
-                                res.json({
-                                    title: "Failed",
-                                    message: "Event Add Failed",
-                                    error: error
-                                });
-                            }
-                            res.json({
-                                title: "Success",
-                                id: event._id,
-                                name: event.name,
-                                message: "Event Successfully Added"
-                            });
-                        });
+                    res.json({
+                        title: "Success",
+                        id: event._id,
+                        name: event.name,
+                        message: "Event Successfully Added"
                     });
                 });
             });
@@ -211,7 +198,6 @@ module.exports = function(server) {
 
     //Edits the status for the current user in an event
     server.put('/event/:eventID/:status', function(req, res, next) {
-        console.log(req.params.user);
         if (!req.params.eventID || !req.params.status) {
             res.json({
                 title: "Failed",
@@ -269,6 +255,44 @@ module.exports = function(server) {
                     users: event.attendees
                 });
             }
+        });
+    });
+
+    //Edits the status for the current user in an event
+    server.put('/event/:id', function(req, res, next) {
+
+        //Find event
+        Event.findOne({
+            _id: req.params.id
+        }, function(error, foundEvent) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not find event",
+                    error: error
+                });
+            }
+
+            foundEvent.name = req.body.name;
+            foundEvent.description = req.body.description;
+            foundEvent.starts_at = req.body.starts_at;
+            foundEvent.ends_at = req.body.ends_at;
+            foundEvent.type = req.body.type;
+            foundEvent.location = req.body.location;
+
+            foundEvent.save(function(error, success) {
+                if (error) {
+                    res.json({
+                        title: "Failed",
+                        message: "Could not save event",
+                        error: error
+                    });
+                }
+                res.json({
+                    title: "Success",
+                    message: "Updated Status Successfully",
+                });
+            });
         });
     });
 

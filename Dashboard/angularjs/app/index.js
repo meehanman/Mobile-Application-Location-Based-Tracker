@@ -48,6 +48,12 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
                 templateUrl: 'app/pages/events.add/tpl.events.add.html',
                 controller: 'EventAddCtrl'
             })
+            .state('events.edit', {
+                url: '/events/edit/:id',
+                parent: 'common',
+                templateUrl: 'app/pages/events.edit/tpl.events.edit.html',
+                controller: 'EventEditCtrl'
+            })
             .state('locations', {
                 url: '/locations',
                 parent: 'common',

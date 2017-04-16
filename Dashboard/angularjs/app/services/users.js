@@ -2,9 +2,17 @@ app.factory('Users', ['$rootScope', '$http', function($rootScope, $http){
 var users;
 
 var getUsers = function(callback){
+  $http.get('https://cloud.dean.technology/user/all').then(function(user){
+    users = user.data;
+    callback(users);
+  }, function(fail){
+    callback(fail);
+  });
+}
+
+var getUser = function(callback){
   $http.get('https://cloud.dean.technology/user').then(function(user){
     users = user.data;
-    console.log(user);
     callback(users);
   }, function(fail){
     callback(fail);
@@ -55,7 +63,7 @@ var del = function(id, callback){
   var update = function(user, callback){
     $http({
       method: 'PUT',
-      url: 'https://cloud.dean.technology/user',
+      url: 'https://cloud.dean.technology/user/'+user.id,
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       transformRequest: function(obj) {
           var str = [];
@@ -72,7 +80,7 @@ var del = function(id, callback){
   }
 
 return{
-  getUsers, addUser, del, getOne, update
+  getUsers, getUser, getOne, addUser, del, update
 }
 
 }]);

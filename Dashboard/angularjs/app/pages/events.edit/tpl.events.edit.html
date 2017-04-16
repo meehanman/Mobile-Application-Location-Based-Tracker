@@ -1,0 +1,121 @@
+<!--breadcrumbs-->
+<div id="content-header">
+    <div id="breadcrumb">
+        <a href ng-click="nav('events')" class="tip-bottom"><i class="icon-home"></i> Events</a>
+        <a href class="tip-bottom"> Edit</a></div>
+    <h1>Edit Event</h1>
+</div>
+<!--End-breadcrumbs-->
+
+<!--Action boxes-->
+<div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>Edit Event</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <form class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label">Name*</label>
+                            <div class="controls">
+                                <input ng-model="form.name" type="text" required placeholder="My Event" ng-disabled="!editing"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Description</label>
+                            <div class="controls">
+                                <textarea ng-model="form.description" placeholder="Short description about the event" ng-disabled="!editing"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Type</label>
+                            <div class="controls">
+                                <select name="select2-container" ng-model="form.type" ng-disabled="!editing">
+                                  <option disabled value="">Please select an option</option>
+                                  <option value="meeting">Meeting</option>
+                                  <option value="event">Event</option>
+                                  <option value="party">Party</option>
+                                  <option value="conference">Conference</option>
+                                  <option value="lecture">Lecture</option>
+                                  <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Event Time</label>
+                            <div class="controls">
+                                <div class="dropdown form-group">
+                                    <label>Start Date</label>
+                                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" data-ng-model="form.starts_at">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <datetimepicker data-ng-model="form.starts_at" data-datetimepicker-config="{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed' }" data-on-set-time="startDateOnSetTime()" data-before-render="startDateBeforeRender($dates)"></datetimepicker>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown form-group">
+                                    <label>End Date</label>
+                                    <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" data-ng-model="form.ends_at">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <datetimepicker data-ng-model="form.ends_at" data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed' }" data-on-set-time="endDateOnSetTime()" data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
+                                    </ul>
+                                </div>
+                                <p>Selected Date: {{ form.starts_at | date:'dd MMM, yy HH:mm'}} - {{ form.ends_at | date:'dd MMM, yy HH:mm'}}</p>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Owner</label>
+                                <div class="controls">
+                                    <input ng-model="owner.name" type="text" disabled />
+                                    <input ng-model="form.owner" type="hidden">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Event Image(max 5MB)</label>
+                                <div class="controls">
+                                    <input type="file" ng-model="image" ng-change="form.image='data:'+image.filetype +';base64,'+ image.base64" accept="image/*" maxsize="5000" base-sixty-four-input ng-disabled="!editing">
+                                    <img ng-src="{{form.image}}" ng-show="form.image" width="50px" height="50px" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Location</label>
+                                <div class="controls">
+                                    <input ng-model="form.location" type="button" value="Select Location" ng-click="selectLocation()" ng-disabled="!editing"/>
+                                    <input ng-model="locationName" ng-show="locationName" type="text" disabled="true">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Invited Users {{form.attendees.length}}</label>
+                                <div class="controls">
+                                  <div ng-repeat="attendee in form.attendees">
+                                    <img ng-src="{{attendee.user.image}}" style="border-radius: 50%;float:left;margin-bottom:10px;" title="{{attendee.status+' '+attendee.user.name}}" width="50px"/>
+                                  </div>
+                                </br>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                              <div class="alert alert-info" ng-show="statusText">{{statusText}}</div>
+                              <input type="submit" ng-click="refresh(); editing = false" value="Reset" ng-disabled="false" class="btn">
+                              <input type="submit" ng-click="redrawMap(); editing = true" value="Edit" ng-show="!editing" ng-disabled="false" class="btn btn-warning pull-right">
+                              <input type="submit" ng-click="update()" value="Save" ng-show="editing" ng-disabled="false" class="btn btn-success pull-right">
+                            </br>                              {{form}}
+
+                            </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End-Action boxes-->

@@ -67,30 +67,28 @@ server.use(function(req, res, next) {
     if (!req.authorization.basic.username || !req.authorization.basic.password) {
         next(new restify.NotAuthorizedError("Username and/or Password is empty"));
     }
-    User.findOne({
-            email: req.authorization.basic.username
-        })
-        .then(function(user) {
+    User.findOne({email: req.authorization.basic.username}).then(function(user) {
             // Ensure that user is not anonymous; and
             // That user exists; and
-            if (req.username == 'anonymous' || !user) {
+            if (!user) {
                 // Respond with { code: 'NotAuthorized', message: '' }
                 console.log("Auth: [ ]");
                 next(new restify.NotAuthorizedError("Username and/or Password is incorrect"));
-            }
-            // Verifying the supplied password hash with the hash stored in the DB
-            passwordhash(req.authorization.basic.password).verifyAgainst(user.password, function(error, verified) {
-                if (error)
-                    throw new Error('Something went wrong!');
-                if (!verified) {
-                    console.log("Auth# [ ]");
-                }
-                console.log("Auth: [/]");
-                //Assign user to request object
-                req.user = user;
-                next();
+            }else{
+              // Verifying the supplied password hash with the hash stored in the DB
+              passwordhash(req.authorization.basic.password).verifyAgainst(user.password, function(error, verified) {
+                  if (error)
+                      throw new Error('Something went wrong!');
+                  if (!verified) {
+                      next(new restify.NotAuthorizedError("Username and/or Password is incorrect"));
+                  }
+                  console.log("Auth: [/]");
+                  //Assign user to request object
+                  req.user = user;
+                  next();
 
-            });
+              });
+            }
         })
         .error(function(error) {
             console.log("Database Error");
