@@ -75,6 +75,29 @@ module.exports = function(server) {
         });
     });
 
+    //Returns the ID and Name of a user by email
+    server.post('/user/email', function(req, res) {
+        User.findOne({
+            email: req.body.email
+        }, function(error, user) {
+            if (error || !user) {
+                res.json(404, {
+                    title: "Failed",
+                    message: "Could not find user with email " + req.body.email,
+                    error: error
+                });
+            }
+            if(user){
+              res.json({
+                  id: user._id,
+                  name: user.name.replace(/\b\w/g, l => l.toUpperCase())
+              });
+            }
+        });
+    });
+
+
+
     //Adding a User
     server.post('/user', function(req, res, next) {
         //Salt and Hash Password

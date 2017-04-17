@@ -1,84 +1,55 @@
-<style rel="stylesheet">
-    .left {
-        background: #4b81ff;
-        background: -webkit-linear-gradient(left, #4b81ff, #a55899);
-        background: -o-linear-gradient(right, #4b81ff, #a55899);
-        background: -moz-linear-gradient(right, #4b81ff, #a55899);
-        background: linear-gradient(to right, #4b81ff, #a55899);
-        color: white;
-
-        position: absolute;
-        width: 50vw;
-        height: 100vh;
-        margin-left: 0vw;
-        z-index:50;
-    }
-
-    .right {
-        background-color: #f3f3f3;
-        color: black;
-        position: absolute;
-        width: 50vw;
-        height: 100vh;
-        margin-left: 50vw;
-        z-index: -50;
-        z-index:50;
-    }
-
-    .loc-info-main {
-        background-color: white;
-        height: 100vh;
-        margin-top: 10px;
-        z-index: 50;
-        background-color: white;
-        cursor: default;
-    }
-
-    .top {
-        color: white;
-        height: 70px;
-        line-height: 70px;
-        position: absolute;
-        width:100vw;
-        z-index: 100;
-        padding-left: 30px;
-        background-color: #2E363F;
-        font-family: 'Open Sans', sans-serif;
-
-    }
-    .top div{
-      display:inline-block;
-      float:left;
-      height:70px;
-    }
-    .inner{
-      padding-top:70px;
-    }
-</style>
-
 <div class="loc-info-main">
 
     <div class="top">
         <div style="">
-          <div style="font-size:30px;font-weight: 800;">MALBT</div>
-          <div style="font-size:40px;padding-left:50px;">{{location.name}}</div>
+            <div style="font-size:30px;font-weight: 800;">MALBT</div>
+            <div style="font-size:25px;padding-left:50px;font-weight: 500;">{{location.name}}</div>
         </div>
         <div style="float:right;right: 0px;margin-right: 50px;line-height: 20px;font-size: 15px;margin-top: 14px;color: #d6d6d6;">{{date | date: 'EEEE'}}<br>{{date | date: 'd MMM, yy'}}</div>
-        <div style="float:right;right: 0px;margin-right: 35px;font-size: 35px;" class="ng-binding">{{date | date: 'H:MM'}}<span style="font-size: 18px;color: #d4d4d4;">{{date | date: 'ss'}}</span></div>
+        <div style="float:right;right: 0px;margin-right: 35px;font-size: 35px;" class="ng-binding">{{date | date: 'H:mm'}}<span style="font-size: 18px;color: #d4d4d4;">{{date | date: 'ss'}}</span></div>
     </div>
 
     <div>
 
-    <div class="left">
-<div class="inner">
-Left
-</div>
-    </div>
-
-        <div class="right">
-          <div class="inner">
-            {{events}}
-          </div>
+        <div class="info-left">
+            <div class="inner" style="display: table-cell;vertical-align: middle;">
+              <div style="min-width:400px;margin: auto;" class="mobile-left">
+                <center>
+                    <h1>
+                      <span ng-if="!currentEvent">ROOM FREE</span>
+                      <span ng-if="currentEvent">{{currentEvent.name}}</span></h1>
+                    </h1>
+                    <div class="big-circle" back-img="{{currentEvent.image}}" ng-click="book()">
+                      <span ng-if="!currentEvent">+</span>
+                      <img ng-if="currentEvent" ng-src="" />
+                    </div>
+                    <h1 ng-if="!currentEvent">BOOK NOW</h1>
+                    <h2 ng-if="currentEvent">{{currentEvent.starts_at | date: 'HH:mm'}} <b>→</b> {{currentEvent.ends_at | date: 'HH:mm'}}</h2>
+                </center>
+              </center>
+            </div>
         </div>
     </div>
+
+    <div class="info-right">
+        </br>
+        <div class="inner">
+            <div class="widget-box mobile-right">
+                <div ng-if="events.length!=0" class="widget-content updates" ng-class="{'finished': event.finished, 'active-event': event.active}" ng-repeat="event in events track by $index">
+                    <div class="new-update clearfix" style="color:#848484;">
+                        <div class="update-done">
+                            <h4>{{event.starts_at | date: 'HH:mm'}} <b>→</b> {{event.ends_at | date: 'HH:mm'}}</h4>
+                            <h3 style="color:#6774df;"><strong>{{event.name}}</strong></h3>
+                            <span>Organiser: <b>{{event.owner.name | capitalize}}</b></span>
+                        </div>
+                        <div class="update-date"><span class="update-day">{{event.starts_at | date: 'd'}}</span>{{event.starts_at | date: 'MMM'}}</div>
+                    </div>
+                </div>
+                <div ng-if="events.length==0" class="widget-content updates">
+                  There are no events for today.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

@@ -87,7 +87,6 @@ app.factory('Events', ['$rootScope', '$http', function($rootScope, $http) {
     var edit = function(eventObject, callback) {
         //String attendees to array of userID's
         delete eventObject.attendees;
-        eventObject.location = eventObject.location._id;
         $http({
             method: 'PUT',
             url: 'https://cloud.dean.technology/event/'+eventObject._id,
@@ -110,14 +109,14 @@ app.factory('Events', ['$rootScope', '$http', function($rootScope, $http) {
     }
 
     return {
-        get,
-        getOne,
-        add,
-        del,
-        getUpcoming,
-        getPrevious,
-        updateStatus,
-        edit
+        get:get,
+        getOne:getOne,
+        add:add,
+        del:del,
+        getUpcoming:getUpcoming,
+        getPrevious:getPrevious,
+        updateStatus:updateStatus,
+        edit:edit
     }
 
 }]);

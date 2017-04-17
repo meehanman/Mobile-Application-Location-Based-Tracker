@@ -108,13 +108,13 @@ app.factory('Locations', ['$rootScope', '$http', function($rootScope, $http) {
     }
 
     return {
-        get,
-        getOne,
-        add,
-        del,
-        update,
-        getClosest,
-        getEvents
+        get:get,
+        getOne:getOne,
+        add:add,
+        del:del,
+        update:update,
+        getClosest:getClosest,
+        getEvents:getEvents
     }
 
 }]);

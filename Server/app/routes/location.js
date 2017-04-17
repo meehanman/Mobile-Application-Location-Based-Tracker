@@ -32,10 +32,20 @@ module.exports = function(server) {
         });
     });
 
+    //Get events from today
     server.get('/location/:id/events', function(req, res) {
+        var tonight = new Date();
+        tonight.setHours(24,0,0,0);
+
+        var thisMorning = new Date();
+        thisMorning.setHours(0,0,0,0);
+
         Event.find({
-            location: req.params.id
-        }).populate('place').exec(function(error, locations) {
+            location: req.params.id,
+            starts_at: {"$gte": thisMorning, "$lt": tonight},
+        }).sort({
+            starts_at: 1
+        }).populate('owner').exec(function(error, locations) {
             if (error) {
                 res.json({
                     title: "Failed",

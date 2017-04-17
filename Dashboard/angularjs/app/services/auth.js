@@ -70,8 +70,8 @@ var getNotifications = function(callback){
 var getUser = function(){
   return user;
 }
-return{
-  login, logout, isLoggedIn, getUser, getNotifications
+return {
+  login:login, logout:logout, isLoggedIn:isLoggedIn, getUser:getUser, getNotifications:getNotifications
 }
 
 }]);

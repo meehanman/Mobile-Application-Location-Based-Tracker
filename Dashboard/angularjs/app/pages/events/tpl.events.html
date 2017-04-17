@@ -33,8 +33,8 @@
                           <img ng-hide="event.image"ng-src="app/img/default-location.png" width="50px"/></i>
                             <div class="update-done"><strong><a href>{{event.name}}</a></strong>
                                 <br>
-                                <p>{{event.description}}
-                                </p>
+                                <p>{{event.description}}</p>
+                                <p>{{event.location.name}}</p>
                             </div>
                             <div class="update-date"><span class="update-day">{{event.starts_at | date:'dd'}}</span>{{event.starts_at | date:'MMM'}}</div>
                         </div>

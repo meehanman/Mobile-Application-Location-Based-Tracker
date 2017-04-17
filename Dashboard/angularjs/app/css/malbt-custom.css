@@ -1,1 +1,160 @@
+.info-left {
+    background: #4b81ff;
+    background: -webkit-linear-gradient(left, #4b81ff, #a55899);
+    background: -o-linear-gradient(right, #4b81ff, #a55899);
+    background: -moz-linear-gradient(right, #4b81ff, #a55899);
+    background: linear-gradient(to right, #4b81ff, #a55899);
+    color: white;
+    position: absolute;
+    width: 50vw;
+    height: 100vh;
+    margin-left: 0vw;
+    z-index: 50;
+    display: table;
+    overflow-y: none;
+}
 
+.info-right {
+    background-color: #f3f3f3;
+    color: black;
+    position: absolute;
+    width: 50vw;
+    height: 100vh;
+    margin-left: 50vw;
+    z-index: -50;
+    z-index: 50;
+    overflow-y: auto;
+}
+
+.loc-info-main {
+    background-color: white;
+    height: 100vh;
+    margin-top: 10px;
+    z-index: 50;
+    background-color: white;
+    cursor: default;
+}
+
+.top {
+    color: white;
+    height: 70px;
+    line-height: 70px;
+    position: absolute;
+    width: 100vw;
+    z-index: 100;
+    padding-left: 30px;
+    background-color: #2E363F;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.top div {
+    display: inline-block;
+    float: left;
+    height: 70px;
+}
+
+.inner {
+    padding-top: 70px;
+}
+
+.big-circle {
+    color: rgb(255, 255, 255);
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.25);
+    height: 300px;
+    border-radius: 50vw;
+    margin: 100px auto;
+    text-align: center;
+    font-size: 100px;
+    line-height: 300px;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+.big-circle:hover {
+    background-color: rgba(0, 0, 0, 0.50);
+}
+
+.finished {
+    opacity: 0.3;
+}
+
+.active-event {
+    border-left: #6774e0 solid;
+}
+
+.full {
+    background: #4b81ff;
+    background: -webkit-linear-gradient(left, #4b81ff, #a55899);
+    background: -o-linear-gradient(right, #4b81ff, #a55899);
+    background: -moz-linear-gradient(right, #4b81ff, #a55899);
+    background: linear-gradient(to right, #4b81ff, #a55899);
+    color: white;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin-left: 0vw;
+    z-index: 50;
+    display: table;
+    overflow-y: none;
+}
+
+.back-button:hover {
+    cursor: pointer;
+    color: #cccccc;
+}
+
+.large-text {
+    width: 600px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.large-button{
+    width: 200px !important;
+    color: white;
+    margin-left: 400px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    font-size: 20px;
+}
+
+
+/* Landscape phone to portrait tablet */
+
+@media (max-height: 720px) {
+    .mobile-left {
+        zoom: 0.55;
+    }
+    .mobile-right {
+        zoom: 0.5;
+    }
+}
+
+
+/* Landscape phone to portrait tablet */
+
+@media (max-height: 520px) {
+    .mobile-left {
+        zoom: 0.4;
+    }
+    .mobile-right {
+        zoom: 0.6;
+    }
+}
+
+
+/* Landscape phone to portrait tablet */
+
+@media (max-height: 400px) {
+    .mobile-left {
+        zoom: 0.3;
+    }
+    .mobile-right {
+        zoom: 0.5;
+    }
+}

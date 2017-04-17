@@ -1,0 +1,33 @@
+<div class="loc-info-main">
+
+    <div class="top">
+        <div style="">
+
+            <div class="back-button" style="font-size:20px;" ng-click="back()"><i class="icon-arrow-left"></i></div>
+            <div style="font-size:30px;font-weight: 800;padding-left:30px;">MALBT</div>
+            <div style="font-size:25px;padding-left:50px;font-weight: 500;">{{location.name}}</div>
+        </div>
+        <div style="float:right;right: 0px;margin-right: 50px;line-height: 20px;font-size: 15px;margin-top: 14px;color: #d6d6d6;">{{date | date: 'EEEE'}}<br>{{date | date: 'd MMM, yy'}}</div>
+        <div style="float:right;right: 0px;margin-right: 35px;font-size: 35px;" class="ng-binding">{{date | date: 'H:mm'}}<span style="font-size: 18px;color: #d4d4d4;">{{date | date: 'ss'}}</span></div>
+    </div>
+
+    <div>
+
+        <div class="full">
+            <div class="inner" style="display: table-cell;vertical-align: middle;">
+              <div style="padding-left:10vw;">
+                    <h1><span>{{question}}</span></h1>
+                    <input ng-show="eventStep==0||eventStep==1" class="large-text" ng-model="value"  placeholder="{{valuePlaceholder}}"/>
+                    <button ng-show="eventStep==0"class="large-text large-button" ng-click="next()">Next</button>
+                    <button ng-show="eventStep==1"class="large-text large-button" ng-click="next()">Next</button>
+                    <button ng-show="eventStep==2"class="large-text large-button" ng-click="next()">Next</button>
+                    <br>
+                    {{statusMessage}}
+                    <br>
+                    {{form}}
+              </center>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

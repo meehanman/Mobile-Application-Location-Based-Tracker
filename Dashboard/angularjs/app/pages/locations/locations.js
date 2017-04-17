@@ -8,6 +8,10 @@ app.controller('locationsCtrl', [ '$scope', 'Locations', 'ModalService', functio
         });
     };
 
+    $scope.alert = function(m){
+      alert(m);
+    }
+    
     $scope.del = function(location) {
         ModalService.showModal({
             templateUrl: 'app/modals/general/tpl.general.html',

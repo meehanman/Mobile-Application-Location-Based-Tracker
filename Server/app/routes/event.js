@@ -73,7 +73,6 @@ module.exports = function(server) {
             }
 
             res.json(events);
-
         });
     });
 
@@ -118,13 +117,13 @@ module.exports = function(server) {
     server.post('/event',
         function(req, res, next) {
 
-          if(!req.body.image){
-            res.json({
-                title: "Failed",
-                message: "Event Add Failed. You must submit an image.",
-                error: error
-            });
-          }
+            if (!req.body.image) {
+                res.json({
+                    title: "Failed",
+                    message: "Event Add Failed. You must submit an image.",
+                    error: error
+                });
+            }
 
             server.upload(req.body.image, function(img) {
                 if (img != false) {
@@ -294,7 +293,12 @@ module.exports = function(server) {
 
     //Returns all events that the user is invited to
     server.get('/notifications', function(req, res) {
-        Event.find({
+        var now = new Date();
+        Event.find().and({
+            starts_at: {
+                $gte: now
+            }
+        }, {
             'attendees': {
                 $elemMatch: {
                     user: req.user._id

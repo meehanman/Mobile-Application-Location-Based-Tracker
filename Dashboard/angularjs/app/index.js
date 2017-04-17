@@ -81,6 +81,15 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
                     }
                 }
             })
+            .state('locations-book', {
+                url: '/locations/book/:id',
+                views: {
+                    'common': {
+                        templateUrl: 'app/pages/locations.book/tpl.locations.book.html',
+                        controller: 'LocationsBookCtrl'
+                    }
+                }
+            })
             .state('places', {
                 url: '/places',
                 parent: 'common',
@@ -157,13 +166,24 @@ app.filter('capitalize', function() {
     }
 });
 
-app.directive('backImg', function(){
-    return function(scope, element, attrs){
+app.directive('backImg', function() {
+    return function(scope, element, attrs) {
         attrs.$observe('backImg', function(value) {
             element.css({
-                'background-image': 'url(' + value +')',
-                'background-size' : 'cover'
+                'background-image': 'url(' + value + ')',
+                'background-size': 'cover'
             });
         });
     };
 });
+
+app.directive("ngMobileClick", [function () {
+    return function (scope, elem, attrs) {
+        elem.bind("touchstart click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            scope.$apply(attrs["ngMobileClick"]);
+        });
+    }
+}])

@@ -66,7 +66,7 @@ var get = function(callback){
     }
 
 return{
-  add, get, getOne, del, update
+  add:add, get:get, getOne:getOne, del:del, update:update
 }
 
 }]);
