@@ -1,5 +1,6 @@
 module.exports = function(server) {
     var Location = require('../models/location');
+    var Event = require('../models/event');
 
     //Returns all locations
     server.get('/location', function(req, res) {
@@ -28,6 +29,21 @@ module.exports = function(server) {
                 });
             }
             res.json(location);
+        });
+    });
+
+    server.get('/location/:id/events', function(req, res) {
+        Event.find({
+            location: req.params.id
+        }).populate('place').exec(function(error, locations) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not find location.",
+                    error: error
+                });
+            }
+            res.json(locations);
         });
     });
 

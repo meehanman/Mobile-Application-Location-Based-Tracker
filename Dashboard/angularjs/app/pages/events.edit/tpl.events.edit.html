@@ -21,7 +21,7 @@
                         <div class="control-group">
                             <label class="control-label">Name*</label>
                             <div class="controls">
-                                <input ng-model="form.name" type="text" required placeholder="My Event" ng-disabled="!editing"/>
+                                <input ng-model="form.name" type="text" required placeholder="My Event" ng-disabled="!editing" />
                             </div>
                         </div>
                         <div class="control-group">
@@ -91,26 +91,24 @@
                             <div class="control-group">
                                 <label class="control-label">Location</label>
                                 <div class="controls">
-                                    <input ng-model="form.location" type="button" value="Select Location" ng-click="selectLocation()" ng-disabled="!editing"/>
+                                    <input ng-model="form.location" type="button" value="Select Location" ng-click="selectLocation()" ng-disabled="!editing" />
                                     <input ng-model="locationName" ng-show="locationName" type="text" disabled="true">
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">Invited Users {{form.attendees.length}}</label>
                                 <div class="controls">
-                                  <div ng-repeat="attendee in form.attendees">
-                                    <img ng-src="{{attendee.user.image}}" style="border-radius: 50%;float:left;margin-bottom:10px;" title="{{attendee.status+' '+attendee.user.name}}" width="50px"/>
-                                  </div>
-                                </br>
+                                    <div ng-repeat="attendee in form.attendees">
+                                        <img ng-src="{{attendee.user.image}}" style="border-radius: 50%;float:left;margin-bottom:10px;" title="{{attendee.status+' '+attendee.user.name}}" width="50px" />
+                                    </div>
+                                    </br>
                                 </div>
                             </div>
                             <div class="form-actions">
-                              <div class="alert alert-info" ng-show="statusText">{{statusText}}</div>
-                              <input type="submit" ng-click="refresh(); editing = false" value="Reset" ng-disabled="false" class="btn">
-                              <input type="submit" ng-click="redrawMap(); editing = true" value="Edit" ng-show="!editing" ng-disabled="false" class="btn btn-warning pull-right">
-                              <input type="submit" ng-click="update()" value="Save" ng-show="editing" ng-disabled="false" class="btn btn-success pull-right">
-                            </br>                              {{form}}
-
+                                <div class="alert alert-info" ng-show="statusText">{{statusText}}</div>
+                                <input type="submit" ng-click="refresh(); editing = false" value="Reset" ng-disabled="false" class="btn">
+                                <input type="submit" ng-click="redrawMap(); editing = true" value="Edit" ng-show="!editing" ng-disabled="false" class="btn btn-warning pull-right">
+                                <input type="submit" ng-click="update()" value="Save" ng-show="editing" ng-disabled="false" class="btn btn-success pull-right">
                             </div>
                     </form>
                     </div>

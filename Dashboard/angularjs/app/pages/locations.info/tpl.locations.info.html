@@ -1,0 +1,84 @@
+<style rel="stylesheet">
+    .left {
+        background: #4b81ff;
+        background: -webkit-linear-gradient(left, #4b81ff, #a55899);
+        background: -o-linear-gradient(right, #4b81ff, #a55899);
+        background: -moz-linear-gradient(right, #4b81ff, #a55899);
+        background: linear-gradient(to right, #4b81ff, #a55899);
+        color: white;
+
+        position: absolute;
+        width: 50vw;
+        height: 100vh;
+        margin-left: 0vw;
+        z-index:50;
+    }
+
+    .right {
+        background-color: #f3f3f3;
+        color: black;
+        position: absolute;
+        width: 50vw;
+        height: 100vh;
+        margin-left: 50vw;
+        z-index: -50;
+        z-index:50;
+    }
+
+    .loc-info-main {
+        background-color: white;
+        height: 100vh;
+        margin-top: 10px;
+        z-index: 50;
+        background-color: white;
+        cursor: default;
+    }
+
+    .top {
+        color: white;
+        height: 70px;
+        line-height: 70px;
+        position: absolute;
+        width:100vw;
+        z-index: 100;
+        padding-left: 30px;
+        background-color: #2E363F;
+        font-family: 'Open Sans', sans-serif;
+
+    }
+    .top div{
+      display:inline-block;
+      float:left;
+      height:70px;
+    }
+    .inner{
+      padding-top:70px;
+    }
+</style>
+
+<div class="loc-info-main">
+
+    <div class="top">
+        <div style="">
+          <div style="font-size:30px;font-weight: 800;">MALBT</div>
+          <div style="font-size:40px;padding-left:50px;">{{location.name}}</div>
+        </div>
+        <div style="float:right;right: 0px;margin-right: 50px;line-height: 20px;font-size: 15px;margin-top: 14px;color: #d6d6d6;">{{date | date: 'EEEE'}}<br>{{date | date: 'd MMM, yy'}}</div>
+        <div style="float:right;right: 0px;margin-right: 35px;font-size: 35px;" class="ng-binding">{{date | date: 'H:MM'}}<span style="font-size: 18px;color: #d4d4d4;">{{date | date: 'ss'}}</span></div>
+    </div>
+
+    <div>
+
+    <div class="left">
+<div class="inner">
+Left
+</div>
+    </div>
+
+        <div class="right">
+          <div class="inner">
+            {{events}}
+          </div>
+        </div>
+    </div>
+</div>

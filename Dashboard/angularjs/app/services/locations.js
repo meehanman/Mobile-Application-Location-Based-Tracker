@@ -15,7 +15,16 @@ app.factory('Locations', ['$rootScope', '$http', function($rootScope, $http) {
             callback(location);
         }, function(fail) {
             console.log("Failed to get location", fail);
-            return false;
+            callback(fail);
+        });
+    }
+
+    var getEvents = function(id, callback) {
+        $http.get('https://cloud.dean.technology/location/'+id+'/events').then(function(location) {
+            callback(location);
+        }, function(fail) {
+          console.log("Failed to get location", fail);
+          callback(fail);
         });
     }
 
@@ -104,7 +113,8 @@ app.factory('Locations', ['$rootScope', '$http', function($rootScope, $http) {
         add,
         del,
         update,
-        getClosest
+        getClosest,
+        getEvents
     }
 
 }]);

@@ -43,13 +43,11 @@ module.exports = function(server) {
         });
     });
 
-    //Returns all events sorted by time after this morning
     server.get('/event/upcoming', function(req, res) {
-        var startOfToday = new Date();
-        startOfToday.setHours(0, 0, 0, 0);
+        var now = new Date();
         Event.find({
             starts_at: {
-                $gte: startOfToday
+                $gte: now
             }
         }).sort({
             starts_at: 1
@@ -79,13 +77,11 @@ module.exports = function(server) {
         });
     });
 
-    //Returns all events sorted by time from yesterday
     server.get('/event/previous', function(req, res) {
-        var startOfToday = new Date();
-        startOfToday.setHours(0, 0, 0, 0);
+        var now = new Date();
         Event.find({
             starts_at: {
-                $lte: startOfToday
+                $lte: now
             }
         }).sort({
             starts_at: -1

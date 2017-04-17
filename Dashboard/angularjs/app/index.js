@@ -72,6 +72,15 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
                 templateUrl: 'app/pages/locations.edit/tpl.locations.edit.html',
                 controller: 'LocationsEditCtrl'
             })
+            .state('locations-info', {
+                url: '/locations/info/:id',
+                views: {
+                    'common': {
+                        templateUrl: 'app/pages/locations.info/tpl.locations.info.html',
+                        controller: 'LocationsInfoCtrl'
+                    }
+                }
+            })
             .state('places', {
                 url: '/places',
                 parent: 'common',
@@ -146,4 +155,15 @@ app.filter('capitalize', function() {
         }
         return input.slice(0, -1);
     }
+});
+
+app.directive('backImg', function(){
+    return function(scope, element, attrs){
+        attrs.$observe('backImg', function(value) {
+            element.css({
+                'background-image': 'url(' + value +')',
+                'background-size' : 'cover'
+            });
+        });
+    };
 });

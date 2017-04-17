@@ -4,10 +4,14 @@ app.controller('CommonCtrl', ['$scope', 'Auth', '$location', '$state', function(
     $scope.notifications = [];
 
     $scope.nav = function(location) {
-        console.log("Nav", location);
+        console.log("common.nav", location);
         //Reset side-menu
         $scope.menu = 'None';
         $location.path('/' + location);
+    }
+
+    $scope.stateNav = function(location, params){
+      $state.go(location, params);
     }
 
     $scope.menu = 'None';

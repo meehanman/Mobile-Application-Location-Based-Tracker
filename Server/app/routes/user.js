@@ -17,7 +17,7 @@ module.exports = function(server) {
                 var user = users[i];
                 out.push({
                     id: user._id,
-                    name: user.name,
+                    name: user.name.replace(/\b\w/g, l => l.toUpperCase()),
                     email: user.email,
                     location: user.location,
                     image: user.image
@@ -66,7 +66,7 @@ module.exports = function(server) {
             }
             res.json({
                 id: user._id,
-                name: user.name,
+                name: user.name.replace(/\b\w/g, l => l.toUpperCase()),
                 email: user.email,
                 admin: user.admin,
                 location: user.location,
@@ -96,7 +96,7 @@ module.exports = function(server) {
                 }
 
                 var user = new User({
-                    name: req.body.name,
+                    name: req.body.name.replace(/\b\w/g, l => l.toUpperCase()),
                     email: req.body.email,
                     password: hash,
                     admin: !!req.body.admin,
@@ -119,7 +119,7 @@ module.exports = function(server) {
                     }
                     res.json({
                         title: "Success",
-                        username: req.body.name,
+                        username: req.body.name.replace(/\b\w/g, l => l.toUpperCase()),
                         message: "User Successfully Added"
                     });
                 });
@@ -158,7 +158,7 @@ module.exports = function(server) {
             }
 
             var save = function() {
-                user.name = req.body.name;
+                user.name = req.body.name.replace(/\b\w/g, l => l.toUpperCase());
                 user.location = req.body.location;
                 user.admin = !!req.body.admin;
 
