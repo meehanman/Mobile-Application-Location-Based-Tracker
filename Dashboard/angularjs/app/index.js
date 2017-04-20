@@ -157,6 +157,9 @@ app.run(['$rootScope', '$location', 'Auth', function($rootScope, $location, Auth
 
 app.filter('capitalize', function() {
     return function(input) {
+        if(input==undefined||input.length==0){
+          return input;
+        }
         var wordList = input.split(" ");
         input = "";
         for (var i = 0; i < wordList.length; i++) {

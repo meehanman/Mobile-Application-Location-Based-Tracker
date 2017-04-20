@@ -114,13 +114,63 @@
     box-sizing: border-box;
 }
 
-.large-button{
+.large-button {
     width: 200px !important;
     color: white;
     margin-left: 400px;
     background-color: rgba(0, 0, 0, 0.5);
     border: none;
     font-size: 20px;
+}
+
+.book-room-top {
+    margin-top: 70px;
+    width: 50vw;
+    position: absolute;
+    text-align: center;
+    background-color: #5c5198;
+    padding: 1%;
+    color: white;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.book-room-top:hover {
+    color: white;
+    background-color: #5b7aed;
+}
+
+.manage-user-button {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    float: left;
+    margin-bottom: 10px;
+    background-color: #b99a6e;
+    color: white;
+    text-align: center;
+    line-height: 45px;
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.manage-user-button:hover {
+    color: black;
+    background-color: white;
+}
+
+.event-edit-search-user {
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    border-bottom: #dedede 1px solid;
+    cursor: pointer;
+}
+
+.event-edit-search-user:hover {
+  background-color:#dedede;
+  border-bottom: white 1px solid;
 }
 
 

@@ -95,9 +95,7 @@ module.exports = function(server) {
             }
         });
     });
-
-
-
+    
     //Adding a User
     server.post('/user', function(req, res, next) {
         //Salt and Hash Password
@@ -217,4 +215,6 @@ module.exports = function(server) {
             }
         });
     });
+
+
 }

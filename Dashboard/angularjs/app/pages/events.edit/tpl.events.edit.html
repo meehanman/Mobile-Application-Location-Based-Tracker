@@ -95,11 +95,32 @@
                                     <input ng-model="locationName" ng-show="locationName" type="text" disabled="true">
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <label class="control-label">Invited Users {{form.attendees.length}}</label>
+                            <div class="control-group" ng-init="showUserTable=false">
+                                <label class="control-label">Invited Users</label>
                                 <div class="controls">
-                                    <div ng-repeat="attendee in form.attendees">
-                                        <img ng-src="{{attendee.user.image}}" style="border-radius: 50%;float:left;margin-bottom:10px;" title="{{attendee.status+' '+attendee.user.name}}" width="50px" />
+                                  <div ng-repeat="attendee in form.attendees" class="event-user-image" ng-show="!showUserTable">
+                                      <img ng-src="{{attendee.user.image}}" style="border-radius: 50%;float:left;margin-bottom:10px;" title="{{attendee.status+' '+attendee.user.name}}" width="50px" />
+                                  </div>
+                                  <div class="event-user-image" ng-show="!showUserTable&&editing">
+                                      <div class="manage-user-button" title="Manage Users" ng-click="showUserTable = !showUserTable"><i class="icon-cog"></i></div>
+                                  </div>
+                                  <div ng-show="showUserTable" class="widget-content nopadding">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr ng-repeat="attendee in form.attendees">
+                                                    <td><img ng-src="{{attendee.user.image}}" style="border-radius: 50%;float:left;margin:0 10px 5px 0;" title="{{attendee.status+' '+attendee.user.name}}" width="50px" /> {{attendee.user.name | capitalize}}</td>
+                                                    <td>{{attendee.status | capitalize}}</td>
+                                                    <td style="color:red;cursor:pointer;" title="Remove"><i style="padding:20px;" ng-click="removeUser(attendee._id)" class="icon-trash"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div style="padding-right: 30px;padding-bottom:20px;">
+                                          <b>Invite more attendees</b>
+                                          <input type="text" class="form-control" data-ng-model="searchText">
+                                          <div ng-show="searchText.length>2" class="event-edit-search-user" ng-repeat="user in users | filter:searchText | limitTo:3" ng-click="addUser(user)">
+                                            {{user.displayName}}<br>
+                                          </div>
+                                        </div>
                                     </div>
                                     </br>
                                 </div>

@@ -86,7 +86,12 @@ app.factory('Events', ['$rootScope', '$http', function($rootScope, $http) {
 
     var edit = function(eventObject, callback) {
         //String attendees to array of userID's
-        delete eventObject.attendees;
+        var attendeesArr=[];
+        for(var i=0;i<eventObject.attendees.length;i++){
+            attendeesArr.push(eventObject.attendees[i].user._id)
+        }
+        eventObject.attendees = JSON.stringify(attendeesArr);
+        eventObject.location = eventObject.location._id;
         $http({
             method: 'PUT',
             url: 'https://cloud.dean.technology/event/'+eventObject._id,

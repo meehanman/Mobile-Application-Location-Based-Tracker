@@ -14,6 +14,11 @@ module.exports = function(server) {
             return false;
         }
 
+        //If the image submitted is a url, just keep it.
+        if(imageRaw.startsWith("http")){
+          saveImageCallback(imageRaw);
+        }
+
         var imageBuffer = decodeBase64Image(imageRaw);
         if (imageBuffer.type.split("/")[0] == "image") {
             var filename = server.stringGen(10);

@@ -1,8 +1,7 @@
 <div class="loc-info-main">
 
     <div class="top">
-        <div style="">
-
+        <div>
             <div class="back-button" style="font-size:20px;" ng-click="back()"><i class="icon-arrow-left"></i></div>
             <div style="font-size:30px;font-weight: 800;padding-left:30px;">MALBT</div>
             <div style="font-size:25px;padding-left:50px;font-weight: 500;">{{location.name}}</div>
@@ -15,19 +14,35 @@
 
         <div class="full">
             <div class="inner" style="display: table-cell;vertical-align: middle;">
-              <div style="padding-left:10vw;">
+                <div style="padding-left:10vw;">
                     <h1><span>{{question}}</span></h1>
-                    <input ng-show="eventStep==0||eventStep==1" class="large-text" ng-model="value"  placeholder="{{valuePlaceholder}}"/>
-                    <button ng-show="eventStep==0"class="large-text large-button" ng-click="next()">Next</button>
-                    <button ng-show="eventStep==1"class="large-text large-button" ng-click="next()">Next</button>
-                    <button ng-show="eventStep==2"class="large-text large-button" ng-click="next()">Next</button>
-                    <br>
-                    {{statusMessage}}
-                    <br>
-                    {{form}}
-              </center>
+                    <!-- Enter Email for Login -->
+                    <input ng-show="eventStep==0" class="large-text" ng-model="value" placeholder="{{valuePlaceholder}}" />
+                    <!-- Event Name-->
+                    <input ng-show="eventStep==1" class="large-text" ng-model="form.name" placeholder="{{valuePlaceholder}}" />
+                    <!-- Event Description-->
+                    <input ng-show="eventStep==2" class="large-text" ng-model="form.description" placeholder="{{valuePlaceholder}}" />
+                    <!-- Event Type-->
+                    <select ng-show="eventStep==3" class="large-text" name="select2-container" ng-model="form.type" style="color: #656565; padding: 0 20px; font-size: 20px;">
+                      <option disabled value="">Please select an option</option>
+                      <option value="meeting">Meeting</option>
+                      <option value="event">Event</option>
+                      <option value="party">Party</option>
+                      <option value="conference">Conference</option>
+                      <option value="lecture">Lecture</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <!-- Event Start Time -->
+                    <input value="Start Time: TODO" />
+                    <!-- Event End Time -->
+                    <input value="End Time: TODO" />
+                    </br>
+                    <button class="large-text large-button" ng-click="next()">Next</button>
+                    <br> {{statusMessage}}
+                    <br> {{form}}
+                    </center>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>

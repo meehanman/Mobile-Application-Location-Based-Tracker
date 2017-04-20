@@ -19,11 +19,12 @@ app.controller('LocationsInfoCtrl', ['$scope', '$stateParams', 'Locations', '$in
     }
 
     // Start the timer
-    $scope.date = new Date();
-    $scope.date.setHours(15,59,50,50);
+    //$scope.date = new Date();
+    //$scope.date.setDate(18);
+    //$scope.date.setHours(15,59,50,50);
     var tick = function() {
-        //$scope.date = new Date();
-        $scope.date.setSeconds($scope.date.getSeconds() + 1);
+        $scope.date = new Date();
+        //$scope.date.setSeconds($scope.date.getSeconds() + 1);
 
         $scope.events = $scope.eventsRaw;
         //If the next event is within a minute, display it on the right

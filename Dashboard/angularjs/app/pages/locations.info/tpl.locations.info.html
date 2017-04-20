@@ -1,17 +1,17 @@
 <div class="loc-info-main">
 
     <div class="top">
-        <div style="">
-            <div style="font-size:30px;font-weight: 800;">MALBT</div>
-            <div style="font-size:25px;padding-left:50px;font-weight: 500;">{{location.name}}</div>
+        <div>
+          <div style="font-size:30px;font-weight: 800;padding-left:30px;">MALBT</div>
+          <div style="font-size:25px;padding-left:50px;font-weight: 500;">{{location.name}}</div>
         </div>
         <div style="float:right;right: 0px;margin-right: 50px;line-height: 20px;font-size: 15px;margin-top: 14px;color: #d6d6d6;">{{date | date: 'EEEE'}}<br>{{date | date: 'd MMM, yy'}}</div>
         <div style="float:right;right: 0px;margin-right: 35px;font-size: 35px;" class="ng-binding">{{date | date: 'H:mm'}}<span style="font-size: 18px;color: #d4d4d4;">{{date | date: 'ss'}}</span></div>
     </div>
 
     <div>
-
         <div class="info-left">
+          <div ng-if="currentEvent" ng-click="book()" class="book-room-top"><i class="icon-plus"></i> BOOK ROOM</div>
             <div class="inner" style="display: table-cell;vertical-align: middle;">
               <div style="min-width:400px;margin: auto;" class="mobile-left">
                 <center>
@@ -25,8 +25,8 @@
                     </div>
                     <h1 ng-if="!currentEvent">BOOK NOW</h1>
                     <h2 ng-if="currentEvent">{{currentEvent.starts_at | date: 'HH:mm'}} <b>→</b> {{currentEvent.ends_at | date: 'HH:mm'}}</h2>
-                </center>
               </center>
+
             </div>
         </div>
     </div>
@@ -47,6 +47,9 @@
                 </div>
                 <div ng-if="events.length==0" class="widget-content updates">
                   There are no events for today.
+                </div>
+                <div ng-if="!events" class="widget-content updates">
+                  Loading today's events...
                 </div>
             </div>
         </div>

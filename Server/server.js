@@ -67,7 +67,7 @@ server.use(function(req, res, next) {
     if (!req.authorization.basic.username || !req.authorization.basic.password) {
         next(new restify.NotAuthorizedError("Username and/or Password is empty"));
     }
-    User.findOne({email: req.authorization.basic.username}).then(function(user) {
+    User.findOne({email: req.authorization.basic.username.toLowerCase()}).then(function(user) {
             // Ensure that user is not anonymous; and
             // That user exists; and
             if (!user) {
@@ -77,16 +77,18 @@ server.use(function(req, res, next) {
             }else{
               // Verifying the supplied password hash with the hash stored in the DB
               passwordhash(req.authorization.basic.password).verifyAgainst(user.password, function(error, verified) {
-                  if (error)
+                  if (error){
                       throw new Error('Something went wrong!');
+                  }
                   if (!verified) {
                       next(new restify.NotAuthorizedError("Username and/or Password is incorrect"));
                   }
-                  console.log("Auth: [/]");
-                  //Assign user to request object
-                  req.user = user;
-                  next();
-
+                  if(verified){
+                    console.log("Auth: [/]");
+                    //Assign user to request object
+                    req.user = user;
+                    next();
+                  }
               });
             }
         })

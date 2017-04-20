@@ -39,6 +39,10 @@ app.controller('EventEditCtrl', ['$scope', '$stateParams', 'Events', 'Users', 'L
         if(data.status==200){
           $scope.form = {};
           $scope.form.attendees = [];
+          $scope.getEvent();
+          $scope.editing=false;
+          $scope.searchText="";
+          $scope.showUserTable=false;
         }
         $scope.status(data.data.message);
       });
@@ -52,7 +56,7 @@ app.controller('EventEditCtrl', ['$scope', '$stateParams', 'Events', 'Users', 'L
     $scope.endDateOnSetTime = function() {
         $scope.$broadcast('end-date-changed');
     }
-    
+
     $scope.startDateBeforeRender = function($dates) {
         var activeDate = moment();
 
@@ -98,11 +102,28 @@ app.controller('EventEditCtrl', ['$scope', '$stateParams', 'Events', 'Users', 'L
             }
             users[user].name = input.slice(0, -1);
             $scope.users.push({
-                name: users[user].name + " <" + users[user].email + ">",
+                image: users[user].image,
+                displayName: users[user].name + " <" + users[user].email + ">",
+                name: users[user].name,
                 id: users[user].id
             });
         }
     });
+
+    $scope.removeUser = function(id){
+      for(var i=0;i<$scope.form.attendees.length;i++){
+        if(id==$scope.form.attendees[i]._id){
+          $scope.form.attendees.splice(i,1);
+        }
+      }
+    }
+
+    $scope.addUser = function(user){
+      user._id = user.id;
+      $scope.form.attendees.push({user:user,status:"Added"});
+      console.log($scope.form.attendees);
+      $scope.searchText="";
+    }
 
     $scope.status = function(s) {
         $scope.statusText = s;
