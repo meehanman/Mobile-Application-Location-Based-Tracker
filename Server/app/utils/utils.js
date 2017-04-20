@@ -10,7 +10,7 @@ module.exports = function(server) {
     }
     //Test image code to be replaced by storing images in the db
     server.upload = function(imageRaw, saveImageCallback) {
-        if (imageRaw == undefined) {
+        if (imageRaw == undefined || imageRaw == null) {
             return false;
         }
 

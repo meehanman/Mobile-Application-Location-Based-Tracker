@@ -117,7 +117,7 @@
                                         <div style="padding-right: 30px;padding-bottom:20px;">
                                           <b>Invite more attendees</b>
                                           <input type="text" class="form-control" data-ng-model="searchText">
-                                          <div ng-show="searchText.length>2" class="event-edit-search-user" ng-repeat="user in users | filter:searchText | limitTo:3" ng-click="addUser(user)">
+                                          <div ng-show="searchText.length>2" style="padding: 10px;" ng-repeat="user in users | filter:searchText | limitTo:1" ng-click="addUser(user)">
                                             {{user.displayName}}<br>
                                           </div>
                                         </div>

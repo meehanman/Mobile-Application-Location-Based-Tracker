@@ -46,6 +46,8 @@ app.factory('Events', ['$rootScope', '$http', function($rootScope, $http) {
             temp.push(eventObject.attendees[i].id);
         }
         eventObject.attendees = JSON.stringify(temp);
+        eventObject.starts_at = new Date(eventObject.starts_at).toJSON();
+        eventObject.ends_at = new Date(eventObject.ends_at).toJSON();
         $http({
             method: 'POST',
             url: 'https://cloud.dean.technology/event',

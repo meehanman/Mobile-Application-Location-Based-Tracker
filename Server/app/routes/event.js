@@ -113,63 +113,64 @@ module.exports = function(server) {
     });
 
     //Adds a new event
-    server.post('/event',
-        function(req, res, next) {
+    server.post('/event', function(req, res, next) {
 
-            if (!req.body.image) {
-                res.json({
-                    title: "Failed",
-                    message: "Event Add Failed. You must submit an image.",
-                    error: error
+        if (!req.body.image) {
+            res.json({
+                title: "Failed",
+                message: "Event Add Failed. You must submit an image.",
+                error: error
+            });
+        }
+
+        server.upload(req.body.image, function(img) {
+            if (img != false) {
+                req.body.image = img;
+            } else {
+                delete req.body.image;
+            }
+            var event = new Event({
+                name: req.body.name,
+                owner: req.body.owner,
+                description: req.body.description,
+                image: req.body.image,
+                type: req.body.type,
+                location: req.body.location,
+                addedBy: req.user._id,
+                attendees: [],
+                starts_at: new Date(req.body.starts_at),
+                ends_at: new Date(req.body.ends_at)
+            });
+
+            //Populate the Attendees
+            req.body.attendees = JSON.parse(req.body.attendees);
+            for (var i = 0; i < req.body.attendees.length; i++) {
+                var attende = req.body.attendees[i];
+                event.attendees.push({
+                    user: attende,
+                    status: "invited"
                 });
             }
 
-            server.upload(req.body.image, function(img) {
-                if (img != false) {
-                    req.body.image = img;
-                } else {
-                    delete req.body.image;
-                }
-                var event = new Event({
-                    name: req.body.name,
-                    owner: req.body.owner,
-                    description: req.body.description,
-                    image: req.body.image,
-                    type: req.body.type,
-                    location: req.body.location,
-                    addedBy: req.user._id,
-                    attendees: [],
-                    starts_at: new Date(req.body.starts_at),
-                    ends_at: new Date(req.body.ends_at)
-                });
-
-                //Populate the Attendees
-                req.body.attendees = JSON.parse(req.body.attendees);
-                for (var i = 0; i < req.body.attendees.length; i++) {
-                    var attende = req.body.attendees[i];
-                    event.attendees.push({
-                        user: attende,
-                        status: "invited"
+            event.save(function(error, newEvent) {
+                if (error) {
+                    res.json({
+                        title: "Failed",
+                        message: "Event Add Failed",
                     });
                 }
 
-                event.save(function(error) {
-                    if (error) {
-                        res.json({
-                            title: "Failed",
-                            message: "Event Add Failed",
-                            error: error
-                        });
-                    }
+                if (newEvent) {
                     res.json({
                         title: "Success",
-                        id: event._id,
-                        name: event.name,
+                        id: newEvent._id,
+                        name: newEvent.name,
                         message: "Event Successfully Added"
                     });
-                });
+                }
             });
         });
+    });
 
     server.del('/event/:id', function(req, res, next) {
         Event.findByIdAndRemove({
@@ -278,36 +279,36 @@ module.exports = function(server) {
             req.body.attendees = JSON.parse(req.body.attendees);
 
             //Loop through what we have to make sure it's also sent. If not we delete it.
-            for(var o=foundEvent.attendees.length-1; o >= 0 ; o--){
-              var found = false;
+            for (var o = foundEvent.attendees.length - 1; o >= 0; o--) {
+                var found = false;
 
-              attendeeLoop: for(var i = req.body.attendees.length-1; i  >= 0; i--){
-                //If the user is already in the list
-                if(req.body.attendees[i] == foundEvent.attendees[o].user.toString()){
-                  //If we have a match, set fount to true and exit Loop
-                  found = true;
-                  break attendeeLoop;
+                attendeeLoop: for (var i = req.body.attendees.length - 1; i >= 0; i--) {
+                    //If the user is already in the list
+                    if (req.body.attendees[i] == foundEvent.attendees[o].user.toString()) {
+                        //If we have a match, set fount to true and exit Loop
+                        found = true;
+                        break attendeeLoop;
+                    }
                 }
-              }
 
-              //If it was not found, we should delete them from the saved array
-              if(!found){
-                foundEvent.attendees.splice(o,1);
-              }
+                //If it was not found, we should delete them from the saved array
+                if (!found) {
+                    foundEvent.attendees.splice(o, 1);
+                }
             }
 
 
             //Remove any attendees we already have (to ensure the status doesn't change)
-            for (var i = req.body.attendees.length-1; i  >= 0; i--) {
+            for (var i = req.body.attendees.length - 1; i >= 0; i--) {
                 var attende = req.body.attendees[i];
 
-                attendeeLoop: for(var o=foundEvent.attendees.length-1; o >= 0 ; o--){
-                  //If the user is already in the list
-                  if(foundEvent.attendees[o].user.toString() == attende){
-                    //Delete them
-                    req.body.attendees.splice(i,1);
-                    break attendeeLoop;
-                  }
+                attendeeLoop: for (var o = foundEvent.attendees.length - 1; o >= 0; o--) {
+                    //If the user is already in the list
+                    if (foundEvent.attendees[o].user.toString() == attende) {
+                        //Delete them
+                        req.body.attendees.splice(i, 1);
+                        break attendeeLoop;
+                    }
                 }
             }
 

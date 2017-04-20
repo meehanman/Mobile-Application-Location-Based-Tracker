@@ -33,13 +33,35 @@
                       <option value="other">Other</option>
                     </select>
                     <!-- Event Start Time -->
-                    <input value="Start Time: TODO" />
-                    <!-- Event End Time -->
-                    <input value="End Time: TODO" />
+                    <div ng-show="eventStep==4">
+                        <h4>  {{form.starts_at | date: 'HH:mm'}}</h4>
+                        <p>Time's not availabe: <span ng-repeat="event in events"><span><span ng-if="$index!=0">, </span>{{event.starts_at | date: 'HH:mm'}} - {{event.ends_at | date: 'HH:mm'}}</span>
+                            </span>
+                        </p>
+                        <input type="range" ng-change="checkTimeNotInRange()" ng-model="form.starts_at" class="large-text" min="{{rangeMin}}" value="{{rangeMin}}" max="{{rangeMax}}" step="300000">
+                    </div>
+                    <!-- End Time -->
+                    <div ng-show="eventStep==5">
+                        <h4>{{form.starts_at | date: 'HH:mm'}} - {{form.ends_at | date: 'HH:mm'}}</h4>
+                        <p>Time's not availabe: <span ng-repeat="event in events"><span><span ng-if="$index!=0">, </span>{{event.starts_at | date: 'HH:mm'}} - {{event.ends_at | date: 'HH:mm'}}</span>
+                            </span>
+                        </p>
+                        <input type="range" ng-change="checkTimeNotInRange()" ng-model="form.ends_at" class="large-text" min="{{rangeMin}}" value="{{rangeMin}}" max="{{rangeMax}}" step="300000">
+                    </div>
+                    <!-- Invite Users -->
+                    <div ng-show="eventStep==6">
+                        <span class="label" ng-repeat="attendee in form.attendees">{{attendee.user.name}}</span>
+                        <br>
+                        <input class="large-text" ng-model="searchText" placeholder="{{valuePlaceholder}}" />
+                        <div ng-show="searchText.length>2" style="padding: 10px; cursor:pointer; border-left: solid white 10px;" ng-repeat="user in users | filter:searchText | limitTo:1" ng-click="addUser(user)">
+                          {{user.displayName}}<br>
+                        </div>
+                    </div>
                     </br>
-                    <button class="large-text large-button" ng-click="next()">Next</button>
+                    <button class="large-text large-button" ng-click="next()" ng-hide="eventStep==6" ng-disabled="(eventStep==3 && !form.type) || (eventStep==4 && !starts_at_validation) || (eventStep==5 && !starts_at_validation)">Next</button>
+                    <button class="large-text large-button" ng-click="addEvent()" ng-show="eventStep==6">Submit</button>
                     <br> {{statusMessage}}
-                    <br> {{form}}
+                    <br>
                     </center>
                 </div>
             </div>
