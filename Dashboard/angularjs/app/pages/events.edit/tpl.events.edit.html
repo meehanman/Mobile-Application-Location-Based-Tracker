@@ -98,8 +98,7 @@
                             <div class="control-group" ng-init="showUserTable=false">
                                 <label class="control-label">Invited Users</label>
                                 <div class="controls">
-                                  <div ng-repeat="attendee in form.attendees" class="event-user-image" ng-show="!showUserTable">
-                                      <img ng-src="{{attendee.user.image}}" style="border-radius: 50%;float:left;margin-bottom:10px;" title="{{attendee.status+' '+attendee.user.name}}" width="50px" />
+                                  <div back-img="{{attendee.user.image}}" style="width:50px; height:50px;border-radius: 50%;float:left;margin-bottom:10px;margin-left:5px;" title="{{attendee.status+' '+attendee.user.name}}" ng-repeat="attendee in form.attendees" class="event-user-image" ng-show="!showUserTable">
                                   </div>
                                   <div class="event-user-image" ng-show="!showUserTable&&editing">
                                       <div class="manage-user-button" title="Manage Users" ng-click="showUserTable = !showUserTable"><i class="icon-cog"></i></div>

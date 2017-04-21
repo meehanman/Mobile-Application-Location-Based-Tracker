@@ -27,24 +27,14 @@
                 <div class="widget-content nopadding collapse in" id="collapseG1" ng-if="upcomingEvents">
                     <ul class="recent-posts">
                         <li ng-repeat="event in upcomingEvents">
-                            <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
+                            <div class="user-thumb">
+                              <div back-img="{{event.image}}" style="width:40px;height:40px;"></div>
+                            </div>
                             <div class="article-post">
                                 <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
                                 <p>{{event.description}}</p>
-                                <p>
-                                    <button data-model="event.dropdown = false" ng-show="!event.dropdown" class="btn btn-mini" ng-class="{ 'btn-success': event.requestedUserStatus=='accepted', 'btn-danger': event.requestedUserStatus=='declined', 'btn-warning': event.requestedUserStatus=='invited'}"
-                                        ng-click="event.dropdown = true">
-                        <span ng-if="event.requestedUserStatus=='invited'">Please respond to invitation <span class="caret"></span></span>
-                        <span ng-if="event.requestedUserStatus!='invited'">{{event.requestedUserStatus | capitalize}}</span></span>
-                      </button>
-                                    <button ng-click="updateEventStatus(event._id, 'accepted')" ng-if="event.dropdown" ng-show="event.dropdown" class="btn btn-success btn-mini">
-                        <span>Accept</span>
-                      </button>
-                                    <button ng-click="updateEventStatus(event._id, 'declined')" ng-if="event.dropdown" ng-show="event.dropdown" class="btn btn-danger btn-mini">
-                        <span>Decline</span>
-                      </button>
-                                </p>
                             </div>
+                          </li>
                             <li>
                                 <button class="btn btn-warning btn-mini">View All</button>
                             </li>
@@ -61,11 +51,14 @@
                 <div class="widget-content nopadding collapse in" id="collapseG2" ng-if="pastEvents">
                     <ul class="recent-posts">
                         <li ng-repeat="event in pastEvents">
-                            <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
+                          <div class="user-thumb">
+                            <div back-img="{{event.image}}" style="width:40px;height:40px;"></div>
+                          </div>
                             <div class="article-post">
                                 <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
                                 <p>{{event.description}}</p>
                             </div>
+                          </li>
                             <li>
                                 <button class="btn btn-warning btn-mini">View All</button>
                             </li>

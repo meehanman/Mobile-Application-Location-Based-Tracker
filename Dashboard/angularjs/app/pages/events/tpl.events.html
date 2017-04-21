@@ -29,8 +29,8 @@
                 <tr ng-repeat="event in events | filter:searchText">
                     <td>
                         <div class="new-update clearfix"><i class="">
-                          <img ng-src="{{event.image}}" ng-show="event.image" width="50px"/>
-                          <img ng-hide="event.image"ng-src="app/img/default-location.png" width="50px"/></i>
+                          <div back-img="{{event.image}}" style="width:70px;height:70px;background-position: center;"></div>
+                          </i>
                             <div class="update-done"><strong><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></strong>
                                 <br>
                                 <p>{{event.location.name}}</p>

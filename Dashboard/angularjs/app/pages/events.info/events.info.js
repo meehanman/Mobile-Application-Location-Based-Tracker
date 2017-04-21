@@ -28,8 +28,8 @@ app.controller('EventInfoCtrl', ['$scope', 'Auth', 'Events', 'ModalService', '$s
                     }
                 }
             } else {
-                $scope.labels = ["Accepted", "Declined", "Attended", "Invited"];
-                $scope.data = [0, 0, 0, 0];
+                $scope.labels = ["Accepted", "Declined", "Invited"];
+                $scope.data = [0, 0, 0];
                 for (var i = 0; i < $scope.event.attendees.length; i++) {
                     switch ($scope.event.attendees[i].status) {
                         case ('accepted'):
@@ -37,9 +37,6 @@ app.controller('EventInfoCtrl', ['$scope', 'Auth', 'Events', 'ModalService', '$s
                             break;
                         case ('declined'):
                             $scope.data[1]++;
-                            break;
-                        case ('attended'):
-                            $scope.data[2]++;
                             break;
                         case ('invited'):
                             $scope.data[3]++;

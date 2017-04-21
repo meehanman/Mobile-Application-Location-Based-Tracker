@@ -1,4 +1,4 @@
-app.controller('CommonCtrl', ['$scope', 'Auth', '$location', '$state', function($scope, Auth, $location, $state) {
+app.controller('CommonCtrl', ['$scope', 'Auth', '$location', '$state', '$interval', function($scope, Auth, $location, $state, $interval) {
     $scope.user = Auth.getUser();
     $scope.logout = Auth.logout;
     $scope.notifications = [];
@@ -39,5 +39,6 @@ app.controller('CommonCtrl', ['$scope', 'Auth', '$location', '$state', function(
         });
     }
 
-    $scope.getNotifications();
+    $interval($scope.getNotifications, 100000);
+    $scope.getNotifications()
 }]);

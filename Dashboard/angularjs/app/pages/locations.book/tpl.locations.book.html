@@ -43,7 +43,7 @@
                     <!-- End Time -->
                     <div ng-show="eventStep==5">
                         <h4>{{form.starts_at | date: 'HH:mm'}} - {{form.ends_at | date: 'HH:mm'}}</h4>
-                        <p>Time's not availabe: <span ng-repeat="event in events"><span><span ng-if="$index!=0">, </span>{{event.starts_at | date: 'HH:mm'}} - {{event.ends_at | date: 'HH:mm'}}</span>
+                        <p ng-show="events.length>0">Time's not availabe: <span ng-repeat="event in events"><span><span ng-if="$index!=0">, </span>{{event.starts_at | date: 'HH:mm'}} - {{event.ends_at | date: 'HH:mm'}}</span>
                             </span>
                         </p>
                         <input type="range" ng-change="checkTimeNotInRange()" ng-model="form.ends_at" class="large-text" min="{{rangeMin}}" value="{{rangeMin}}" max="{{rangeMax}}" step="300000">
