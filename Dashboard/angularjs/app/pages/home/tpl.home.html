@@ -29,7 +29,7 @@
                         <li ng-repeat="event in upcomingEvents">
                             <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
                             <div class="article-post">
-                                <span class="user-info"> <b><a href>{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
+                                <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
                                 <p>{{event.description}}</p>
                                 <p>
                                     <button data-model="event.dropdown = false" ng-show="!event.dropdown" class="btn btn-mini" ng-class="{ 'btn-success': event.requestedUserStatus=='accepted', 'btn-danger': event.requestedUserStatus=='declined', 'btn-warning': event.requestedUserStatus=='invited'}"
@@ -63,7 +63,7 @@
                         <li ng-repeat="event in pastEvents">
                             <div class="user-thumb"> <img width="40" height="40" ng-src="{{event.image}}"> </div>
                             <div class="article-post">
-                                <span class="user-info"> <b><a href>{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
+                                <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
                                 <p>{{event.description}}</p>
                             </div>
                             <li>
@@ -80,14 +80,7 @@
 
         <!-- Right Side -->
         <div class="span6">
-            <div class="widget-box">
-                <div class="widget-title" data-toggle="collapse" href="#collapseR1"><span class="icon"><i class="icon-chevron-down"></i></span>
-                    <h5>Chart Test</h5>
-                </div>
-                <div class="widget-content collapse in" id="collapseR1">
-                    <canvas id="pie" style="height:100px;" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
-                </div>
-            </div>
+
         </div>
     </div>
 

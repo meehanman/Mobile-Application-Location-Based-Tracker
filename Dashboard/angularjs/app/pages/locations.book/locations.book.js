@@ -139,7 +139,6 @@ app.controller('LocationsBookCtrl', ['$scope', '$stateParams', 'Users', 'Locatio
             $state.go('locations-info', {
                 id: $stateParams.id
             });
-            return 200;
         });
     }
 

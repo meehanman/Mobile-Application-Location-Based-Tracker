@@ -31,10 +31,10 @@
                         <div class="new-update clearfix"><i class="">
                           <img ng-src="{{event.image}}" ng-show="event.image" width="50px"/>
                           <img ng-hide="event.image"ng-src="app/img/default-location.png" width="50px"/></i>
-                            <div class="update-done"><strong><a href>{{event.name}}</a></strong>
+                            <div class="update-done"><strong><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></strong>
                                 <br>
-                                <p>{{event.description}}</p>
-                                <p><b>Location: {{event.location.name}}<b/></p>
+                                <p>{{event.location.name}}</p>
+                                <p style="display:none">{{event}}</p>
                             </div>
                             <div class="update-date"><span class="update-day">{{event.starts_at | date:'dd'}}</span>{{event.starts_at | date:'MMM'}}</div>
                         </div>

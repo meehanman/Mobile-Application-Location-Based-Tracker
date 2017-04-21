@@ -1,4 +1,4 @@
-var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule', 'naif.base64', 'angularModalService', 'ngMap', 'ui.bootstrap.datetimepicker', 'multipleSelect', 'chart.js']);
+var app = angular.module('MATBLDashboard', ['ui.router', 'angular-flot', 'LocalStorageModule', 'naif.base64', 'angularModalService', 'ngMap', 'ui.bootstrap.datetimepicker', 'multipleSelect', 'chart.js', 'angularMoment']);
 
 app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
     function($httpProvider, $stateProvider, $urlRouterProvider) {
@@ -53,6 +53,12 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
                 parent: 'common',
                 templateUrl: 'app/pages/events.edit/tpl.events.edit.html',
                 controller: 'EventEditCtrl'
+            })
+            .state('events.info', {
+                url: '/events/info/:id',
+                parent: 'common',
+                templateUrl: 'app/pages/events.info/tpl.events.info.html',
+                controller: 'EventInfoCtrl'
             })
             .state('locations', {
                 url: '/locations',
