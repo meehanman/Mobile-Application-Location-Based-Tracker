@@ -27,9 +27,11 @@ app.controller('CommonCtrl', ['$scope', 'Auth', '$location', '$state', '$interva
         return string.split(".")[0];
     }
 
-    $scope.notifications = [];
+
     $scope.getNotifications = function() {
+
         Auth.getNotifications(function(data) {
+            $scope.notifications = [];
             //Only keep the invited status
             for (var i = 0; i < data.data.length; i++) {
                 if (data.data[i].status == "invited") {

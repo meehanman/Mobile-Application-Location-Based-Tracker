@@ -1,6 +1,4 @@
 app.factory('Events', ['$rootScope', '$http', function($rootScope, $http) {
-    var events;
-
     var get = function(callback) {
         $http.get('https://cloud.dean.technology/event/all').then(function(events) {
             events = events.data;
@@ -31,7 +29,6 @@ app.factory('Events', ['$rootScope', '$http', function($rootScope, $http) {
 
     var getPrevious = function(callback) {
         $http.get('https://cloud.dean.technology/event/previous').then(function(events) {
-            events = events.data;
             callback(events);
         }, function(fail) {
             console.log("Failed to get Events", fail);

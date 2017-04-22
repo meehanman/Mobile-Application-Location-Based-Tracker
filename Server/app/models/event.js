@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = mongoose.model('User').schema;
 var Location = mongoose.model('Location').schema;
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var eventSchema = new Schema({
   name: { type: String, required: true},
@@ -27,6 +28,8 @@ eventSchema.pre('save', function(next) {
     this.updated_at = now;
     next();
 });
+
+eventSchema.plugin(deepPopulate, {});
 
 // the schema is useless so far
 // we need to create a model using it

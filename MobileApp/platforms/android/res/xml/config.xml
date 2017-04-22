@@ -76,24 +76,24 @@
     <description>Final Year Assignment</description>
     <author email="MATLB@dean.technology" href="http://dean.technology/">Dean Meehan</author>
     <content src="index.html" />
-    <icon density="ldpi" src="www/img/eventMap/evLogoLogin.png" />
-    <icon density="mdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <icon density="hdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <icon density="xhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <icon density="xxhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <icon density="xxxhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="land-ldpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="land-mdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="land-hdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="land-xhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="land-xxhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="land-xxxhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="port-ldpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="port-mdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="port-hdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="port-xhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="port-xxhdpi" src="www/img/eventMap/evLogoLogin.png" />
-    <splash density="port-xxxhdpi" src="www/img/eventMap/evLogoLogin.png" />
+    <icon density="ldpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <icon density="mdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <icon density="hdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <icon density="xhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <icon density="xxhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <icon density="xxxhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="land-ldpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="land-mdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="land-hdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="land-xhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="land-xxhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="land-xxxhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="port-ldpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="port-mdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="port-hdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="port-xhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="port-xxhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
+    <splash density="port-xxxhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
     <access origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />

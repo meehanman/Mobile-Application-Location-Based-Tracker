@@ -21,6 +21,18 @@ var Promise = require('bluebird');
 mongoose.Promise = Promise;
 mongoose.set("debug", true);
 
+//Setup plugins
+var restify = require('restify');
+var https = require('https');
+var fs = require("fs");
+var passwordhash = require('password-hash-and-salt');
+
+//Define Settings
+var settings = {
+    host: "0.0.0.0",
+    port: 9000
+}
+
 //Define Settings
 var settings = {
     host: "0.0.0.0",

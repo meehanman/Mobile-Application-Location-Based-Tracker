@@ -2,9 +2,9 @@ app.controller('DashboardCtrl', ['$scope', 'Events', function($scope, Events) {
 
     $scope.refresh = function() {
         Events.getUpcoming(function(data) {
-            if(data.length==0) return;
-
             $scope.upcomingEvents = data.data;
+
+            if(data.length==0) return;
             $scope.labels = ["Accepted", "Declined", "Attended", "Invited"];
             $scope.data = [0, 0, 0, 0];
             for (var i = 0; i < $scope.upcomingEvents[0].attendees.length; i++) {
@@ -27,8 +27,7 @@ app.controller('DashboardCtrl', ['$scope', 'Events', function($scope, Events) {
         });
 
         Events.getPrevious(function(data) {
-            if(data.length==0)return;
-            $scope.pastEvents = data;
+            $scope.pastEvents = data.data;
         });
     }
 

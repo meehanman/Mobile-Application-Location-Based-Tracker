@@ -32,10 +32,10 @@ module.exports = function(server) {
         });
     });
 
-    server.get('/location/deep/:place', function(req, res) {
+    server.get('/stats/place/:place', function(req, res) {
         Location.find({
             place: req.params.place
-        }).deepPopulate('place').exec(function(error, location) {
+        }).lean().exec(function(error, locations) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -43,7 +43,44 @@ module.exports = function(server) {
                     error: error
                 });
             } else {
-                res.json(location);
+                var e = [];
+                for(var i=0;i<locations.length;i++){
+                  console.log(locations[i]._id);
+                  locations[i].events = [];
+                  Event.find({
+                      location: locations[i]._id
+                  }).lean().exec(function(error, events) {
+                      console.log(events.length);
+                      if (error) {
+                          res.json({
+                              title: "Failed",
+                              message: "Could not find location.",
+                              error: error
+                          });
+                      } else {
+                        console.log(locations[i].events, events.length);
+                        locations[i].events = events;
+                        console.log(locations[i].events, events.length);
+                      }
+                  });
+                }
+                res.json({q: req.params.place, l:locations});
+            }
+        });
+    });
+
+    server.get('/stats/location/:location', function(req, res) {
+        Event.find({
+            location: req.params.location
+        }).lean().exec(function(error, locations) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not find location.",
+                    error: error
+                });
+            } else {
+                res.json(locations);
             }
         });
     });

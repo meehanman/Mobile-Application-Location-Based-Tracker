@@ -1,6 +1,7 @@
 module.exports = function(server) {
     var Event = require('../models/event');
     var Location = require('../models/location');
+    var Place = require('../models/place');
     var User = require('../models/user');
 
     //Returns current users events
@@ -42,15 +43,22 @@ module.exports = function(server) {
         });
     });
 
+    //Returns current users events
     server.get('/event/upcoming', function(req, res) {
         var now = new Date();
         Event.find({
             starts_at: {
                 $gte: now
             }
+        }).and({
+            'attendees': {
+                $elemMatch: {
+                    user: req.user._id
+                }
+            }
         }).sort({
             starts_at: 1
-        }).populate('attendees').lean().exec(function(error, events) {
+        }).populate('attendees.user').lean().exec(function(error, events) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -81,9 +89,15 @@ module.exports = function(server) {
             starts_at: {
                 $lte: now
             }
+        }).and({
+            'attendees': {
+                $elemMatch: {
+                    user: req.user._id
+                }
+            }
         }).sort({
             starts_at: -1
-        }).populate('attendees').exec(function(error, events) {
+        }).populate('attendees.user').exec(function(error, events) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -100,15 +114,16 @@ module.exports = function(server) {
     server.get('/event/:id', function(req, res) {
         Event.findOne({
             _id: req.params.id
-        }).populate('location', 'name').populate('attendees.user', 'name image').exec(function(error, event) {
+        }).populate('location').deepPopulate('location.place').populate('attendees.user', 'name image').exec(function(error, event) {
             if (error) {
                 res.json({
                     title: "Failed",
                     message: "Could not list event.",
                     error: error
                 });
+            }else{
+              res.json(event);
             }
-            res.json(event);
         });
     });
 
