@@ -10,5 +10,7 @@
     <description>Final Year Assignment</description>
     <author email="MATLB@dean.technology" href="http://dean.technology/">Dean Meehan</author>
     <content src="index.html" />
+    <access launch-external="yes" origin="geo:*" />
+    <access launch-external="yes" origin="*" />
     <preference name="DisallowOverscroll" value="true" />
 </widget>

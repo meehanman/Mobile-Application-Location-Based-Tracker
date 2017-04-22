@@ -114,7 +114,7 @@ module.exports = function(server) {
     server.get('/event/:id', function(req, res) {
         Event.findOne({
             _id: req.params.id
-        }).populate('location').deepPopulate('location.place').populate('attendees.user', 'name image').exec(function(error, event) {
+        }).populate('location').deepPopulate('location.place').populate('attendees.user', 'name image').populate('owner', 'name image').exec(function(error, event) {
             if (error) {
                 res.json({
                     title: "Failed",

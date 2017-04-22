@@ -626,6 +626,14 @@ module.exports = [
         "clobbers": [
             "window.WifiWizard"
         ]
+    },
+    {
+        "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js",
+        "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.Common",
+        "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+        "clobbers": [
+            "launchnavigator"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -656,7 +664,8 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.3.1",
     "com.pylonproducts.wifiwizard": "0.2.11",
     "com.red_folder.phonegap.plugin.backgroundservice": "2.0.0",
-    "technology.dean.backgroundservice": "0.1"
+    "technology.dean.backgroundservice": "0.1",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2"
 }
 // BOTTOM OF METADATA
 });

@@ -1,0 +1,25 @@
+<!-- We don't need full layout in this file because this page will be parsed with Ajax. It is just enough to put here .navbar and .page-->
+<!-- Top Navbar-->
+<div class="pages" data-page="meeting">
+    <div data-page="meeting" class="page">
+        <div class="page-content">
+            <div class="content-block">
+                <div class="content-block-title">Rooms</div>
+                {{#each this}}
+                    <div class="card demo-card-header-pic" data-context-name="this.{{@index}}">
+                        <div style="height:230px;background-size: cover;background-image:url('{{this.PictureUri}}')" valign="bottom" class="card-header color-white no-border">{{this.Description}} [{{this.Id}}]</div>
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                <p class="color-gray">Max {{this.Capacity}}</p>
+                                <p>{{this.Messages}}</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">Room <a href="#" class="link">{{this.RoomType.Description}}</a> </div>
+                    </div>
+                {{else}}
+                 <p>There are no rooms.</p>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

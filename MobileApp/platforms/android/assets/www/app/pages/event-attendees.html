@@ -4,7 +4,7 @@
 <div class="pages navbar-fixed" data-page="event-attendees">
     <div data-page="event-attendees" class="page">
         <div class="page-content" style="background-color: #f2f2f2;">
-            <div class="indexBackgroundImage-other">
+            <div class="indexBackgroundImage-other" style="z-index: 200;">
                 <!-- Darken the image -->
                 <div class="indexBackgroundImage-colorOverlay">
                     <!-- Top Navbar-->
@@ -12,7 +12,7 @@
                         <div class="navbar-inner">
                             <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
                             <div class="left">
-                                <a href="/app/pages/event.html" class="link icon-only"><i class="icon icon-back"></i></a> </div>
+                                <a href="app/pages/event.html" class="link icon-only"><i class="icon icon-back"></i></a> </div>
                             <div class="center sliding">Event Attendees</div>
 
                         </div>
@@ -26,13 +26,13 @@
                 <div class="list-block">
                     <ul>
                       {{#each attendees}}
-                        <li class="item-content">
+                        <li class="item-content" class="z-index:-100">
                             <div class="item-media">
-                              <img src="{{image}}"
+                              <img src="{{user.image}}"
                               class="upcomingEventrow-img" style="margin: 0; padding: 0; display: block; margin-right: 15px;">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title">{{name}}</div>
+                                <div class="item-title">{{user.name}}</div>
                                 <div class="item-after">{{status}}</div>
                             </div>
                         </li>

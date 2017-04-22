@@ -102,8 +102,7 @@
                 <div class="widget-title"><span class="icon"><i class="icon-user"></i></span>
                     <h5>Your attendance</h5>
                 </div>
-                <div class="widget-content" ng-repeat="attendee in event.attendees" ng-show="user.id == attendee.user._id" style="text-align:center">
-
+                <div class="widget-content" ng-repeat="attendee in event.attendees" ng-init="loaded=true" ng-if="user.id == attendee.user._id" style="text-align:center">
                     <button data-model="event.dropdown = false" ng-disabled="attendee.status=='attended'||attendee.status=='absent'" ng-show="!event.dropdown" class="btn" ng-class="{ 'btn-success': attendee.status=='accepted', 'btn-danger': attendee.status=='declined', 'btn-warning': attendee.status=='invited'}"
                         ng-click="event.dropdown = true">
       <span ng-if="attendee.status=='invited'">Please respond to invitation <span class="caret"></span></span>
@@ -115,6 +114,9 @@
                     <button ng-click="updateEventStatus(event._id, 'declined')" ng-if="event.dropdown" ng-show="event.dropdown" class="btn btn-danger">
       <span>Decline</span>
     </button>
+                </div>
+                <div class="widget-content" ng-if="!event.isAttendee" style="text-align:center">
+                  <button disabled class="btn btn-danger"><span>Not Invited</span></button>
                 </div>
             </div>
 

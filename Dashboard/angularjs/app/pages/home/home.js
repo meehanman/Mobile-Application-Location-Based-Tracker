@@ -4,7 +4,8 @@ app.controller('DashboardCtrl', ['$scope', 'Events', function($scope, Events) {
         Events.getUpcoming(function(data) {
             $scope.upcomingEvents = data.data;
 
-            if(data.length==0) return;
+            if(data.data.length==0) return;
+            
             $scope.labels = ["Accepted", "Declined", "Attended", "Invited"];
             $scope.data = [0, 0, 0, 0];
             for (var i = 0; i < $scope.upcomingEvents[0].attendees.length; i++) {

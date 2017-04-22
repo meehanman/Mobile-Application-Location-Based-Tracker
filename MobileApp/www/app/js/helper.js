@@ -192,8 +192,8 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
         success: function(data, textStatus, jqXHR) {
             data = JSON.parse(data);
 
-            data.timeString = moment(data.start_date, 'HH:mm')+"-"+moment(data.end_date, 'HH:mm');
-            data.dateString = moment(data.start_date, 'D MMMM YYYY');
+            data.timeString = moment(data.starts_at).format('HH:mm')+"-"+moment(data.ends_at).format('HH:mm');
+            data.dateString = moment(data.starts_at).format('D MMMM YYYY');
 
             data.dateTimeString = data.timeString+" "+data.dateString;
 
@@ -234,13 +234,6 @@ $$(document).on('click', '#attendeeList', function(e){
     mainView.router.load({
         url: 'app/pages/event-attendees.html',
         context: myApp.template7Data.event
-    });
-});
-
-$$(document).on('click', '#openEventMap', function() {
-    mainView.router.load({
-        url: 'app/pages/map.html',
-        context: myApp.template7Data
     });
 });
 
@@ -327,6 +320,11 @@ $$(document).on('click','#toggleService',function(e){
   backgroundservice.toggleService();
 });
 
+var openMap = function(lat,lon){
+    console.log("mapOpen",lat, lon);
+    launchnavigator.navigate([lat, lon]);
+};
+
 $$(document).on('click', '#poll', function(e) {
   $$('#getWifioutput').html("Loading Wifi...");
   getWifi(function(data){
@@ -365,8 +363,8 @@ function openHome(){
           data = JSON.parse(data);
           console.log("GetUpcomingEvnts",data);
           for (var i=0; i<data.length;i++) {
-            data[i].timeString = moment(data.start_date, 'HH:mm')+"-"+moment(data.end_date, 'HH:mm');
-            data[i].dateString = moment(data.start_date, 'D MMMM YYYY');
+            data[i].timeString = moment(data[i].starts_at).format('HH:mm')+"-"+moment(data[i].ends_at).format('HH:mm');
+            data[i].dateString = moment(data[i].starts_at).format('D MMMM YYYY');
             data[i].attendees = data[i].attendees.slice(0, 5);
           }
 

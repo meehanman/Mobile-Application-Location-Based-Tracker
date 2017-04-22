@@ -72,6 +72,12 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="ActionSheet">
+        <param name="android-package" value="nl.xservices.plugins.actionsheet.ActionSheet" />
+    </feature>
+    <feature name="LaunchNavigator">
+        <param name="android-package" value="uk.co.workingedge.phonegap.plugin.LaunchNavigator" />
+    </feature>
     <name>MALBT</name>
     <description>Final Year Assignment</description>
     <author email="MATLB@dean.technology" href="http://dean.technology/">Dean Meehan</author>
@@ -94,7 +100,8 @@
     <splash density="port-xhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
     <splash density="port-xxhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
     <splash density="port-xxxhdpi" src="www/app/img/eventMap/evLogoLogin.png" />
-    <access origin="*" />
+    <access launch-external="yes" origin="geo:*" />
+    <access launch-external="yes" origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
     <preference name="loglevel" value="DEBUG" />

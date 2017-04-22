@@ -78,6 +78,9 @@
         },
         "technology.dean.backgroundservice": {
             "PACKAGE_NAME": "technology.dean"
+        },
+        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+            "PACKAGE_NAME": "technology.dean"
         }
     },
     "dependent_plugins": {

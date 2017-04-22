@@ -13,6 +13,12 @@ app.controller('EventInfoCtrl', ['$scope', 'Auth', 'Events', 'ModalService', '$s
         Events.getOne($stateParams.id, function(event) {
             $scope.event = event.data;
             $scope.event.duration = moment.duration(Date.parse($scope.event.starts_at) - Date.parse($scope.event.ends_at)).humanize();
+            
+            for(var i=0;i<$scope.event.attendees.length;i++){
+              if($scope.user.id==$scope.event.attendees[i].user._id){
+                  $scope.event.isAttendee=true;
+              }
+            }
 
             //If the event is over. Then lets display if they attended or not.
             if (Date.parse($scope.event.ends_at) < Date.now()) {
