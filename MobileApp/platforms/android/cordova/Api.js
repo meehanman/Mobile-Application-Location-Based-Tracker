@@ -66,7 +66,7 @@ function Api(platform, platformRootDir, events) {
     this.locations = {
         root: self.root,
         www: path.join(self.root, 'assets/www'),
-        res: path.relative(self.root, path.join(self.root, 'res')),
+        res: path.join(self.root, 'res'),
         platformWww: path.join(self.root, 'platform_www'),
         configXml: path.join(self.root, 'res/xml/config.xml'),
         defaultConfigXml: path.join(self.root, 'cordova/defaults.xml'),
@@ -85,7 +85,7 @@ function Api(platform, platformRootDir, events) {
       this.locations.strings = path.join(self.root, 'app/src/main/res/xml/strings.xml');
       this.locations.manifest = path.join(self.root, 'app/src/main/AndroidManifest.xml');
       this.locations.www = path.join(self.root, 'app/src/main/assets/www');
-      this.locations.res = path.relative(self.root, path.join(self.root, 'app/src/main/res'));
+      this.locations.res = path.join(self.root, 'app/src/main/res');
     }
 }
 
@@ -244,7 +244,8 @@ Api.prototype.addPlugin = function (plugin, installOptions) {
             // Skip cleaning prepared files when not invoking via cordova CLI.
             opts.noPrepare = true;
 
-            return self.clean(opts);
+            if(!(AndroidStudio.isAndroidStudioProject(self.root)))
+              return self.clean(opts);
         })
        .then(function () {
             return PluginManager.get(self.platform, self.locations, project)

@@ -41,18 +41,6 @@ myApp.onPageInit('map', function() {
 
 });
 
-myApp.onPageInit('event', function() {
-
-    var statusPlaceholder = "UNKNOWN";
-    if(myApp.template7Data.event.myStatus=="accepted"){
-      statusPlaceholder = "Going";
-    }else if(myApp.template7Data.event.myStatus=="declined"){
-      statusPlaceholder = "Can't Go";
-    }else if(myApp.template7Data.event.myStatus=="invited"){
-      statusPlaceholder = "Invited - Please RSVP";
-    }
-});
-
 //Send the login details to the server
 $$(document).on('click', '#login-button', function() {
     console.log("login-button clicked");
@@ -196,6 +184,26 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
             data.dateString = moment(data.starts_at).format('D MMMM YYYY');
 
             data.dateTimeString = data.timeString+" "+data.dateString;
+
+            for(var i=0;i<data.attendees.length;i++){
+              //Assign color for rings
+              if(data.attendees[i].status=="accepted"){
+                data.attendees[i].color="#5cb85c";
+              }else if(data.attendees[i].status=="declined"){
+                data.attendees[i].color="#ad3a3a";
+              }else{
+                data.attendees[i].color="#a5a5a5";
+              }
+
+              //Get Current Users Option
+              if(myApp.template7Data.auth.id==data.attendees[i].user._id){
+                  if(data.attendees[i].status=='accepted'){
+                      data.userAccept="Accepted";
+                  }else if(data.attendees[i].status=='declined'){
+                    data.userAccept="Declined";
+                  }
+              }
+            }
 
             //Shorten List for Viewing
             data.attendeesList = data.attendees.slice(0, 5);
@@ -342,7 +350,6 @@ function getLocations(callBack) {
         success: function(data, textStatus, jqXHR) {
             data = JSON.parse(data);
             myApp.template7Data.locations = data;
-            console.log(myApp.template7Data.locations);
             callBack();
         },
         error: function(data, textStatus, jqXHR) {

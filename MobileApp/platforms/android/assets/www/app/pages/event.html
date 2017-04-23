@@ -26,24 +26,19 @@
                 <div style="padding-top: 15px;font-size: 20px;font-weight: 350;">{{event.name}}</div>
             </div>
             <br>
-            <div class="content-block" style="background-color:#fff;">
-              <div style="width: 50%; padding-left: 25%;">
-                {{event.MyStatus}}z
-                <!-- Picker -->
-                <div class="list-block">
-                  <ul>
-                    <li>
-                      <div class="item-content">
-                        <div class="item-inner">
-                          <div class="item-input">
-                            <input type="text" readonly id="picker-status" data-event-id="{{event.id}}">
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  </div>
-              </div>
+            <div class="content-block" style="background-color:#fff;text-align:center;">
+                <p class="buttons-row">
+                  {{#if event.userAccept}}
+                  <a class="button button-fill color-green">{{event.userAccept}}</a>
+                  {{/if}}
+                  {{#if event.userDecline}}
+                  <a class="button button-fill color-red">{{event.userDecline}}</a>
+                  {{/if}}
+                  {{#if event.userChoice}}
+                  <a class="button button-fill color-green">Accept</a>
+                  <a class="button button-fill color-red">Decline</a>
+                  {{/if}}
+                </p>
             </div>
 
 
@@ -60,8 +55,7 @@
                     </div>
                     <div style="height: 50px;padding-top: 12px;" data-id="{{event._id}}" id="attendeeList">
                         {{#each event.attendeesList}}
-                          <img src="{{user.image}}"
-                          class="upcomingEventrow-img" style="margin: 0; padding: 0; display: block; margin-right: 15px;">
+                          <img src="{{user.image}}" class="upcomingEventrow-img" style="margin: 0; padding: 0; display: block; margin-right: 15px;border: {{color}} solid 2px;">
                         {{/each}}
                         <div class="upcomingEventrow-img" style="margin: 0;padding: 0;display: block;margin-right: 15px;background-color: #227da7;color: white;text-align: center;line-height: 58px;"><i class="material-icons">keyboard_arrow_right</i></div>
                     </div>
