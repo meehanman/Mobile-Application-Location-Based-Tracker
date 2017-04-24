@@ -14,12 +14,11 @@ module.exports = function(server){
   });
 
   //Get current user inforamtion
-  server.get('/whoami',
-      function(req, res) {
+  server.get('/whoami', function(req, res) {
           res.json({
               loggedIn: true,
               id: req.user._id,
-              name: req.user.name,
+              name: server.toCamelCase(req.user.name),
               admin: req.user.admin,
               location: req.user.location,
               groups: req.user.groups,

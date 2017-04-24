@@ -12,7 +12,7 @@
                         <div class="navbar-inner">
                             <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
                             <div class="left">
-                                <a href="index.html" class="link icon-only"><i class="icon icon-back"></i></a> </div>
+                                <a href="index.html" id="btnReturnHome" class="link icon-only"><i class="icon icon-back"></i></a> </div>
                             <div class="center sliding">New Event</div>
 
                         </div>
@@ -52,17 +52,6 @@
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
-                                    <div class="item-input" style="text-align:center;"><br>
-                                        <button id="btnEventPhoto" class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;">Select Event Photo</button><br>
-                                        <img style="display:none;" id="smallImage" src="" height="75" />
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="item-content">
-                                <div class="item-inner">
                                     <div class="item-title floating-label">Event Type</div>
                                     <div class="item-input">
                                         <select>
@@ -82,7 +71,50 @@
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input" style="text-align:center;"><br>
+                                        <button id="btnEventPhoto" class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;">Select Event Photo</button><br>
+                                        <img style="display:none;" id="smallImage" src="" height="75" />
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title floating-label">Start Time/Date</div>
+                                    <div class="item-input">
+                                      <input type="datetime-local" name="name">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title floating-label">End Time/Date</div>
+                                    <div class="item-input">
+                                      <input type="datetime-local" name="name">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-input" style="text-align:center;"><br>
                                         <button id="btnSelectLocation" class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;">Choose Event Location</button><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-input" style="text-align:center;"><br>
+                                        <button id="btnSelectLocation" class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;">Invite Users</button><br>
                                     </div>
                                 </div>
                             </div>

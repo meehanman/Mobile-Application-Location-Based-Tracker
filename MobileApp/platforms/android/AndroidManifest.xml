@@ -19,6 +19,9 @@
                 <action android:name="technology.dean.backgroundservice.MyService" />
             </intent-filter>
         </service>
+        <provider android:authorities="${applicationId}.provider" android:exported="false" android:grantUriPermissions="true" android:name="android.support.v4.content.FileProvider">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
+        </provider>
     </application>
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="25" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -28,4 +31,5 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

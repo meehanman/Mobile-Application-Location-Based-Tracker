@@ -171,6 +171,7 @@ app.filter('capitalize', function() {
         for (var i = 0; i < wordList.length; i++) {
             input += wordList[i].charAt(0).toUpperCase() + wordList[i].substr(1).toLowerCase() + " "
         }
+        //-1 as string always will end in a space
         return input.slice(0, -1);
     }
 });

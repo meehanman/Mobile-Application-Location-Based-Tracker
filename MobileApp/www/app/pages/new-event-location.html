@@ -4,15 +4,15 @@
 <div class="pages navbar-fixed" data-page="new-event-location">
     <div data-page="new-event-location" class="page">
         <div class="page-content" style="background-color: #f2f2f2;">
-            <div class="indexBackgroundImage-other">
+            <div class="indexBackgroundImage-other"  style="z-index:20;">
                 <!-- Darken the image -->
                 <div class="indexBackgroundImage-colorOverlay">
                     <!-- Top Navbar-->
-                    <div class="navbar" style="z-index:99999999;">
+                    <div class="navbar">
                         <div class="navbar-inner">
                             <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
                             <div class="left">
-                                <a href="/app/pages/new-event.html" class="link icon-only"><i class="icon icon-back"></i></a> </div>
+                                <a href="app/pages/new-event.html" class="link icon-only"><i class="icon icon-back"></i></a> </div>
                             <div class="center sliding"> Select Location </div>
 
                         </div>
@@ -30,10 +30,10 @@
                     <ul>
                         {{#each locations}}
                         <div class="card demo-card-header-pic" style="z-index:0;">
-                            <div style="background-image:url(https://unsplash.it/500/200?random&{{image}});background-color: cornflowerblue;" valign="bottom" class="card-header color-white no-border">{{name}}</div>
+                            <div style="background-image:url({{image}});background-color: cornflowerblue;" valign="bottom" class="card-header color-white no-border">{{name}}</div>
                             <div class="card-content">
                                 <div class="card-content-inner">
-                                    <p class="color-gray">{{place.address}}</p>
+                                    <p class="color-gray">{{place.address.street}} {{place.address.city}}, {{place.address.country}}</p>
                                     <p>{{description}}</p>
                                     <br>
                                     <div class="content-block">
@@ -47,7 +47,7 @@
                             </div>
                             <div class="card-footer">
                                 <a>Max People: {{max_people}}</a>
-                                <a href="#" class="button button-small button-green">Select</a>
+                                <a href class="button button-small button-green" onclick="selectLocation({{_id}}, {{name}})">Select {{_id}}, {{name}}</a>
                             </div>
                         </div>
                         {{/each}}

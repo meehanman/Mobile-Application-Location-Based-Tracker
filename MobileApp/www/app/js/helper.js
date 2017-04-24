@@ -197,11 +197,22 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
 
               //Get Current Users Option
               if(myApp.template7Data.auth.id==data.attendees[i].user._id){
+
+                  //Set button color
                   if(data.attendees[i].status=='accepted'){
-                      data.userAccept="Accepted";
+                      data.userChoiceColor="green";
                   }else if(data.attendees[i].status=='declined'){
-                    data.userAccept="Declined";
+                      data.userChoiceColor="red";
                   }
+
+                  //Set Button Text
+                  if(data.attendees[i].status=='accepted'){
+                  data.userChoice="Accepted";
+                }else if(data.attendees[i].status=='declined'){
+                  data.userChoice="Declined";
+                }else if(data.attendees[i].status=='invited'){
+                  data.userChoice="Please respond";
+                }
               }
             }
 
@@ -339,6 +350,51 @@ $$(document).on('click', '#poll', function(e) {
     $$('#getWifioutput').html(data);
   });
 });
+
+$$(document).on('click', '.toggle-userChoice', function(){
+  mainView.router.load({
+      url: 'app/pages/event-choose-status.html',
+      context: myApp.template7Data
+  });
+});
+
+/** Change the status of an event **/
+var eventStatus = function(status){
+  $$.ajax({
+      url: "https://cloud.dean.technology/event/"+myApp.template7Data.event._id+"/"+status,
+      type: "PUT",
+      contentType: "application/json",
+      "crossDomain": true,
+      success: function(data, textStatus, jqXHR) {
+
+        if(status=="accepted"){
+          myApp.template7Data.event.userChoiceColor="green";
+          myApp.template7Data.event.userChoice="Accepted"
+        }else if(status=="declined"){
+          myApp.template7Data.event.userChoiceColor="red";
+          myApp.template7Data.event.userChoice="Declined";
+        }
+
+
+        mainView.router.load({
+            url: 'app/pages/event.html',
+            context: myApp.template7Data
+        });
+      },
+      error: function(data, textStatus, jqXHR) {
+          console.log("Error Settings userchoice",data);
+          alert("Error setting status.");
+      }
+  });
+};
+
+var selectLocation = function(locID, name){
+    console.log(locID, name);
+    mainView.router.load({
+        url: 'app/pages/new-event.html',
+        context: myApp.template7Data
+    });
+}
 
 //Gets upcoming events and saves them to template7Data.upComingEvents
 function getLocations(callBack) {

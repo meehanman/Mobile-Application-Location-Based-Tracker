@@ -27,10 +27,16 @@
         },
         "uk.co.workingedge.phonegap.plugin.launchnavigator": {
             "PACKAGE_NAME": "technology.dean"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "technology.dean"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-actionsheet": {
+            "PACKAGE_NAME": "technology.dean"
+        },
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "technology.dean"
         }
     }

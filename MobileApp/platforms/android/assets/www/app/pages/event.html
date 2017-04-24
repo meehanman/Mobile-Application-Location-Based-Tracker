@@ -4,7 +4,7 @@
 <div class="pages navbar-fixed" data-page="event">
     <div data-page="event" class="page">
         <div class="page-content" style="background-color: #f2f2f2;">
-            <div class="indexBackgroundImage-other">
+            <div class="indexBackgroundImage-other" style="z-index:20;">
                 <!-- Darken the image -->
                 <div class="indexBackgroundImage-colorOverlay">
                     <!-- Top Navbar-->
@@ -22,22 +22,13 @@
             <!-- Bring content below Nav -->
             <br><br><br>
             <div style="text-align: center;background-color: #fff;margin-top: 5px;padding: 10px;padding-top: 25px;color: #000;">
-                <img src="{{event.image}}" width="" height="75">
+                <div style="background-image:url({{event.image}});width:100vw;background-position: center;height:75px;background-size: contain;background-repeat: no-repeat;"> </div>
                 <div style="padding-top: 15px;font-size: 20px;font-weight: 350;">{{event.name}}</div>
             </div>
             <br>
-            <div class="content-block" style="background-color:#fff;text-align:center;">
+            <div class="content-block" style="background-color:#fff;text-align:center;padding:5px">
                 <p class="buttons-row">
-                  {{#if event.userAccept}}
-                  <a class="button button-fill color-green">{{event.userAccept}}</a>
-                  {{/if}}
-                  {{#if event.userDecline}}
-                  <a class="button button-fill color-red">{{event.userDecline}}</a>
-                  {{/if}}
-                  {{#if event.userChoice}}
-                  <a class="button button-fill color-green">Accept</a>
-                  <a class="button button-fill color-red">Decline</a>
-                  {{/if}}
+                      <a class="button button-fill toggle-userChoice color-{{event.userChoiceColor}}" style="line-height: 45px;font-size: 22px;width: 50vw;margin-left: 25vw;z-index: 1;">{{event.userChoice}}</a>
                 </p>
             </div>
 

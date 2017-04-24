@@ -40,4 +40,6 @@
     <plugin name="cordova-plugin-ble" spec="~2.0.1" />
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="~3.2.2" />
     <engine name="android" spec="https://github.com/apache/cordova-android.git#6.1.0" />
+    <engine name="browser" spec="~4.1.0" />
+    <plugin name="cordova-plugin-camera" spec="~2.4.0" />
 </widget>

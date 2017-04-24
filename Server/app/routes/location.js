@@ -4,7 +4,7 @@ module.exports = function(server) {
 
     //Returns all locations
     server.get('/location', function(req, res) {
-        Location.find({}, function(error, locations) {
+        Location.find({}).populate('place').exec(function(error, locations) {
             if (error) {
                 res.json({
                     title: "Failed",
