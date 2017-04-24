@@ -32,7 +32,8 @@
                             </div>
                             <div class="article-post">
                                 <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
-                                <p>{{event.description}}</p>
+                                <p>{{event.description | limitTo: 200}}<span ng-if="event.description.length>200">...</span></p>
+                                <p><span class="label" style="background-color:#1988b9">{{event.type | capitalize}}</span> at {{event.location.name | capitalize}}</p>
                             </div>
                           </li>
                     </ul>
@@ -53,7 +54,8 @@
                           </div>
                             <div class="article-post">
                                 <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
-                                <p>{{event.description}}</p>
+                                <p>{{event.description | limitTo: 200}}<span ng-if="event.description.length>200">...</span></p>
+                                <p><span class="label" style="background-color:#1988b9">{{event.type | capitalize}}</span> at {{event.location.name | capitalize}}</p>
                             </div>
                           </li>
                     </ul>

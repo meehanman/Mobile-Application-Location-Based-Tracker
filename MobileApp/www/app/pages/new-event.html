@@ -4,7 +4,7 @@
 <div class="pages navbar-fixed" data-page="new-event">
     <div data-page="new-event" class="page">
         <div class="page-content" style="background-color: #f2f2f2;">
-            <div class="indexBackgroundImage-other">
+            <div class="indexBackgroundImage-other" style="z-index:250">
                 <!-- Darken the image -->
                 <div class="indexBackgroundImage-colorOverlay">
                     <!-- Top Navbar-->
@@ -25,106 +25,121 @@
             <div style="background-color: #fff;padding-top: 5px;color: #000;height: 100%;">
 
                 <div class="list-block">
-                    <ul>
-
+                    <ul style="background-color:white;">
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title floating-label">Name</div>
                                     <div class="item-input">
-                                        <input type="text" name="name">
+                                        <input type="text" id="new-event-field-name" value="{{newEvent.name}}">
                                     </div>
                                 </div>
                             </div>
                         </li>
-
+                      </br>
                         <li class="align-top">
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title floating-label">Description</div>
                                     <div class="item-input">
-                                        <textarea name="description"></textarea>
+                                        <textarea id="new-event-field-description">{{newEvent.description}}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </li>
-
+</br>
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title floating-label">Event Type</div>
                                     <div class="item-input">
-                                        <select>
-                                            <option>Meeting</option>
-                                            <option>Event</option>
-                                            <option>Party</option>
-                                            <option>Conference</option>
-                                            <option>Lecture</option>
-                                            <option>Other</option>
+                                        <select id="new-event-field-type">
+                                          {{#if newEvent.type}}
+                                          <option value="{{newEvent.type}}">{{newEvent.type}}</option>
+                                          {{else}}
+                                          <option disabled selected>---Select Event Type---</option>
+                                          {{/if}}
+                                            <option value="meeting">Meeting</option>
+                                            <option value="event">Event</option>
+                                            <option value="party">Party</option>
+                                            <option value="conference">Conference</option>
+                                            <option value="lecture">Lecture</option>
+                                            <option value="other">Other</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </li>
-
-                        <li>
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-input" style="text-align:center;"><br>
-                                        <button id="btnEventPhoto" class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;">Select Event Photo</button><br>
-                                        <img style="display:none;" id="smallImage" src="" height="75" />
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
+</br>
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title floating-label">Start Time/Date</div>
                                     <div class="item-input">
-                                      <input type="datetime-local" name="name">
+                                      <input type="datetime-local" id="new-event-field-starts_at" value="{{newEvent.starts_at}}">
                                     </div>
                                 </div>
                             </div>
                         </li>
-
+</br>
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title floating-label">End Time/Date</div>
                                     <div class="item-input">
-                                      <input type="datetime-local" name="name">
+                                      <input type="datetime-local" id="new-event-field-ends_at" value="{{newEvent.ends_at}}">
                                     </div>
                                 </div>
                             </div>
                         </li>
-
+</br>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-input" style="text-align:center;"><br>
+                                        <button id="btnEventPhoto" class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;">Select Event Photo</button><br>
+                                        {{#if newEvent.imageSet}}
+                                        <img style="text-align: center;margin-left: auto;margin-right: auto;" src="{{newEvent.image}}" height="75"/>
+                                        {{else}}
+                                        <img style="display:none;text-align: center;margin-left: auto;margin-right: auto;" id="smallImage" height="75"/>
+                                        {{/if}}
+                                        {{newEvent}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+</br>
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input" style="text-align:center;"><br>
                                         <button id="btnSelectLocation" class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;">Choose Event Location</button><br>
+                                        {{#if newEvent.locationName}}
+                                        <div style="font-size: 16px;color:#3c3c3c;">Event Location Selected: <b>{{newEvent.locationName}}</b></div>
+                                        {{/if}}
                                     </div>
                                 </div>
                             </div>
                         </li>
-
+</br>
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input" style="text-align:center;"><br>
-                                        <button id="btnSelectLocation" class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;">Invite Users</button><br>
+                                        <button class="button button-fill button-raised" style="width:80%;margin-left: 10%;margin-top:20px;margin-bottom:20px;" onclick="showUserSelectScreen()">Invite Users</button><br>
+                                        {{#each newEvent.attendeeNames}}
+                                          <div style="font-size: 16px;color:#3c3c3c;">{{this}} </div>
+                                        {{/each}}
                                     </div>
                                 </div>
                             </div>
                         </li>
-
+</br>
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <button id="btnAddEvent" class="button button-raised button-fill color-green" style="float:center; width:100%;margin-top:50px;">Add Event</button><br>
+                                        <button onclick="addEvent()" class="button button-raised button-fill color-green" style="float:center; width:100%;margin-top:50px;">Add Event</button><br>
                                     </div>
                                 </div>
                             </div>

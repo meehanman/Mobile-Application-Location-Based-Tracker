@@ -1,4 +1,5 @@
 module.exports = function(server) {
+    var restify = require('restify');
     var Event = require('../models/event');
     var Location = require('../models/location');
     var Place = require('../models/place');
@@ -58,7 +59,7 @@ module.exports = function(server) {
             }
         }).sort({
             starts_at: 1
-        }).populate('attendees.user').lean().exec(function(error, events) {
+        }).populate('attendees.user').populate('location', 'name').lean().exec(function(error, events) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -97,7 +98,7 @@ module.exports = function(server) {
             }
         }).sort({
             starts_at: -1
-        }).populate('attendees.user').exec(function(error, events) {
+        }).populate('attendees.user').populate('location', 'name').exec(function(error, events) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -129,7 +130,8 @@ module.exports = function(server) {
 
     //Adds a new event
     server.post('/event', function(req, res, next) {
-
+        var err = new restify.errors.InternalServerError('oh noes!');
+        return next(err);
         if (!req.body.image) {
             res.json({
                 title: "Failed",
@@ -144,6 +146,12 @@ module.exports = function(server) {
             } else {
                 delete req.body.image;
             }
+
+            //If the owner is not specified, then it's the currently logged in user
+            if(req.body.owner==undefined){
+              req.body.owner=req.user._id.toString();
+            }
+
             var event = new Event({
                 name: req.body.name,
                 owner: req.body.owner,

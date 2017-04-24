@@ -1,0 +1,52 @@
+<!-- We don't need full layout in this file because this page will be parsed with Ajax. It is just enough to put here .navbar and .page-->
+
+<!-- Top Navbar-->
+<div class="pages navbar-fixed" data-page="new-event-attendees">
+    <div data-page="new-event-attendees" class="page">
+        <div class="page-content" style="background-color: #f2f2f2;">
+            <div class="indexBackgroundImage-other" style="z-index: 200;">
+                <!-- Darken the image -->
+                <div class="indexBackgroundImage-colorOverlay">
+                    <!-- Top Navbar-->
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                            <div class="left">
+                                <a href="app/pages/new-event.html" class="link icon-only"><i class="icon icon-back"></i></a> </div>
+                            <div class="center sliding">Event Attendees</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bring content below Nav -->
+            <br><br><br>
+
+            <div style="text-align: center;background-color: #fff;padding-top: 5px;color: #000;height: 100%;">
+
+
+
+              <div class="list-block">
+                <ul>
+                  <li><a href class="item-link smart-select">
+                      <!-- "multiple" attribute for multiple select-->
+                      <select id="attendeeList" name="attendees" multiple>
+                        {{#each allUsers}}
+                          <option value="{{id}}">{{name}} <{{email}}></option>
+                          {{/each}}
+                      </select>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title">Choose Attendees from this list</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+                <br>
+                <button href class="button button-fill color-green" style="width:100vw; margin-left: auto; margin-right: auto;" onclick="saveAttendees()">Save</button>
+              </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>

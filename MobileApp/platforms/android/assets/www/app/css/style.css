@@ -202,3 +202,7 @@ img {
     margin-right: 5px;
     border-radius: 50%;
 }
+[data-select-name="attendees"]{
+  background-color: #2d2d2d;
+  color: white;
+}
