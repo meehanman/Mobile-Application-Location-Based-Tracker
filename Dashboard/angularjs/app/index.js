@@ -78,6 +78,12 @@ app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
                 templateUrl: 'app/pages/locations.edit/tpl.locations.edit.html',
                 controller: 'LocationsEditCtrl'
             })
+            .state('stats-location', {
+                url: '/stats/location/:id',
+                parent: 'common',
+                templateUrl: 'app/pages/stats.location/tpl.stats.html',
+                controller: 'LocationStatsCtrl'
+            })
             .state('locations-info', {
                 url: '/locations/info/:id',
                 views: {

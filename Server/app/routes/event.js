@@ -46,6 +46,9 @@ module.exports = function(server) {
 
     //Returns current users events
     server.get('/event/upcoming', function(req, res) {
+        if(req.query.limit){
+          req.query.limit=parseInt(req.query.limit);
+        }
         var now = new Date();
         Event.find({
             starts_at: {
@@ -59,7 +62,7 @@ module.exports = function(server) {
             }
         }).sort({
             starts_at: 1
-        }).populate('attendees.user').populate('location', 'name').lean().exec(function(error, events) {
+        }).populate('attendees.user').populate('location', 'name').limit(req.query.limit).lean().exec(function(error, events) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -130,8 +133,6 @@ module.exports = function(server) {
 
     //Adds a new event
     server.post('/event', function(req, res, next) {
-        var err = new restify.errors.InternalServerError('oh noes!');
-        return next(err);
         if (!req.body.image) {
             res.json({
                 title: "Failed",

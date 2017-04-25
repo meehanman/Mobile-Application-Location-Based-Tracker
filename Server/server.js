@@ -66,6 +66,7 @@ var middleware = require('./app/use/auth');
 server.use(restify.CORS());
 server.use(restify.authorizationParser());
 server.use(restify.bodyParser({mapParams: false}));
+server.use(restify.queryParser());
 
 //Authentication
 server.use(function(req, res, next) {
@@ -120,6 +121,7 @@ require('./app/routes/location.js')(server);
 require('./app/routes/place.js')(server);
 require('./app/routes/track.js')(server);
 require('./app/routes/user.js')(server);
+require('./app/routes/stats.js')(server);
 
 //Start Server
 server.listen(settings.port, settings.host, function() {

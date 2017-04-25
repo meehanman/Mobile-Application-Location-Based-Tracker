@@ -22,7 +22,7 @@ var mainView = myApp.addView('.view-main', {
 var authView = myApp.addView('.view-auth');
 
 $$(document).on('deviceready', function() {
-    console.info("deviceready.mainView.init");
+    console.info("Your Device is Ready Dean!");
     if (window.localStorage['auth']) {
         myApp.template7Data.auth = JSON.parse(window.localStorage['auth']);
         openHome();

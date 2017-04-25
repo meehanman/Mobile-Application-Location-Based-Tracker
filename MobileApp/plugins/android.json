@@ -16,6 +16,12 @@
         "cordova-plugin-ble": {
             "PACKAGE_NAME": "technology.dean"
         },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "technology.dean"
+        },
+        "cordova-plugin-eddystone": {
+            "PACKAGE_NAME": "technology.dean"
+        },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "technology.dean"
         },
@@ -26,9 +32,6 @@
             "PACKAGE_NAME": "technology.dean"
         },
         "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-            "PACKAGE_NAME": "technology.dean"
-        },
-        "cordova-plugin-camera": {
             "PACKAGE_NAME": "technology.dean"
         }
     },

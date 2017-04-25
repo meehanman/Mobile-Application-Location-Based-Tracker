@@ -30,36 +30,6 @@ module.exports = [
         ]
     },
     {
-        "id": "cordova-plugin-geolocation.geolocation",
-        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
-        "pluginId": "cordova-plugin-geolocation",
-        "clobbers": [
-            "navigator.geolocation"
-        ]
-    },
-    {
-        "id": "cordova-plugin-geolocation.PositionError",
-        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
-        "pluginId": "cordova-plugin-geolocation",
-        "runs": true
-    },
-    {
-        "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.Common",
-        "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js",
-        "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
-        "clobbers": [
-            "launchnavigator"
-        ]
-    },
-    {
-        "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.LaunchNavigator",
-        "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/android/launchnavigator.js",
-        "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
-        "merges": [
-            "launchnavigator"
-        ]
-    },
-    {
         "id": "cordova-plugin-camera.Camera",
         "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
         "pluginId": "cordova-plugin-camera",
@@ -90,6 +60,44 @@ module.exports = [
         "clobbers": [
             "CameraPopoverHandle"
         ]
+    },
+    {
+        "id": "cordova-plugin-eddystone.eddystoneplugin",
+        "file": "plugins/cordova-plugin-eddystone/js/eddystone-plugin.js",
+        "pluginId": "cordova-plugin-eddystone",
+        "clobbers": [
+            "evothings.eddystone"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.geolocation",
+        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.PositionError",
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "runs": true
+    },
+    {
+        "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.Common",
+        "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js",
+        "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+        "clobbers": [
+            "launchnavigator"
+        ]
+    },
+    {
+        "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.LaunchNavigator",
+        "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/android/launchnavigator.js",
+        "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+        "merges": [
+            "launchnavigator"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -99,12 +107,13 @@ module.exports.metadata =
     "com.red_folder.phonegap.plugin.backgroundservice": "2.0.0",
     "cordova-plugin-actionsheet": "2.3.3",
     "cordova-plugin-ble": "2.0.1",
+    "cordova-plugin-compat": "1.1.0",
+    "cordova-plugin-camera": "2.4.0",
+    "cordova-plugin-eddystone": "1.3.0",
     "cordova-plugin-geolocation": "2.1.0",
     "cordova-plugin-whitelist": "1.3.1",
     "technology.dean.backgroundservice": "0.1",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2",
-    "cordova-plugin-compat": "1.1.0",
-    "cordova-plugin-camera": "2.4.0"
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2"
 };
 // BOTTOM OF METADATA
 });
