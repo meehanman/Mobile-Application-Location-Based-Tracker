@@ -59,14 +59,14 @@ app.controller('LocationStatsCtrl', ['$scope', 'Stats', '$stateParams', 'moment'
     }
 
     //Stats on time of the day
-    $scope.eventsTimeOfDay = {}
-    $scope.eventsTimeOfDay.labels = new Array(24);
-    $scope.eventsTimeOfDay.data = [new Array(24).join('0').split('').map(parseFloat)];
+    $scope.eventPunchCard = {}
+    $scope.eventPunchCard.labels = new Array(24);
+    $scope.eventPunchCard.data = [new Array(24).join('0').split('').map(parseFloat)];
     for (var i = 0; i < 24; i++) {
-        $scope.eventsTimeOfDay.labels[i] = [i];
+        $scope.eventPunchCard.labels[i] = [i];
     }
 
-    $scope.eventsTimeOfDay.data = [[]];
+    $scope.eventPunchCard.data = [[]];
     $scope.punchCardOptions = {
         colors: ['#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360', '#803690', '#00ADF9'],
         scales: {
@@ -77,7 +77,10 @@ app.controller('LocationStatsCtrl', ['$scope', 'Stats', '$stateParams', 'moment'
                 ticks: {
                     max: 24,
                     min: 0,
-                    stepSize: 1
+                    stepSize: 1,
+                    callback: function(value, index, values) {
+                      return value+":00";
+                    }
                 }
             }],
             yAxes: [{
@@ -101,7 +104,7 @@ app.controller('LocationStatsCtrl', ['$scope', 'Stats', '$stateParams', 'moment'
     $scope.eventInviteUsage.labels = new Array(24);
     $scope.eventInviteUsage.data = [new Array(24).join('0').split('').map(parseFloat)];
     for (var i = 0; i < 24; i++) {
-        $scope.eventsTimeOfDay.labels[i] = [i];
+        $scope.eventPunchCard.labels[i] = [i];
     }
 
     //Time of Day
@@ -145,23 +148,22 @@ app.controller('LocationStatsCtrl', ['$scope', 'Stats', '$stateParams', 'moment'
                     y: moment(stats.data.stats[i].eventStart).day(),
                     r: 1
                 };
-                for (var c = 0; c < $scope.eventsTimeOfDay.data[0].length; c++) {
-                    if ($scope.eventsTimeOfDay.data[0][c].x == object.x && $scope.eventsTimeOfDay.data[0][c].y == object.y) {
-                        $scope.eventsTimeOfDay.data[0][c].r++;
+                for (var c = 0; c < $scope.eventPunchCard.data[0].length; c++) {
+                    if ($scope.eventPunchCard.data[0][c].x == object.x && $scope.eventPunchCard.data[0][c].y == object.y) {
+                        $scope.eventPunchCard.data[0][c].r++;
                         delete object;
                         break;
                     }
                 }
                 //If the object was not added and deleted
                 if (object != undefined) {
-                    $scope.eventsTimeOfDay.data[0].push(object);
+                    $scope.eventPunchCard.data[0].push(object);
                 }
 
                 //Plot inviteUsage
 
-
                 //Time of Day
-                $scope.eventTimeOfDay.data[0][moment(stats.data.stats[i].eventStart).format('HH')]++
+                $scope.eventTimeOfDay.data[0][moment(stats.data.stats[i].eventStart).format('H')]++
 
             } //END OF LOOP
             $scope.eventsWeekly.data[0].reverse();

@@ -1,109 +1,139 @@
 <!--breadcrumbs-->
 <div id="content-header">
-    <div id="breadcrumb">
-        <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i></a>
-        <a href ng-click="nav('locations')" class="tip-bottom"> Locations</a>
-    </div>
-    <div class="row-fluid">
-    <div class="span6"><h1>{{stats.location.name}} Statistics</h1></div>
+  <div id="breadcrumb">
+    <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i></a>
+    <a href ng-click="nav('locations')" class="tip-bottom"> Locations</a>
+  </div>
+  <div class="row-fluid">
+    <div class="span6">
+      <h1>{{stats.location.name}} Statistics</h1></div>
   </div>
 </div>
 <!--End-breadcrumbs-->
 
 <div class="container-fluid">
-    <hr>
-    <div class="quick-actions_homepage">
-        <ul class="quick-actions">
-          <li class="bg_ls">
-              <a> <i class="icon-calendar"></i> {{stats.stats.length}} Events</a>
-          </li>
-            <li class="bg_lb">
-                <a> <i class="icon-calendar"></i> Average room occupency {{averageEventUtulization}}% </a>
-            </li>
-            <li class="bg_lg">
-                <a> <i class="icon-bolt"></i> {{event.type | capitalize}} </a>
-            </li>
-        </ul>
-    </div>
+  <hr>
+  <div class="quick-actions_homepage">
+    <ul class="quick-actions">
+      <li class="bg_ls">
+        <a> <i class="icon-calendar"></i> {{stats.stats.length}} Events</a>
+      </li>
+      <li class="bg_lb">
+        <a> <i class="icon-calendar"></i> Average room occupency {{averageEventUtulization}}% </a>
+      </li>
+    </ul>
+  </div>
 </div>
 
 
 <!--Action boxes-->
 <div class="container-fluid">
-    <hr/>{{dateRange}}
+  <hr/>{{dateRange}}
 
-    <!-- TOP -->
-    <div class="row-fluid">
-      <div class="span12">
+  <!-- TOP -->
+  <div class="row-fluid">
+    <div class="span12">
       <div class="widget-box">
-          <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
-              <h5>Events over the past year</h5>
-          </div>
-          <div class="widget-content">
-              <canvas id="bar" class="chart chart-bar" chart-data="eventsWeekly.data" chart-labels="eventsWeekly.labels" chart-colors="preColors" chart-options="chartOptions" height="30"></canvas>
-          </div>
+        <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
+          <h5>Events over the past year</h5>
+        </div>
+        <div class="widget-content">
+          <canvas id="bar" class="chart chart-bar" chart-data="eventsWeekly.data" chart-labels="eventsWeekly.labels" chart-colors="preColors" chart-options="chartOptions" height="30"></canvas>
+        </div>
       </div>
     </div>
-    </div>
-    <div class="row-fluid">
+  </div>
+  <div class="row-fluid">
 
-        <!-- Left Side -->
-        <div class="span6">
-          <div class="widget-box">
-              <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
-                  <h5>Events over the past 7 days</h5>
-              </div>
-              <div class="widget-content">
-                  <canvas id="line" class="chart chart-line" chart-data="eventsOverPastSevenDays.data" chart-labels="eventsOverPastSevenDays.labels"></canvas>
-              </div>
-          </div>
-          <div class="widget-box">
-              <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
-                  <h5>PunchCard</h5>
-              </div>
-              <div class="widget-content">
-                  <canvas id="base" class="chart-bubble" chart-data="eventsTimeOfDay.data" chart-labels="eventsTimeOfDay.labels" chart-options="punchCardOptions"></canvas>
-              </div>
-          </div>
+    <!-- Left Side -->
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
+          <h5>Events over the past 7 days</h5>
         </div>
-
-        <!-- Right Side -->
-        <div class="span6">
-            <div class="widget-box">
-                <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
-                    <h5>Events / Day of the week</h5>
-                </div>
-                <div class="widget-content">
-                    <canvas id="pie" style="height:100px;" class="chart chart-pie" chart-data="eventDayOfWeek.data[0]" chart-labels="eventDayOfWeek.labels" chart-options="pieChartOptions"></canvas>
-                </div>
-            </div>
-
-            <div class="widget-box">
-                <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
-                    <h5>Events / Day of the week</h5>
-                </div>
-                <div class="widget-content">
-                    <canvas id="line" class="chart chart-line" chart-data="eventDayOfWeek.data" chart-labels="eventDayOfWeek.labels">
-        </canvas>
-                </div>
-            </div>
-
-            <div class="widget-box">
-                <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
-                    <h5>Events / Time of Day</h5>
-                </div>
-                <div class="widget-content">
-                    <canvas id="bar" class="chart chart-bar" chart-data="eventTimeOfDay.data" chart-labels="eventTimeOfDay.labels">
-        </canvas>
-                </div>
-            </div>
-
-
-
-
+        <div class="widget-content">
+          <canvas id="line" class="chart chart-line" chart-data="eventsOverPastSevenDays.data" chart-labels="eventsOverPastSevenDays.labels"></canvas>
         </div>
-
-
-        <!--End-Action boxes-->
+      </div>
+      <div class="widget-box">
+        <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
+          <h5>PunchCard</h5>
+        </div>
+        <div class="widget-content">
+          <canvas id="base" class="chart-bubble" chart-data="eventPunchCard.data" chart-labels="eventPunchCard.labels" chart-options="punchCardOptions"></canvas>
+        </div>
+      </div>
 
     </div>
+
+    <!-- Right Side -->
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
+          <h5>Events / Day of the week</h5>
+        </div>
+        <div class="widget-content">
+          <canvas id="pie" style="height:100px;" class="chart chart-pie" chart-data="eventDayOfWeek.data[0]" chart-labels="eventDayOfWeek.labels" chart-options="pieChartOptions"></canvas>
+        </div>
+      </div>
+
+      <div class="widget-box">
+        <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
+          <h5>Events / Day of the week</h5>
+        </div>
+        <div class="widget-content">
+          <canvas id="line" class="chart chart-line" chart-data="eventDayOfWeek.data" chart-labels="eventDayOfWeek.labels">
+        </canvas>
+        </div>
+      </div>
+
+      <div class="widget-box">
+        <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
+          <h5>Events / Time of Day</h5>
+        </div>
+        <div class="widget-content">
+          <canvas id="bar" class="chart chart-bar" chart-data="eventTimeOfDay.data" chart-labels="eventTimeOfDay.labels">
+        </canvas>
+        </div>
+      </div>
+
+
+
+
+
+
+    </div>
+
+
+    <!--End-Action boxes-->
+
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box">
+        <div class="widget-title"><span class="icon"><i class="icon-bar-chart"></i></span>
+          <h5>Events at this location</h5>
+        </div>
+        <div class="widget-content">
+          <div class="new-update clearfix" >
+
+            <table class="table table-bordered table-striped">
+              <tbody>
+                <tr ng-repeat="event in stats.stats">
+                  <td><a href ng-click="nav('events/info/'+event.eventID)">
+                    <strong>{{event.eventName}}</strong>
+                  </a></td>
+                  <td>{{event.eventStart}}</td>
+                  <td>Invited User Capacity</td>
+                  <td><span class="badge badge-info">{{event.inviteUsage*100 | number: 0}}%</span></td>
+                  <td>Users Attended</td>
+                  <td><span class="badge badge-info">{{event.attendUsage*100 | number: 0}}%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

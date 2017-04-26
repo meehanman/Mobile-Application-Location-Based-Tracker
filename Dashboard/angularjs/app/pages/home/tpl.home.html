@@ -1,82 +1,103 @@
 <!--breadcrumbs-->
 <div id="content-header">
-    <div id="breadcrumb"> <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+  <div id="breadcrumb"> <a href ng-click="nav('dashboard')" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
 </div>
 <!--End-breadcrumbs-->
 
 <!--Action boxes-->
 <div class="container-fluid">
-    <div class="quick-actions_homepage">
-        <ul class="quick-actions">
-          <li class="bg_lg">
-              <a href ng-click="stateNav('stats-location', {'id':'58f50684427da91fd4dc80b8'})" > <i class="icon-bar-chart"></i>Home Office Stats</a>
-          </li>
-            <li class="bg_lb">
-                <a href ng-click="stateNav('locations-info', {'id':'58f50684427da91fd4dc80b8'})" > <i class="icon-dashboard"></i>Location Info for Home Office</a>
+  <div class="quick-actions_homepage">
+    <ul class="quick-actions">
+      <li class="bg_lg">
+        <a href ng-click="stateNav('stats-location', {'id':'58f50684427da91fd4dc80b8'})"> <i class="icon-bar-chart"></i>Home Office Stats</a>
+      </li>
+      <li class="bg_lb">
+        <a href ng-click="stateNav('locations-info', {'id':'58f50684427da91fd4dc80b8'})"> <i class="icon-dashboard"></i>Location Info for Home Office</a>
+      </li>
+    </ul>
+  </div>
+
+  <hr/>
+  <div class="row-fluid">
+
+    <!-- Left Side -->
+    <div class="span6">
+
+      <div class="widget-box">
+        <div class="widget-title" data-toggle="collapse" href="#collapseG1"><span class="icon"><i class="icon-chevron-down"></i></span>
+          <h5>Your Upcoming Events</h5>
+        </div>
+        <div class="widget-content nopadding collapse in" ng-if="upcomingEvents.length>0">
+          <ul class="recent-posts" ng-init="page2 = {'number':0}">
+            <li ng-repeat="event in upcomingEvents | limitTo: 5 : page2.number">
+              <div class="user-thumb">
+                <div back-img="{{event.image}}" style="width:40px;height:40px;"></div>
+              </div>
+              <div class="article-post">
+                <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
+                <p>{{event.description | limitTo: 200}}<span ng-if="event.description.length>200">...</span></p>
+                <p><span class="label" style="background-color:#1988b9">{{event.type | capitalize}}</span> at {{event.location.name | capitalize}}</p>
+              </div>
             </li>
-        </ul>
-    </div>
-
-    <hr/>
-    <div class="row-fluid">
-
-        <!-- Left Side -->
-        <div class="span6">
-
-            <div class="widget-box">
-                <div class="widget-title" data-toggle="collapse" href="#collapseG1"><span class="icon"><i class="icon-chevron-down"></i></span>
-                    <h5>Your Upcoming Events</h5>
+            <li>  <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+                  <button tabindex="0" class="previous fg-button ui-button ui-state-default" ng-disabled="page2.number == 0"
+                  id="DataTables_Table_0_previous" ng-click="page2.number = page2.number-5">Previous</button>
+                  <span>
+                    <a tabindex="0" ng-repeat="event in upcomingEvents track by $index" ng-if="(($index)%5)==0" class="fg-button ui-button ui-state-default" ng-click="page2.number = $index" ng-class="{'ui-state-disabled': page2.number == $index}">{{(($index)/5)}}</a>
+                  </span>
+                  <button tabindex="0" class="previous fg-button ui-button ui-state-default"
+                  id="DataTables_Table_0_previous" ng-click="page2.number = page2.number+5" ng-disabled="page2.number+5 > upcomingEvents.length">Next</button>
                 </div>
-                <div class="widget-content nopadding collapse in" id="collapseG1" ng-if="upcomingEvents.length>0">
-                    <ul class="recent-posts">
-                        <li ng-repeat="event in upcomingEvents">
-                            <div class="user-thumb">
-                              <div back-img="{{event.image}}" style="width:40px;height:40px;"></div>
-                            </div>
-                            <div class="article-post">
-                                <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
-                                <p>{{event.description | limitTo: 200}}<span ng-if="event.description.length>200">...</span></p>
-                                <p><span class="label" style="background-color:#1988b9">{{event.type | capitalize}}</span> at {{event.location.name | capitalize}}</p>
-                            </div>
-                          </li>
-                    </ul>
-                </div>
-                <div class="widget-content" ng-if="upcomingEvents.length==0">
-                    You have no Upcoming Events
-                </div>
-            </div>
-            <div class="widget-box">
-                <div class="widget-title" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
-                    <h5>Your Past Events</h5>
-                </div>
-                <div class="widget-content nopadding collapse in" id="collapseG2" ng-if="pastEvents.length>0">
-                    <ul class="recent-posts">
-                        <li ng-repeat="event in pastEvents">
-                          <div class="user-thumb">
-                            <div back-img="{{event.image}}" style="width:40px;height:40px;"></div>
-                          </div>
-                            <div class="article-post">
-                                <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
-                                <p>{{event.description | limitTo: 200}}<span ng-if="event.description.length>200">...</span></p>
-                                <p><span class="label" style="background-color:#1988b9">{{event.type | capitalize}}</span> at {{event.location.name | capitalize}}</p>
-                            </div>
-                          </li>
-                    </ul>
-                </div>
-                <div class="widget-content" ng-if="pastEvents.length==0">
-                    You have no Past Events
-                </div>
-            </div>
-
+              </li>
+          </ul>
+      </div>
+        <div class="widget-content" ng-if="upcomingEvents.length==0">
+          You have no Upcoming Events
         </div>
 
-        <!-- Right Side -->
-        <div class="span6">
+      </div>
 
-        </div>
     </div>
 
+    <!-- Right Side -->
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"><span class="icon"><i class="icon-chevron-down"></i></span>
+          <h5>Your Past Events</h5>
+        </div>
+        <div class="widget-content nopadding collapse in" ng-if="pastEvents.length>0">
+          <ul class="recent-posts" ng-init="page = {'number':0}">
+            <li ng-repeat="event in pastEvents | limitTo: 5 : page.number">
+              <div class="user-thumb">
+                <div back-img="{{event.image}}" style="width:40px;height:40px;"></div>
+              </div>
+              <div class="article-post">
+                <span class="user-info"> <b><a href ng-click="stateNav('events.info',{id: event._id})">{{event.name}}</a></b><span class="pull-right">{{event.starts_at | date:'dd MMM, yy HH:mm'}} - {{event.ends_at | date:'HH:mm'}}</span></span>
+                <p>{{event.description | limitTo: 200}}<span ng-if="event.description.length>200">...</span></p>
+                <p><span class="label" style="background-color:#1988b9">{{event.type | capitalize}}</span> at {{event.location.name | capitalize}}</p>
+              </div>
+            </li>
+            <li>
+              <div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+                  <button tabindex="0" class="previous fg-button ui-button ui-state-default" ng-disabled="page.number == 0"
+                  id="DataTables_Table_0_previous" ng-click="page.number = page.number-5">Previous</button>
+                  <span>
+                    <a tabindex="0" ng-repeat="event in pastEvents track by $index" ng-if="(($index)%5)==0" class="fg-button ui-button ui-state-default" ng-click="page.number = $index" ng-class="{'ui-state-disabled': page.number == $index}">{{(($index)/5)}}</a>
+                  </span>
+                  <button tabindex="0" class="previous fg-button ui-button ui-state-default"
+                  id="DataTables_Table_0_previous" ng-click="page.number = page.number+5" ng-disabled="page.number+5 > pastEvents.length">Next</button>
+                </div>
+            </li>
+          </ul>
+        </div>
+        <div class="widget-content" ng-if="pastEvents.length==0">
+          You have no Past Events
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!--End-Action boxes-->
+
+  <!--End-Action boxes-->
 
 </div>

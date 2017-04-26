@@ -35,7 +35,7 @@
         </br>
         <div class="inner">
             <div class="widget-box mobile-right">
-                <div ng-if="events.length!=0" class="widget-content updates" ng-class="{'finished': event.finished, 'active-event': event.active}" ng-repeat="event in events track by $index">
+                <div ng-if="events.length!=0" class="widget-content updates" ng-class="{'finished': event.finished, 'active-event': event.active}" ng-if="!event.finished" ng-repeat="event in events track by $index">
                     <div class="new-update clearfix" style="color:#848484;">
                         <div class="update-done">
                             <h4>{{event.starts_at | date: 'HH:mm'}} <b>→</b> {{event.ends_at | date: 'HH:mm'}}</h4>
