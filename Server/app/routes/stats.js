@@ -46,6 +46,8 @@ module.exports = function(server) {
     server.get('/stats/location/:location', function(req, res) {
         Event.find({
             location: req.params.location
+        }).sort({
+            starts_at: -1
         }).lean().exec(function(error, events) {
             if (error) {
                 res.json({

@@ -74,6 +74,8 @@ $$(document).on('click', '#login-button', function() {
             window.localStorage['auth'] = JSON.stringify(parsedData);
             myApp.template7Data.auth = parsedData;
 
+            $$('login-password').val("");
+
             //On login - Load upcoming events
             openHome();
 
@@ -568,6 +570,14 @@ function openHome() {
             }
 
             myApp.template7Data.upcomingEvents = data;
+
+            //Begin Polling Service
+            //Bluetooth
+            startBeaconTracking();
+            //Backgorund Service for Wifi
+            backgroundservice.deviceReady();
+            //Location
+            //TODO
 
             mainView.router.load({
                 url: 'index.html',

@@ -9,6 +9,8 @@ function startBeaconTracking() {
     // Timer that refreshes the display.
     timer = setInterval(updateBeaconList, 1000);
 
+    console.log("Starting Beacon Tracking every 1s", beacons);
+
     return startScan();
 }
 
@@ -48,6 +50,7 @@ function getSortedBeaconList(beacons) {
 }
 
 function updateBeaconList() {
+  return 0;
     removeOldBeacons();
     displayBeacons();
 }
@@ -130,6 +133,8 @@ function uint8ArrayToString(uint8Array) {
 }
 
 function showMessage(text) {
+    console.log("Show Message", text);
+    return 0;
     $$('#message').html(text);
     console.warn("eddy", text);
 }
