@@ -65,11 +65,11 @@ module.exports = function(server) {
                 if (error) {
                     res.json({
                         title: "Failed",
-                        message: "Could not list all locations.",
+                        message: "We had an error",
                         error: error
                     });
                 }
-                console.log("User location matched: " + locations.length);
+                console.log("User location matched: " + locations.length + " [0] " + locations[0].name);
                 res.json(locations);
             });
 
