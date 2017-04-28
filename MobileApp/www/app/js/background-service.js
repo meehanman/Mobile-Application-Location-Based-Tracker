@@ -4,49 +4,62 @@ var backgroundservice = {
         console.log("backgroundservice deviceReady technology.dean.backgroundservice.MyService.create().go()");
         var serviceName = 'technology.dean.backgroundservice.MyService';
         var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService');
+
         backgroundservice.myService = factory.create(serviceName);
+
         backgroundservice.go();
     },
-    getStatus: function() {
-        backgroundservice.myService.getStatus(function(r) {
-            backgroundservice.displayResult(r);
-        }, function(e) {
-            backgroundservice.displayError(e);
-        });
-    },
-    setConfiguration(config){
-      config.onLoadValue = "Dean";
-      backgroundservice.myService.setConfiguration(config, function(){console.warn("Set config Success");}, function(e){console.warn("Set config Fail",e);});
-    },
-    displayResult: function(data) {
-        console.info("Is service running: " + data.ServiceRunning);
-    },
-    displayError: function() {
-        console.warn("We have an error");
-    },
-    updateHandler: function(data) {
-        if (data.LatestResult != null) {
-            try {
-                console.warn("BGS updateHandler:", data.LatestResult.Message);
-            } catch (err) {}
-        }
-    },
     go: function() {
-        backgroundservice.setConfiguration({"name":"CalledAtGO()"});
         backgroundservice.myService.getStatus(function(r) {
-          $$('#toggleService').attr("value","Stop Service");
+          console.log(r);
             backgroundservice.startService(r)
         }, function(e) {
+          alert("Could not start auto login");
+          console.log(e);
             backgroundservice.displayError(e)
         });
         console.log("Checking status after startService()");
         backgroundservice.getStatus();
+    },
+    getStatus: function() {
+        backgroundservice.myService.getStatus(function(r) {
+          console.log(r);
+            backgroundservice.displayResult(r);
+        }, function(e) {
+          console.log(r);
+            backgroundservice.displayError(e);
+        });
+    },
+    setConfiguration(config){
+      console.info("setConfiguration",config);
+      backgroundservice.myService.setConfiguration(config,
+        function(r){
+          console.log(r);
+          console.warn("Set config Success",config);
+        }, function(e){
+          console.warn("Set config Fail",config,e);
+        });
+    },
+    displayResult: function(data) {
+        console.info("displayResult","Is service running: " + data.ServiceRunning);
+    },
+    displayError: function() {
+        console.warn("displayError","We have an error");
+    },
+    updateHandler: function(data) {
+        if (data.LatestResult != null) {
+            try {
+                backgroundservice.setConfiguration({"authentication": myApp.template7Data.auth.basic_auth});
+                console.warn("BGS updateHandler:", data.LatestResult.Message);
+            } catch (err) {}
+        }
     },
     startService: function(data) {
         if (data.ServiceRunning) {
             backgroundservice.enableTimer(data);
         } else {
             backgroundservice.myService.startService(function(r) {
+                console.log(r);
                 backgroundservice.enableTimer(r)
             }, function(e) {
                 backgroundservice.displayError(e)
@@ -78,10 +91,16 @@ var backgroundservice = {
         if (data.TimerEnabled) {
             backgroundservice.registerForUpdates(data);
         } else {
-            backgroundservice.myService.enableTimer(0.5*60000, function(r) {
+            backgroundservice.myService.enableTimer(300000, function(r) {
                 backgroundservice.registerForUpdates(r)
             }, function(e) {
                 backgroundservice.displayError(e)
+            });
+            //BootStart
+            backgroundservice.myService.registerForBootStart(function(e){
+              console.log("BOOT SUCCESS");
+            },function(e){
+              console.log("NO BOOT SUCCESS");
             });
         }
     },

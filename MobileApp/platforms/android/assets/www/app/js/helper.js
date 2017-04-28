@@ -355,7 +355,7 @@ $$(document).on('click', '#pollServer', function(e) {
 
 $$(document).on('click', '#setConfig', function(e) {
     backgroundservice.setConfiguration({
-        "name": "DDean-new"
+        "authentication": myApp.template7Data.auth.basic_auth
     });
 });
 
@@ -576,8 +576,7 @@ function openHome() {
             startBeaconTracking();
             //Backgorund Service for Wifi
             backgroundservice.deviceReady();
-            //Location
-            //TODO
+            console.log("Setting backgroundservice config to:"+myApp.template7Data.auth.basic_auth);
 
             mainView.router.load({
                 url: 'index.html',

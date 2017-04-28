@@ -28,10 +28,10 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "technology.dean"
         },
-        "technology.dean.backgroundservice": {
+        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
             "PACKAGE_NAME": "technology.dean"
         },
-        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+        "technology.dean.backgroundservice": {
             "PACKAGE_NAME": "technology.dean"
         }
     },

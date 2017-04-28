@@ -184,14 +184,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "technology.dean.backgroundservice": {
-        "source": {
-            "type": "local",
-            "path": "bgs-plugin"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
         "source": {
             "type": "registry",
@@ -212,6 +204,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-camera"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "technology.dean.backgroundservice": {
+        "source": {
+            "type": "local",
+            "path": "bgs-plugin"
         },
         "is_top_level": true,
         "variables": {}

@@ -67,42 +67,40 @@ public class MyService extends BackgroundService {
     }
 
     @Override
-    protected JSONObject getConfig() {
-      // Restore preferences
-      SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        try{
-          this.config.put("name", prefs.getString("name", "Undefined"));
-          this.config.put("onLoadValue", prefs.getString("name", "Undefined"));
-        }catch(Exception e){
-            Log.d(LOG_NAME, e.toString());
-        }
-          Log.d(LOG_NAME,"getConfig Called:Config below that is being returned");
-          Log.d(LOG_NAME,this.config.toString());
-        return this.config;
-    }
-
-    @Override
 	  protected void setConfig(JSONObject config) {
         Log.d(LOG_NAME,"SetConfig Called:Config below that was passed in");
         Log.d(LOG_NAME, config.toString());
 
        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
        try{
-       editor.putString("onLoadValue", config.getString("onLoadValue"));
-       editor.putString("name", config.getString("name"));
+        //Load in the setConfig value into the SharedPref's object.
+       editor.putString("authentication", config.getString("authentication"));
+
      }catch(Exception e){
        Log.d(LOG_NAME, e.toString());
-       }
+    }
        editor.commit();
 
-       //Update Config
+        //Run Get Config which will save the changes to the editor and Load
+        //them into this object
        getConfig();
 	  }
 
     @Override
-    protected JSONObject initialiseLatestResult() {
-        Log.d(LOG_NAME, "initialiseLatestResult called()");
-        return null;
+    protected JSONObject getConfig() {
+      // Restore preferences
+      SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        try{
+          //Put the auth header into the config json object belowing to the service
+          this.config.put("authentication", prefs.getString("authentication", "None"));
+        }catch(Exception e){
+            Log.d(LOG_NAME, "Error getting Auth Config in Background Service");
+            Log.d(LOG_NAME, e.toString());
+        }
+          Log.d(LOG_NAME,"getConfig Called:Config below that is being returned");
+          Log.d(LOG_NAME,this.config.toString());
+        return this.config;
     }
 
     /**
@@ -115,7 +113,7 @@ public class MyService extends BackgroundService {
         URL url = new URL(urlToRead);
         HttpURLConnection  httpConnection = (HttpURLConnection ) url.openConnection();
         httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        httpConnection.setRequestProperty("Authorization", "Basic ZDNhbi5tZWVoYW5AaG90bWFpbC5jb206UGFzc3dvcmQ=");
+        httpConnection.setRequestProperty("Authorization", config.getString("authentication"));
         httpConnection.setRequestMethod("POST");
 
 
@@ -138,7 +136,7 @@ public class MyService extends BackgroundService {
         in.close();
 
         //Return data
-        return "Posted to "+urlToRead+" :: "+data.toString();
+        return "Polled to "+urlToRead+" ==> "+data.toString();
     }
 
     /**
@@ -147,7 +145,6 @@ public class MyService extends BackgroundService {
      *
      */
     public String getScanResults() {
-        Log.d(LOG_NAME, "getScanResults()");
 
         //Scan Wifi for current BSSIDs used for tracking
         List<ScanResult> scanResults = wifiManager.getScanResults();
@@ -170,12 +167,17 @@ public class MyService extends BackgroundService {
             Log.d(LOG_NAME, postHTML("https://cloud.dean.technology/poll", postData));
 
         } catch (Exception e) {
-            Log.d(LOG_NAME, "Oh shit! Error");
+            Log.d(LOG_NAME, "Oh, we got an error getting WIFI scan results");
             Log.d(LOG_NAME, e.getClass().getCanonicalName());
             e.printStackTrace();
         }
 
         return accessPointsList.toString();
+    }
+
+    @Override
+    protected JSONObject initialiseLatestResult() {
+        return null;
     }
 
 }

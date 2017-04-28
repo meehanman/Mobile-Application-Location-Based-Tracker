@@ -69,25 +69,9 @@ module.exports = function(server) {
                         error: error
                     });
                 }
-                console.log("User location matched: " + locations.length + " [0] " + locations[0].name);
+                console.log("User location matched with " + locations.length, locations);
                 res.json(locations);
             });
-
-
-            //User should poll:
-            //GPS
-            //Beacons
-            //Hotspots
-
-            //App Searches for next meeting scheduled
-            //Gets the meetings location
-            //Get's the location information that's
-            //not empty for the location
-
-            //compares these with the not empty values the user sends
-            //if the user replys with nothing then do nothing
-
-
         });
     //Testing background service
     var x = "Default"

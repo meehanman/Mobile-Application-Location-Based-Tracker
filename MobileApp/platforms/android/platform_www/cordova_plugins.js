@@ -112,8 +112,8 @@ module.exports.metadata =
     "cordova-plugin-eddystone": "1.3.0",
     "cordova-plugin-geolocation": "2.1.0",
     "cordova-plugin-whitelist": "1.3.1",
-    "technology.dean.backgroundservice": "0.1",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2"
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2",
+    "technology.dean.backgroundservice": "0.1"
 };
 // BOTTOM OF METADATA
 });
