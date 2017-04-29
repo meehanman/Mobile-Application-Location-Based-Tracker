@@ -113,8 +113,13 @@ public class MyService extends BackgroundService {
         URL url = new URL(urlToRead);
         HttpURLConnection  httpConnection = (HttpURLConnection ) url.openConnection();
         httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        httpConnection.setRequestProperty("Authorization", config.getString("authentication"));
         httpConnection.setRequestMethod("POST");
+
+        if(config.has("authentication")){
+          httpConnection.setRequestProperty("Authorization", config.getString("authentication"));
+        }else{
+          Log.d(LOG_NAME,"Auth Header Failed"+config.getString("authentication"));
+        }
 
 
         //Get writer from output stream
@@ -136,6 +141,7 @@ public class MyService extends BackgroundService {
         in.close();
 
         //Return data
+        Log.d(LOG_NAME, "Polled to "+urlToRead+" ==> "+data.toString());
         return "Polled to "+urlToRead+" ==> "+data.toString();
     }
 
@@ -162,7 +168,7 @@ public class MyService extends BackgroundService {
             //Build JSON Oject
             JSONObject postData = new JSONObject();
             postData.put("access_point", accessPointsList);
-
+            postData.put("source","Android");
             //Log results of sending html post
             Log.d(LOG_NAME, postHTML("https://cloud.dean.technology/poll", postData));
 

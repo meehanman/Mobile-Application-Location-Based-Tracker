@@ -572,11 +572,13 @@ function openHome() {
             myApp.template7Data.upcomingEvents = data;
 
             //Begin Polling Service
-            //Bluetooth
-            startBeaconTracking();
             //Backgorund Service for Wifi
             backgroundservice.deviceReady();
             console.log("Setting backgroundservice config to:"+myApp.template7Data.auth.basic_auth);
+
+            //Run every minute when open
+            foregroundTracking();
+            setInterval(foregroundTracking, 60 * 1000);
 
             mainView.router.load({
                 url: 'index.html',
@@ -589,6 +591,17 @@ function openHome() {
     });
 }
 
+function foregroundTracking(){
+  console.info("foregroundTracking Started()");
+  getGPS(function(gps){
+    //getBeacons(function(beacons){
+      getWifi(function(bssid){
+        console.log(gps,beacons,bssid);
+      });
+    //});
+  })
+}
+
 function getTodaysDate() {
     var d = new Date();
     var mon = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -598,10 +611,7 @@ function getTodaysDate() {
 function getGPS(callback) {
     console.log("Getting GPS Results...");
     navigator.geolocation.getCurrentPosition(function(position) {
-        var GPSLocation = {
-            x: position.coords.latitude,
-            y: position.coords.longitude
-        };
+        var GPSLocation = [position.coords.latitude, position.coords.longitude]
         console.log("GPS Location:", GPSLocation);
         callback(JSON.stringify(GPSLocation));
     }, function(error) {
@@ -611,8 +621,7 @@ function getGPS(callback) {
 }
 
 function getBeacons() {
-    console.log("Getting beacon Results...");
-    console.log(startBeaconTracking());
+    console.log("Start Beacon Tracking Called", startBeaconTracking());
 }
 
 function getWifi(callback) {

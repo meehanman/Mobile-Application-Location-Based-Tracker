@@ -35,7 +35,6 @@ var backgroundservice = {
       backgroundservice.myService.setConfiguration(config,
         function(r){
           console.log(r);
-          console.warn("Set config Success",config);
         }, function(e){
           console.warn("Set config Fail",config,e);
         });
@@ -50,7 +49,7 @@ var backgroundservice = {
         if (data.LatestResult != null) {
             try {
                 backgroundservice.setConfiguration({"authentication": myApp.template7Data.auth.basic_auth});
-                console.warn("BGS updateHandler:", data.LatestResult.Message);
+                console.info("BGS updateHandler:", data.LatestResult);
             } catch (err) {}
         }
     },

@@ -18,6 +18,14 @@ function onBackButtonDown() {
     evothings.eddystone.stopScan();
 }
 
+function queryBeacons(callback){
+  if(beacons){
+      callback(beacons);
+  }else{
+
+  }
+}
+
 function startScan() {
     console.log("Scanning...", evothings);
     showMessage('Scan in progress.');
@@ -71,11 +79,6 @@ function displayBeacons() {
     var sortedList = getSortedBeaconList(beacons);
     for (var i = 0; i < sortedList.length; ++i) {
         var beacon = sortedList[i];
-        var meeting_room_01 = "64 32 38 32 62 32 39 64 35 66".replace(/ /g, '');;
-        var beacon_NID = uint8ArrayToString(beacon.nid).replace(/ /g, '');
-        if (beacon_NID == meeting_room_01) {
-            beacon.name = "Meeting Room 01";
-        }
         var htmlBeacon = '<p>' + htmlBeaconName(beacon) + htmlBeaconURL(beacon) + htmlBeaconNID(beacon) + htmlBeaconBID(beacon) + htmlBeaconEID(beacon) + htmlBeaconVoltage(beacon) + htmlBeaconTemperature(beacon) + htmlBeaconRSSI(beacon) + '</p>';
         html += htmlBeacon
         console.log(beacon);
@@ -138,7 +141,3 @@ function showMessage(text) {
     $$('#message').html(text);
     console.warn("eddy", text);
 }
-// This calls onDeviceReady when Cordova has loaded everything.
-//document.addEventListener('deviceready', onDeviceReady, false);
-// Add back button listener (for Android).
-//document.addEventListener('backbutton', onBackButtonDown, false);

@@ -13,7 +13,7 @@ app.controller('EventInfoCtrl', ['$scope', 'Auth', 'Events', 'ModalService', '$s
         Events.getOne($stateParams.id, function(event) {
             $scope.event = event.data;
             $scope.event.duration = moment.duration(Date.parse($scope.event.starts_at) - Date.parse($scope.event.ends_at)).humanize();
-            
+
             for(var i=0;i<$scope.event.attendees.length;i++){
               if($scope.user.id==$scope.event.attendees[i].user._id){
                   $scope.event.isAttendee=true;
@@ -34,8 +34,8 @@ app.controller('EventInfoCtrl', ['$scope', 'Auth', 'Events', 'ModalService', '$s
                     }
                 }
             } else {
-                $scope.labels = ["Accepted", "Declined", "Invited"];
-                $scope.data = [0, 0, 0];
+                $scope.labels = ["Accepted", "Declined", "Invited", "Attended"];
+                $scope.data = [0, 0, 0, 0];
                 for (var i = 0; i < $scope.event.attendees.length; i++) {
                     switch ($scope.event.attendees[i].status) {
                         case ('accepted'):
@@ -45,6 +45,9 @@ app.controller('EventInfoCtrl', ['$scope', 'Auth', 'Events', 'ModalService', '$s
                             $scope.data[1]++;
                             break;
                         case ('invited'):
+                            $scope.data[2]++;
+                            break;
+                        case ('attended'):
                             $scope.data[3]++;
                             break;
                     }

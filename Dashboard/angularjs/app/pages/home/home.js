@@ -1,11 +1,18 @@
 app.controller('DashboardCtrl', ['$scope', 'Events', function($scope, Events) {
 
+    $scope.currentlyActive = function(starts_at,ends_at){
+      var now = new Date();
+      var starts_at = new Date(starts_at);
+      var ends_at = new Date(ends_at);
+      return (starts_at < now && now < ends_at)
+    }
+
     $scope.refresh = function() {
         Events.getUpcoming(function(data) {
             $scope.upcomingEvents = data.data;
 
             if(data.data.length==0) return;
-            
+
             $scope.labels = ["Accepted", "Declined", "Attended", "Invited"];
             $scope.data = [0, 0, 0, 0];
             for (var i = 0; i < $scope.upcomingEvents[0].attendees.length; i++) {

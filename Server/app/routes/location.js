@@ -120,8 +120,8 @@ module.exports = function(server) {
         location.floor = req.body.floor;
         location.max_people = req.body.max_people;
         location.services = req.body.services;
-        location.beacon = req.body.beacon;
-        location.access_point = req.body.access_point;
+        location.beacon = req.body.beacon.toUpperCase();
+        location.access_point = req.body.access_point.toUpperCase();
         location.gps = req.body.gps;
 
         //If there was an image provided, then try and save it
