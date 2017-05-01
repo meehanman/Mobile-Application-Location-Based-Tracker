@@ -4,6 +4,7 @@ module.exports = function(server) {
     var Location = require('../models/location');
     var Place = require('../models/place');
     var User = require('../models/user');
+    var schedule = require('node-schedule');
 
     //Returns current users events
     server.get('/event', function(req, res) {
@@ -14,8 +15,8 @@ module.exports = function(server) {
                 }
             }
         }).sort({
-            starts_at: 1
-        }).populate('attendees').exec(function(error, events) {
+            starts_at: -1
+        }).populate('attendees').populate('location', 'name').exec(function(error, events) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -51,7 +52,7 @@ module.exports = function(server) {
         }
         var now = new Date();
         Event.find({
-            starts_at: {
+            ends_at: {
                 $gte: now
             }
         }).and({
@@ -90,7 +91,7 @@ module.exports = function(server) {
     server.get('/event/previous', function(req, res) {
         var now = new Date();
         Event.find({
-            starts_at: {
+            ends_at: {
                 $lte: now
             }
         }).and({
@@ -168,12 +169,25 @@ module.exports = function(server) {
 
             //Populate the Attendees
             req.body.attendees = JSON.parse(req.body.attendees);
+            var ownerAdded = false;
             for (var i = 0; i < req.body.attendees.length; i++) {
                 var attende = req.body.attendees[i];
+                if(attende.toString()==req.user._id.toString()){
+                  ownerAdded=true;
+                }
                 event.attendees.push({
                     user: attende,
                     status: "invited"
                 });
+                server.pushToUser(attende, event.name, "You've been invited to "+event.name+". Please reply if your attending or not.");
+            }
+
+            //If the owner of the event didn't add themselves, add them here
+            if(!ownerAdded){
+              event.attendees.push({
+                  user: req.user._id.toString(),
+                  status: "invited"
+              });
             }
 
             event.save(function(error, newEvent) {
@@ -236,7 +250,7 @@ module.exports = function(server) {
         //Find event
         Event.findOne({
             _id: req.params.eventID
-        }, function(error, event) {
+        }).populate('location').exec(function(error, event) {
             if (error) {
                 res.json({
                     title: "Failed",
@@ -251,6 +265,12 @@ module.exports = function(server) {
                 if (event.attendees[i].user.toString() == req.user._id.toString()) {
                     event.attendees[i].status = req.params.status;
                     hasChanged = true;
+                    //If the user accepted the event ,then notify them when it starts
+                    if(req.params.status=="accepted"){
+                      schedule.scheduleJob(new Date(event.starts_at), function(){
+                        server.pushToUser(req.user._id.toString(), event.name, "This event is about to start in "+event.location.name);
+                      });
+                    }
                 }
             }
             if (hasChanged) {
@@ -277,7 +297,7 @@ module.exports = function(server) {
         });
     });
 
-    //Edits the status for the current user in an event
+    //Edits the event
     server.put('/event/:id', function(req, res, next) {
 
         //Find event

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "375774438491",
+    "firebase_url": "https://fir-malbt.firebaseio.com",
+    "project_id": "firebase-malbt",
+    "storage_bucket": "firebase-malbt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375774438491:android:6145c4add06e1e53",
+        "android_client_info": {
+          "package_name": "technology.dean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375774438491-0ti938cm8sgenamnpoj05cjk8bd6mu1h.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "375774438491-64o4em7ick23aua4qaiuedqb3co85841.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnwPt4L8Wu6h_omCA98zP38odL_zZ3o2I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

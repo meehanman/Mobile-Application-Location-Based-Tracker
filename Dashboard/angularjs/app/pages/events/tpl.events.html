@@ -6,9 +6,11 @@
     </div>
     <div class="row-fluid">
         <div class="span6">
-            <h1>Events</h1></div>
+            <h1>{{page.title}}</h1><p ng-show="page.title=='Your Events'" style="padding-left:20px;">Events you are invited to</p></div>
+
         <div class="span6">
             <h1><input type="button" class="btn btn-success pull-right" style="margin-right:20px;" value="Add Event" ng-click="nav('events/add')"/></h1></div>
+            <input ng-if="user.admin" type="button" class="btn pull-right" style="margin-right:20px;margin-top:10px;" value="{{page.buttonText}}" ng-click="toggleEventLoad()"/></h1>
     </div>
 </div>
 <!--End-breadcrumbs-->
@@ -18,15 +20,15 @@
     <div class="quick">
         <hr>
         <div class="widget-box" ng-if="events.length>0">
-            <div class="widget-title"> <span class="icon"> <i class="icon-refresh"></i> </span>
-                <h5>All Event</h5>
+            <div class="widget-title"> <span class="icon"> <i class="icon-calendar"></i> </span>
+                <h5>{{page.title}}</h5>
                 <div id="search">
                     <input type="text" placeholder="Search here..." ng-model="searchText" style="color:black; background-color:white;">
                     <button type="submit" class="tip-bottom" data-original-title="Search"><i class="icon-search icon-white"></i></button>
                 </div>
             </div>
             <table class="table">
-                <tr ng-repeat="event in events | filter:searchText">
+                <tr ng-repeat="event in events | filter:searchText" ng-style="currentlyActive(event.starts_at, event.ends_at)">
                     <td>
                         <div class="new-update clearfix"><i class="">
                           <div back-img="{{event.image}}" style="width:70px;height:70px;background-position: center;"></div>
@@ -41,7 +43,7 @@
                     </td>
                     <td style="width:50px;">
                         <div class="btn-group">
-                            <button data-toggle="dropdown" class="btn dropdown-toggle btn-mini">Manage <span class="caret"></span></button>
+                            <button ng-if="user.admin || user.id==event.owner" data-toggle="dropdown" class="btn dropdown-toggle btn-mini">Manage <span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <li><a href ng-click="nav('events/edit/'+event._id)">Edit</a></li>
                                 <li><a href ng-click="del(event)">Delete</a></li>

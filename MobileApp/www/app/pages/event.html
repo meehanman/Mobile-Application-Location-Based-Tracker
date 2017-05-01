@@ -27,9 +27,15 @@
             </div>
             <br>
             <div class="content-block" style="background-color:#fff;text-align:center;padding:5px">
+                {{#if event.userChoice}}
                 <p class="buttons-row">
                       <a class="button button-fill toggle-userChoice color-{{event.userChoiceColor}}" style="line-height: 45px;font-size: 22px;width: 50vw;margin-left: 25vw;z-index: 1;">{{event.userChoice}}</a>
                 </p>
+                {{else}}
+                <p class="buttons-row">
+                  <h4><i class="material-icons" style="font-size: 45px;color: #9a9a9a;">done_all</i>Attended</h4>
+                </p>
+                {{/if}}
             </div>
 
 

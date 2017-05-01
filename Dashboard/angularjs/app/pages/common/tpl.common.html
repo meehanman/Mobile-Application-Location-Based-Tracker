@@ -31,9 +31,9 @@
     <!-- Home/Dashboard -->
     <li ng-class="{active: LocationSplit(location) === 'dashboard'}"><a href ng-click="nav('dashboard')"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li ng-class="{active: LocationSplit(location) === 'events'}"><a href ng-click="nav('events')"><i class="icon icon-calendar"></i> <span>Events</span></a> </li>
-    <li ng-class="{active: LocationSplit(location) === 'users'}"><a href ng-click="nav('users')"><i class="icon icon-user"></i> <span>Users</span></a> </li>
-    <li ng-class="{active: LocationSplit(location) === 'locations'}"><a href ng-click="nav('locations')"><i class="icon icon-list"></i> <span>Location</span></a> </li>
-    <li ng-class="{active: LocationSplit(location) === 'places'}"><a href ng-click="nav('places')"><i class="icon icon-th-list"></i> <span>Places</span></a> </li>
+    <li ng-if="user.admin" ng-class="{active: LocationSplit(location) === 'users'}"><a href ng-click="nav('users')"><i class="icon icon-user"></i> <span>Users</span></a> </li>
+    <li ng-if="user.admin" ng-class="{active: LocationSplit(location) === 'locations'}"><a href ng-click="nav('locations')"><i class="icon icon-list"></i> <span>Location</span></a> </li>
+    <li ng-if="user.admin" ng-class="{active: LocationSplit(location) === 'places'}"><a href ng-click="nav('places')"><i class="icon icon-th-list"></i> <span>Places</span></a> </li>
   </ul>
 </div>
 <!--sidebar-menu-->

@@ -22,16 +22,19 @@
         "cordova-plugin-eddystone": {
             "PACKAGE_NAME": "technology.dean"
         },
+        "cordova-plugin-firebase": {
+            "PACKAGE_NAME": "technology.dean"
+        },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "technology.dean"
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "technology.dean"
         },
-        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+        "technology.dean.backgroundservice": {
             "PACKAGE_NAME": "technology.dean"
         },
-        "technology.dean.backgroundservice": {
+        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
             "PACKAGE_NAME": "technology.dean"
         }
     },

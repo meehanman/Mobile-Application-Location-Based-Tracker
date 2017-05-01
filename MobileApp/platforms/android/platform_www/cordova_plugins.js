@@ -70,6 +70,14 @@ module.exports = [
         ]
     },
     {
+        "id": "cordova-plugin-firebase.FirebasePlugin",
+        "file": "plugins/cordova-plugin-firebase/www/firebase.js",
+        "pluginId": "cordova-plugin-firebase",
+        "clobbers": [
+            "FirebasePlugin"
+        ]
+    },
+    {
         "id": "cordova-plugin-geolocation.geolocation",
         "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
         "pluginId": "cordova-plugin-geolocation",
@@ -110,10 +118,11 @@ module.exports.metadata =
     "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-camera": "2.4.0",
     "cordova-plugin-eddystone": "1.3.0",
+    "cordova-plugin-firebase": "0.1.20",
     "cordova-plugin-geolocation": "2.1.0",
     "cordova-plugin-whitelist": "1.3.1",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2",
-    "technology.dean.backgroundservice": "0.1"
+    "technology.dean.backgroundservice": "0.1",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2"
 };
 // BOTTOM OF METADATA
 });

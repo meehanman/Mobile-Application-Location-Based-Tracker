@@ -87,15 +87,15 @@ module.exports = function(server) {
                     error: error
                 });
             }
-            if(user){
-              res.json({
-                  id: user._id,
-                  name: user.name.replace(/\b\w/g, l => l.toUpperCase())
-              });
+            if (user) {
+                res.json({
+                    id: user._id,
+                    name: user.name.replace(/\b\w/g, l => l.toUpperCase())
+                });
             }
         });
     });
-    
+
     //Adding a User
     server.post('/user', function(req, res, next) {
         //Salt and Hash Password
@@ -213,6 +213,36 @@ module.exports = function(server) {
             } else {
                 save();
             }
+        });
+    });
+
+    server.put('/user/token/:token', function(req, res, next) {
+        User.findById(req.user._id, function(error, user) {
+            if (error) {
+                res.json({
+                    title: "Failed",
+                    message: "Could not edit user",
+                    error: error
+                });
+                console.log("ERROR");
+            }
+
+            user.token = req.params.token
+
+            user.save(function(error, updated) {
+                if (error) {
+                    res.json({
+                        title: "Failed",
+                        message: "Could not edit User",
+                        error: error
+                    });
+                    return;
+                }
+                res.json({
+                    title: "Success",
+                    message: "Token updated"
+                });
+            });
         });
     });
 

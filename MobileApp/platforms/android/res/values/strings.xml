@@ -3,4 +3,7 @@
     <string name="app_name">MALBT</string>
     <string name="launcher_name">@string/app_name</string>
     <string name="activity_name">@string/launcher_name</string>
+    
+    <string name="google_app_id">1:375774438491:android:6145c4add06e1e53</string>
+    <string name="google_api_key">AIzaSyCnwPt4L8Wu6h_omCA98zP38odL_zZ3o2I</string>
 </resources>

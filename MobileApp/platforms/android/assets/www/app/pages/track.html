@@ -13,7 +13,7 @@
                             <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
                             <div class="left">
                                 <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a> </div>
-                            <div class="center sliding">Tracking Screen</div>
+                            <div class="center sliding">Tracking Information Screen</div>
                         </div>
                     </div>
                 </div>
@@ -21,28 +21,37 @@
             <!-- Bring content below Nav -->
             <br><br><br>
 
-            <div style="text-align: center;background-color: #fff;padding-top: 5px;color: #000;height: 100%;">
-
-
-                <div class="content-block-title">Beacon Tools
-                    <div id="message"></div>
-                </div>
-                <div id="found-beacons"></div>
-                <br><br>
-                <input type="button" id="getGPS" value="Get GPS Data" /><br>
-                <div id="getGPSoutput"></div>
-                <br><br>
-                <input type="button" id="getWifi" value="Get Wifi Data" /><br>
-                <div id="getWifioutput"></div>
-                <br><br>
-                <input type="button" id="pollServer" value="Poll Server with Tracking Data" /><br>
-                <div id="pollServeroutput"></div>
-                <br><br>
-                <input type="button" id="setConfig" value="Set Conig for Service" /><br>
-                <br><br>
-                <input type="button" id="toggleService" value="Toggle Service" /><br>
-
+            <div style="text-align: center;background-color: #fff;padding-top: 5px;color: #000;">
+              <p>Shows current polling information. <b><br>Press [Refresh View] to update.</b></p>
+              <br>
+              <h2>Last Updated</h2>
+                {{serviceData.updated}}
             </div>
+            {{#if serviceData.gps}}
+            <div style="text-align: center;background-color: #fff;padding-top: 5px;margin-top: 15px;color: #000;">
+              <b>GPS</b>
+                {{serviceData.gps}}
+            </div>
+            {{/if}}
+            {{#if serviceData.access_point}}
+            <div style="text-align: center;background-color: #fff;padding-top: 5px;margin-top: 15px;color: #000;">
+                <b>WIFI BSSID Access Points</b></br>
+                {{#each serviceData.access_point}} {{this}} </br>
+                {{/each}}
+            </div>
+            {{/if}}
+            {{#if serviceData.beacon.length>0}}
+            <div style="text-align: center;background-color: #fff;padding-top: 5px;margin-top: 15px;color: #000;">
+                <b>Beacon Addresses</b></br>
+                {{#each serviceData.beacon}}
+              </p>{{this}} </p>
+                {{/each}}
+            </div>
+            {{/if}}
+            <div style="text-align: center;background-color: #fff;padding-top: 5px;margin-top: 15px;color: #000;">
+                <b>{{#if serviceStatus}} {{#if serviceStatus.ServiceRunning}}Background Service Active{{else}}Background Service Inactive{{/if}}{{/if}}</b>
+            </div>
+            <input type="button" href value="Refresh View" onclick="refreshTrack()" style="margin-top:50px;" class="button button-round active" />
             <br>
         </div>
     </div>

@@ -14,9 +14,8 @@ var backgroundservice = {
           console.log(r);
             backgroundservice.startService(r)
         }, function(e) {
-          alert("Could not start auto login");
-          console.log(e);
-            backgroundservice.displayError(e)
+          console.log("Error",e);
+          backgroundservice.displayError(e)
         });
         console.log("Checking status after startService()");
         backgroundservice.getStatus();
@@ -50,6 +49,8 @@ var backgroundservice = {
             try {
                 backgroundservice.setConfiguration({"authentication": myApp.template7Data.auth.basic_auth});
                 console.info("BGS updateHandler:", data.LatestResult);
+                myApp.template7Data.serviceStatus = data;
+                console.log("Traffix",myApp.template7Data.serviceStatus);
             } catch (err) {}
         }
     },

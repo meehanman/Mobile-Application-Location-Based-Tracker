@@ -74,8 +74,9 @@ public class MyService extends BackgroundService {
        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
 
        try{
-        //Load in the setConfig value into the SharedPref's object.
-       editor.putString("authentication", config.getString("authentication"));
+       if(config.getString("authentication").length()>10){
+           editor.putString("authentication", config.getString("authentication"));
+       }
 
      }catch(Exception e){
        Log.d(LOG_NAME, e.toString());

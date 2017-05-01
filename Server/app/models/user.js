@@ -10,6 +10,7 @@ var userSchema = new Schema({
   image: String,
   groups: [{id: Number, name: String}],
   addedBy: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
+  token: String,
   created_at: Date,
   updated_at: Date
 });

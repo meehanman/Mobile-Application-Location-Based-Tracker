@@ -21,6 +21,14 @@ var Promise = require('bluebird');
 mongoose.Promise = Promise;
 mongoose.set("debug", true);
 
+//Push notifications
+var admin = require("firebase-admin");
+var serviceAccount = require("./firebase-account.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://fir-malbt.firebaseio.com"
+});
 //Setup plugins
 var restify = require('restify');
 var https = require('https');

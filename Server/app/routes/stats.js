@@ -80,7 +80,7 @@ module.exports = function(server) {
                     out.locationName = location.name;
                     out.locationMaxPeople = location.max_people;
                     out.inviteUsage = events[i].attendees.length/out.locationMaxPeople;
-                    out.attendUsage = arr["attended"]/out.locationMaxPeople;
+                    out.attendUsage = arr["attended"]/events[i].attendees.length;
 
                     stats.push(out);
                   }

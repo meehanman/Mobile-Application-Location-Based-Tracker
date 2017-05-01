@@ -13,7 +13,10 @@ var myApp = new Framework7({
         meetings: {},
         locations: {},
         upcomingEvents: [],
-        newEvent: {}
+        newEvent: {},
+        serviceData: {},
+        serviceStatus: {},
+        trackingOn: false
     }
 });
 var mainView = myApp.addView('.view-main', {
@@ -23,6 +26,31 @@ var authView = myApp.addView('.view-auth');
 
 $$(document).on('deviceready', function() {
     console.info("Your Device is Ready Dean!");
+
+    console.log("WIN", window);
+
+    //PUSH notification EVENT HANDLERS
+    window.FirebasePlugin.getToken(function(token) {
+        // save this server-side and use it to push notifications to this device
+        updatePushToken(token);
+    }, function(error) {
+        console.error(error);
+    });
+
+    window.FirebasePlugin.onTokenRefresh(function(token) {
+        // save this server-side and use it to push notifications to this device
+        updatePushToken(token);
+    }, function(error) {
+        console.error(error);
+    });
+
+    window.FirebasePlugin.onNotificationOpen(function(notification) {
+        console.log("onNotificationOpen", notification);
+    }, function(error) {
+        console.error(error);
+    });
+
+
     if (window.localStorage['auth']) {
         myApp.template7Data.auth = JSON.parse(window.localStorage['auth']);
         openHome();
@@ -73,6 +101,8 @@ $$(document).on('click', '#login-button', function() {
 
             window.localStorage['auth'] = JSON.stringify(parsedData);
             myApp.template7Data.auth = parsedData;
+
+            mainView.router.refreshPage();
 
             $$('login-password').val("");
 
@@ -146,9 +176,16 @@ $$(document).on('ajax:start', function(e) {
     }
 });
 
-$$(document).on('click', '#startBeaconTracking', function() {
+$$(document).on('click', '#trackingInformation', function() {
+
+    myApp.template7Data.serviceData.beacon = [];
+    for (var address in beacons) {
+        myApp.template7Data.serviceData.beacon.push(address);
+    }
+
     mainView.router.load({
-        url: 'app/pages/track.html'
+        url: 'app/pages/track.html',
+        context: myApp.template7Data
     });
     myApp.closePanel(true);
 });
@@ -195,7 +232,7 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
 
             for (var i = 0; i < data.attendees.length; i++) {
                 //Assign color for rings
-                if (data.attendees[i].status == "accepted") {
+                if (data.attendees[i].status == "accepted" || data.attendees[i].status == "attended") {
                     data.attendees[i].color = "#5cb85c";
                 } else if (data.attendees[i].status == "declined") {
                     data.attendees[i].color = "#ad3a3a";
@@ -221,6 +258,8 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
                     } else if (data.attendees[i].status == 'invited') {
                         data.userChoice = "Please respond";
                     }
+
+                    console.log("Current user event status: ", data.attendees[i].status, data.userChoice, data.userChoiceColor);
                 }
             }
 
@@ -306,12 +345,9 @@ $$(document).on('click', '#btnSelectLocation', function() {
 
 //Start and Stop Tracking
 $$(document).on('page:init', '.page[data-page="track"]', function(e) {
-    startBeaconTracking();
+    //When visiting the track page
+    console.log("track opened");
 });
-$$(document).on('page:init', '.page[data-page="home"]', function(e) {
-    onBackButtonDown();
-});
-
 
 $$(document).on('click', '#getGPS', function(e) {
     $$('#getGPSoutput').html("Loading GPS...");
@@ -324,32 +360,6 @@ $$(document).on('click', '#getWifi', function(e) {
     $$('#getWifioutput').html("Loading Wifi...");
     getWifi(function(data) {
         $$('#getWifioutput').html(data);
-    });
-});
-
-$$(document).on('click', '#pollServer', function(e) {
-
-    var output = {
-        "gps": JSON.parse($$('#getGPSoutput').html()),
-        "beacon": [],
-        "access_point": JSON.parse($$('#getWifioutput').html())
-    };
-
-    $$.ajax({
-        url: "https://cloud.dean.technology/poll",
-        type: "POST",
-        data: JSON.stringify(output),
-        dataType: "application/json",
-        contentType: "application/json",
-        "crossDomain": true,
-        success: function(data, textStatus, jqXHR) {
-            data = JSON.parse(data);
-            console.warn("Poll Response", data);
-            $$('#pollServeroutput').html(JSON.stringify(data));
-        },
-        error: function(data, textStatus, jqXHR) {
-            console.log("Error:", data, output);
-        }
     });
 });
 
@@ -422,7 +432,8 @@ var selectLocation = function(locID, name) {
 }
 
 var addEvent = function() {
-    console.log("Add Event", ":00.000Z", myApp.template7Data.newEvent);
+    console.log("Add Event", myApp.template7Data.newEvent);
+    $$('#btnAddNewEvent').val("Loading...");
     var temp = myApp.template7Data.newEvent;
     if (!myApp.template7Data.newEvent.name ||
         !myApp.template7Data.newEvent.description ||
@@ -448,28 +459,29 @@ var addEvent = function() {
     myApp.template7Data.newEvent.attendees = JSON.stringify(myApp.template7Data.newEvent.attendees);
 
     var form_data = [];
-    for (var p in myApp.template7Data.newEvent)
-        //encodeURIComponent
+    for (var p in myApp.template7Data.newEvent) {
         form_data.push((p) + "=" + (myApp.template7Data.newEvent[p]));
+    }
     form_data = form_data.join("&");
-
 
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
 
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
-        console.log("EVENT ADDED",this);
-        alert("Event Added");
-        mainView.router.load({
-            url: 'index.html',
-            context: myApp.template7Data
-        });
-      }else{
-        console.log("showUserSelectScreen ERROR", data);
-        alert("Error Adding Event");
-        myApp.template7Data.newEvent=temp;
-      }
+    xhr.addEventListener("readystatechange", function() {
+        if (this.readyState === 4) {
+            console.log("EVENT ADDED", this);
+            alert("Event Added");
+            $$('#btnAddNewEvent').val("Add Event");
+            mainView.router.load({
+                url: 'app/pages/index.html',
+                context: myApp.template7Data
+            });
+        } else {
+            console.log("showUserSelectScreen ERROR", data);
+            alert("Error Adding Event");
+            $$('#btnAddNewEvent').val("Error Adding Event");
+            myApp.template7Data.newEvent = temp;
+        }
     });
 
     xhr.open("POST", "https://cloud.dean.technology/event");
@@ -555,6 +567,15 @@ function getLocations(callBack) {
 //Gets upcoming events and saves them to template7Data.upComingEvents
 function openHome() {
     console.log("openHome");
+
+    //Enable the Tracking Screen if a user is an admin
+    console.log(myApp.template7Data.auth);
+    if (myApp.template7Data.auth.admin == true) {
+        $$('#admin-only').show();
+    } else {
+        $$('#admin-only').hide();
+    }
+
     $$.ajax({
         url: "https://cloud.dean.technology/event/upcoming",
         type: "GET",
@@ -577,10 +598,17 @@ function openHome() {
 
             //Run every minute when open
             foregroundTracking();
-            setInterval(foregroundTracking, 60 * 1000);
+            //Ensure this is only run once
+            if (!myApp.template7Data.trackingOn) {
+                console.warn("Track Interval START");
+                myApp.template7Data.trackingOn = true;
+                setInterval(foregroundTracking, 60 * 1000);
+            } else {
+                console.warn("Track Interval Already Set");
+            }
 
             mainView.router.load({
-                url: 'index.html',
+                url: 'app/pages/index.html',
                 context: myApp.template7Data
             });
         },
@@ -590,15 +618,61 @@ function openHome() {
     });
 }
 
-function foregroundTracking(){
-  console.info("foregroundTracking Started()");
-  getGPS(function(gps){
-    //getBeacons(function(beacons){
-      getWifi(function(bssid){
-        console.log(gps,beacons,bssid);
-      });
-    //});
-  })
+function foregroundTracking() {
+    console.info("foregroundTracking() running...");
+    getGPS(function(gps) {
+        getBeacons(function(beacon) {
+            getWifi(function(access_point) {
+                var output = {};
+                output.access_point = JSON.parse(access_point);
+                output.beacon = [];
+                for (var address in beacon) {
+                    output.beacon.push(address);
+                }
+
+                console.log("Foreground Poll: ", output, gps);
+                myApp.template7Data.serviceData = output;
+                myApp.template7Data.serviceData.gps = gps;
+                myApp.template7Data.serviceData.updated = new Date();
+                $$.ajax({
+                    url: "https://cloud.dean.technology/poll",
+                    type: "POST",
+                    data: JSON.stringify(output),
+                    dataType: "application/json",
+                    contentType: "application/json",
+                    "crossDomain": true,
+                    success: function(data, textStatus, jqXHR) {
+                        data = JSON.parse(data);
+                        console.warn("Poll Response", data);
+                    },
+                    error: function(data, textStatus, jqXHR) {
+                        console.log("Error:", data, output);
+                    }
+                });
+
+                var output_gps = {};
+                if (gps.length == 2) {
+                    console.log("GPS SENDING:::", gps);
+                    output_gps.gps = gps;
+                    $$.ajax({
+                        url: "https://cloud.dean.technology/poll/gps",
+                        type: "POST",
+                        data: JSON.stringify(output_gps),
+                        dataType: "application/json",
+                        contentType: "application/json",
+                        "crossDomain": true,
+                        success: function(data, textStatus, jqXHR) {
+                            data = JSON.parse(data);
+                            console.warn("Poll Response", data);
+                        },
+                        error: function(data, textStatus, jqXHR) {
+                            console.log("Error:", data, output);
+                        }
+                    });
+                }
+            });
+        });
+    })
 }
 
 function getTodaysDate() {
@@ -619,8 +693,14 @@ function getGPS(callback) {
 
 }
 
-function getBeacons() {
-    console.log("Start Beacon Tracking Called", startBeaconTracking());
+function getBeacons(callback) {
+    console.log("getBeacons", beacons);
+    callback(startScan());
+}
+
+function refreshTrack() {
+    console.log("Refresh");
+    mainView.router.refreshPage();
 }
 
 function getWifi(callback) {
@@ -631,13 +711,26 @@ function getWifi(callback) {
         console.log("Wifi Scan Results", data);
         var scanResults = [];
         for (var i = 0; i < data.length; i++) {
-            console.log("<br><div><b>" + data[i].BSSID + "</b>(" + data[i].SSID + ")</div>");
             scanResults.push(data[i].BSSID);
         }
 
         callback(JSON.stringify(scanResults));
-
     }, function(data) {
         console.error("Failed to get Wifi Scan Results");
     });
+}
+
+function updatePushToken(token){
+  $$.ajax({
+      url: "https://cloud.dean.technology/user/token/"+token,
+      type: "PUT",
+      contentType: "application/json",
+      "crossDomain": true,
+      success: function(data, textStatus, jqXHR) {
+        console.log("Token Updated");
+      },
+      error: function(data, textStatus, jqXHR) {
+          console.log("Token Update Error");
+      }
+  });
 }

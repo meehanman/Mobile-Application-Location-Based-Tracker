@@ -17,6 +17,17 @@
         <provider android:authorities="${applicationId}.provider" android:exported="false" android:grantUriPermissions="true" android:name="android.support.v4.content.FileProvider">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
         </provider>
+        <service android:name="org.apache.cordova.firebase.FirebasePluginMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="org.apache.cordova.firebase.FirebasePluginInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <receiver android:name="org.apache.cordova.firebase.OnNotificationOpenReceiver" />
         <service android:name="technology.dean.backgroundservice.MyService">
             <intent-filter>
                 <action android:name="technology.dean.backgroundservice.MyService" />
@@ -31,5 +42,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

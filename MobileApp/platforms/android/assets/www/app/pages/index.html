@@ -1,0 +1,80 @@
+<div data-page="index" class="page" data-page="home">
+                    <!-- Scrollable page content -->
+                    <div class="page-content">
+
+                        <!-- + Button -->
+                        <a href id="btnAddEvent" class="floating-button color-pink" style="top:280px; position: fixed;">
+                            <i class="icon icon-plus"></i>
+                        </a>
+                        <div class="index-content">
+                            <!-- Apply a background image -->
+                            <div class="indexBackgroundImage" style="background-image: url('{{this.auth.image}}');">
+                                <!-- Darken the image -->
+                                <div class="indexBackgroundImage-colorOverlay">
+                                    <!-- Top Navbar-->
+                                    <div class="navbar">
+                                        <div class="navbar-inner">
+                                            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                                            <div class="left">
+                                                <a href class="link icon-only open-panel"><i class="icon icon-bars"></i></a> </div>
+                                            <div class="center sliding">Timeline</div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="userInfo">
+                                        <img class="img-circle profileImage" width="75" height="75" src="{{this.auth.image}}" />
+                                        <div class="userInfo-text">
+                                            <div class="userInfo-name">{{this.auth.name}}</div>
+                                            <div class="userInfo-email">{{this.auth.email}}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                           <div style="padding: 0px; padding-top: 282px;" class="content-block">
+                            <div class="myEvents">Upcoming Events</div>
+                            <div class="myEvents-subDate">{{date}}</div>
+                            <!-- Timeline Line -->
+                           <!-- Needs better solution for different resolutions -->
+                            <div style="height:52%;overflow-y:auto;margin-bottom:30px;margin-top:5px;">
+                                <table style="width:100%;">
+                                    {{#each upcomingEvents}}
+                                    <tr style="height:45px;"></tr>
+                                    <tr class="upcomingEventrow" data-id="{{_id}}">
+                                        <td class="timeline-circle-td">
+                                            <div class="timeline-circle"></div>
+                                        </td>
+                                        <td>
+                                            <div class="upcomingEventrow-name">
+                                                {{name}}
+                                            </div>
+                                            <div class="upcomingEventrow-sub">
+                                                {{type}}
+                                            </div>
+                                            <div>
+                                              {{#each attendees}}
+                                              <img src="{{user.image}}" class="upcomingEventrow-img" />
+                                              {{/each}}
+                                            </div>
+
+                                        </td>
+                                        <td style="vertical-align: text-top;">
+                                            <div class="upcomingEventrow-right">{{timeString}}<br>{{dateString}}</div>
+                                        </td>
+                                    </tr>
+                                    {{else}}
+                                    <p style="margin-left: 49px;">You have no upcoming Events.</p>
+                                    <p class="buttons-row">
+                                        <a id="btnRefreshUpcomingEvents" href class="button">Refresh</a>
+                                    </p>
+                                    {{/each}}
+                                </table>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- End of Index Content -->
+                    </div>
+                    <!-- End of Page Content -->
+                </div>

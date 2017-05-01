@@ -18,6 +18,16 @@ app.factory('Events', ['$rootScope', '$http', function($rootScope, $http) {
         });
     }
 
+    var getUsers = function(callback) {
+        $http.get('https://cloud.dean.technology/event').then(function(events) {
+            events = events.data;
+            callback(events);
+        }, function(fail) {
+            console.log("Failed to get Events", fail);
+            callback(fail);
+        });
+    }
+
     var getUpcoming = function(callback) {
         $http.get('https://cloud.dean.technology/event/upcoming').then(function(events) {
             callback(events);
@@ -114,6 +124,7 @@ app.factory('Events', ['$rootScope', '$http', function($rootScope, $http) {
 
     return {
         get:get,
+        getUsers:getUsers,
         getOne:getOne,
         add:add,
         del:del,
