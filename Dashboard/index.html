@@ -1,1 +1,124 @@
-<meta http-equiv="refresh" content="0;https://cloud.dean.technology/dashboard/angularjs/">
+<!DOCTYPE html>
+<html ng-app="MATBLDashboard">
+  <head>
+    <title>MATLB Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" href="app/img/logoLogin.png"> 
+
+    <link rel="stylesheet" href="app/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="app/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="app/css/datetimepicker.css">
+    <link rel="stylesheet" href="app/css/fullcalendar.css" />
+    <link rel="stylesheet" href="app/css/matrix-style.css" />
+    <link rel="stylesheet" href="app/css/matrix-media.css" />
+    <link rel="stylesheet" href="app/css/matrix-login.css" />
+    <link rel="stylesheet" href="app/css/colorpicker.css">
+
+    <link rel="stylesheet" href="app/css/uniform.css">
+    <link rel="stylesheet" href="app/css/select2.css">
+    <link rel="stylesheet" href="app/css/bootstrap-wysihtml5.css">
+    <link rel="stylesheet" href="app/css/malbt-custom.css">
+
+    <link rel="stylesheet" href="app/css/multiple-select.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.min.css">
+
+    <link href="app/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="app/css/jquery.gritter.css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body ng-app="MATBLDashboard">
+    <div ui-view="common"></div>
+    <!-- Include all the files -->
+
+    <!-- JQuery must be provided first -->
+    <script src="app/js/jquery.min.js"></script>
+
+    <!-- Angular CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+
+    <!-- Google Maps API -->
+    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyBErh2gEsDvEmTPQHZURPHE8M2X3nebwBM'></script>
+
+    <!-- JQuery and JS Scripts -->
+    <script src="app/js/excanvas.min.js"></script>
+    <script src="app/js/jquery.ui.custom.js"></script>
+    <script src="app/js/bootstrap.min.js"></script>
+
+
+    <script src="app/js/jquery.wizard.js"></script>
+    <script src="app/js/jquery.uniform.js"></script>
+    <script src="app/js/select2.min.js"></script>
+    <script src="app/js/matrix.popover.js"></script>
+    <script src="app/js/jquery.dataTables.min.js"></script>
+    <script src="app/js/matrix.tables.js"></script>
+    <script src="app/js/multiple-select.js"></script>
+
+
+    <!-- Datetime Picker -->
+    <script src="app/js/moment.min.js"></script>
+    <script src="app/js/datetimepicker.js"></script>
+    <script src="app/js/datetimepicker.templates.js"></script>
+
+    <!-- Angular Chart -->
+    <script src="app/js/Chart.min.js"></script>
+    <script src="app/js/angular-chart.js"></script>
+
+    <!-- Angular Addon's -->
+    <script src="app/js/angular-flot.js"></script>
+    <script src="app/js/angular-local-storage.js"></script>
+    <script src="app/js/angular-base64-upload.js"></script>
+    <script src="app/js/angular-modal-service.min.js"></script>
+    <script src="app/js/ng-map.min.js"></script>
+    <script src="app/js/angular-moment.min.js"></script>
+    <script src="app/js/dirPagination.js"></script>
+
+    <!-- Services and Angular Application -->
+    <script src="app/index.js"></script>
+    <script src="app/services/auth.js"></script>
+    <script src="app/services/users.js"></script>
+    <script src="app/services/events.js"></script>
+    <script src="app/services/locations.js"></script>
+    <script src="app/services/places.js"></script>
+    <script src="app/services/stats.js"></script>
+
+    <!-- Controllers for Pages -->
+    <script src="app/pages/login/login.js"></script>
+    <script src="app/pages/common/common.js"></script>
+    <script src="app/pages/home/home.js"></script>
+
+    <script src="app/pages/events/events.js"></script>
+    <script src="app/pages/events.add/events.add.js"></script>
+    <script src="app/pages/events.edit/events.edit.js"></script>
+    <script src="app/pages/events.info/events.info.js"></script>
+
+    <script src="app/pages/users/users.js"></script>
+    <script src="app/pages/users.add/users.add.js"></script>
+    <script src="app/pages/users.edit/users.edit.js"></script>
+
+    <script src="app/pages/locations/locations.js"></script>
+    <script src="app/pages/locations.add/locations.add.js"></script>
+    <script src="app/pages/locations.edit/locations.edit.js"></script>
+    <script src="app/pages/locations.info/locations.info.js"></script>
+    <script src="app/pages/locations.book/locations.book.js"></script>
+
+    <script src="app/pages/places/places.js"></script>
+    <script src="app/pages/places.add/places.add.js"></script>
+    <script src="app/pages/places.edit/places.edit.js"></script>
+
+    <script src="app/pages/stats.location/stats.js"></script>
+
+    <script src="app/pages/account/account.js"></script>
+
+    <!-- Controllers for Modals -->
+    <script src="app/modals/place/place.js"></script>
+    <script src="app/modals/general/general.js"></script>
+    <script src="app/modals/locationSearch/locationSearch.js"></script>
+
+  </body>
+</html>
