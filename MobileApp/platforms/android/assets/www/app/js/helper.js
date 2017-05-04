@@ -288,7 +288,6 @@ $$(document).on('click', '.upcomingEventrow', function(event) {
             });
         },
         error: function(data, textStatus, jqXHR) {
-            data = JSON.parse(data);
             console.log(data);
             myApp.alert(data.message);
         }

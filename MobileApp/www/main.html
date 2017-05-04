@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="theme-color" content="#2196f3">
+
+    <title>MALBT</title>
+
+    <link rel="stylesheet" href="app/css/framework7/framework7.material.css">
+    <link rel="stylesheet" href="app/css/style.css">
+    <link rel="stylesheet" href="app/css/framework7/framework7.material.colors.css">
+</head>
+
+<body>
+    <!-- Status bar overlay for full screen mode (PhoneGap) -->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block">
+          <p class="buttons-row">
+              <a id="btnReturnHome" href class="button button-big button-fill button-raised color-blue">Home</a>
+          </p>
+          <p id="admin-only" class="buttons-row" style="display:none;">
+              <a id="trackingInformation" href class="button button-big button-fill button-raised color-blue">Tracking</a>
+          </p>
+          <p class="buttons-row">
+              <a id="btnAddEvent" href class="button button-big button-fill button-raised color-blue">New Event</a>
+          </p>
+          <p class="buttons-row">
+              <a id="logout-button" href class="button button-big button-fill button-raised color-red">Logout</a>
+          </p>
+        </div>
+    </div>
+
+
+    <!-- Views -->
+    <div class="views">
+        <div class="view view-main" style="display:none;">
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages">
+                <!-- Page, "data-page" contains page name -->
+            </div>
+            <!-- End of class="pages" -->
+        </div>
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-auth" style="display:none;">
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages">
+                <!-- Page, "data-page" contains page name -->
+                <div data-page="index" class="page" data-page="auth">
+                    <!-- Scrollable page content -->
+                    <div class="page-content">
+                        <!-- Login Page Start -->
+                        <center> <img style="padding-top:100px;" class="loginLogo" src="app/img/eventMap/evLogoLogin.png" />
+                            <div class="content-block-title">MALBT</div>
+                        </center>
+                        <div class="list-block">
+                            <ul>
+                                <!-- Text inputs -->
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-input">
+                                                <input id="login-username" type="email" placeholder="Username" value="d3an.meehan@hotmail.com" style="padding-left:10px;"> </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-input">
+                                                <input id="login-password" type="password" placeholder="Password" value="D4cn14u6" style="padding-left:10px;"> </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div style="margin-top:20px;"></div> <a id="login-button" class="button button-big button-raised button-fill">Login</a>
+                        </div>
+                        <!-- Login Page End -->
+                    </div>
+                    <center>
+                        <!-- Bottom Toolbar-->
+                        <div class="toolbar" style="background-color:#fff;text-align:center;">
+                            <div class=" toolbar-inner "> <img class="navLogo" src="app/img/eventMap/EmSmallGrey.png " /> </div>
+                        </div>
+                    </center>
+                    <!-- /End of Bottom Toolbar-->
+                </div>
+            </div>
+        </div>
+        <!-- Login View End -->
+    </div>
+    <!-- End of Views -->
+
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript " src="app/js/framework7.js "></script>
+    <script type="text/javascript" src="app/js/helper.js"></script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTTVIOg8ZhyXmKtWqOwkgS-45YFOQ4KFw"></script>
+    <script type="text/javascript" src="app/js/gmaps.js"></script>
+    <script type="text/javascript" src="app/js/moment.min.js"></script>
+
+    <!-- Bluetooth Beacon Code -->
+    <script type="text/javascript" src="app/js/eddy.js"></script>
+    <!-- Backgroun Service Code -->
+    <script type="text/javascript" src="app/js/background-service.js"></script>
+    <!-- WIFI is Native -->
+
+
+    </script>
+</body>
+
+</html>
