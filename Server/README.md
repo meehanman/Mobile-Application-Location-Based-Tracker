@@ -41,7 +41,7 @@ token have access until the password is changed. Logout should be implemented
 by providing a function that simply deletes the saved user Authorization token.
 
 
-## General Routes
+## Other Routes
 
 ### ```GET /```
 **Returns:** `{"version":1,"author":"Dean Meehan"}`
@@ -68,6 +68,9 @@ by providing a function that simply deletes the saved user Authorization token.
 ### ```GET /user/:id```
 **Returns:** Get's a users detailed from a user id. (Restricted to admin users)
 
+### ```POST /user/email```
+**Returns:** Returns the ID and Name of a user by email. (Used in searches)
+
 ### ```POST /user```
 **Returns:** Creates a new user (Restricted to admin users)
 
@@ -77,6 +80,9 @@ by providing a function that simply deletes the saved user Authorization token.
 ### ```PUT /user```
 **Returns:** Passing in a User object will edit the user details that have changed
 (Restricted to admin users)
+
+### ```PUT /user/token/:token```
+**Returns:** Passing in a token updates the saved Firebase token for the user for push notifications
 
 ## Event Routes
 
@@ -101,13 +107,13 @@ by providing a function that simply deletes the saved user Authorization token.
 ### ```DELETE /event/:id```
 **Returns:** Deletes an event with the id :id (Users can delete their own events, while admins can delete all events)
 
+### ```PUT /event/:eventID/:status```
+**Returns:** Changes the status for the current logged in user for the event :eventID to the status :status
+
 ### ```PUT /event/:id```
 **Returns:** Edits an event with the id :id with the object provided.
 
-### ```PUT /event/:id/:status```
-**Returns:** Changes the status for the current logged in user for the event :id to the status :status
-
-### ```PUT /notifications```
+### ```GET /notifications```
 **Returns:** Returns an object detailing events the current logged in user needs to accept or decline (Events stuck in the invited status)
 
 ## Location Routes
@@ -123,6 +129,9 @@ utilization.
 
 ### ```GET /location/:id```
 **Returns:** Returns all data stored about a location with id :id
+
+### ```GET /location/:id/events```
+**Returns:** Returns all events for the location of :id for today. (Used by Location Dashboard)
 
 ### ```GET /location/near/:x/:y/:distance```
 **Returns:** Returns all locations in order of distance to a geolocation :x, :y limited to a distance in meters specified in :distance
@@ -146,7 +155,7 @@ the parent place Queens University Belfast. The EEECS Building can then be
 the master place of 'EEECS Stranmillis Rd' and 'EEECS Elmwood'"
 
 ### ```GET /place```
-**Returns:** Returns all locations
+**Returns:** Returns all places
 
 ### ```GET /place/:id```
 **Returns:** Returns all data stored about a place with id :id
@@ -159,3 +168,17 @@ the master place of 'EEECS Stranmillis Rd' and 'EEECS Elmwood'"
 
 ### ```PUT /place```
 **Returns:** Edits a place, the place is specified from the place object PUT's `id` field (Restricted to admin users)
+
+## Stat Routes
+
+The stat route is used to provide statistics about the usage of locations.
+
+### ```GET /stats/location/:location```
+**Returns:** Returns statistical data about a locations usage over time including all events held at that location, the average usage etc. This data is used within the dashboard. (Restricted to admin users)
+
+## Track Routes
+
+The tracking routes don't keep or process a users data above checking if a location matches any data submitted to change the users attendance of an event to `attended`.
+
+### ```POST /poll```
+**Returns:** The interface where app can poll a uses location data such as GPS, Beacons and BSSID's from access points. Polling will update a users attendance at any events currently happening at any matching locations.

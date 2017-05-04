@@ -252,27 +252,4 @@ module.exports = function(server) {
             }
         });
     });
-
-    //Testing background service
-    var x = "Default"
-    server.get("/ping/:pong", function(req, res) {
-        x = req.params.pong;
-        res.json({
-            "ping": x
-        });
-    });
-
-    server.get("/ping", function(req, res) {
-        res.json({
-            "pong": x
-        });
-    });
-
-
-    server.put('/location/stats/:id', function(req, res, next) {
-        res.json({
-            "location": req.params.id
-        });
-    });
-
 }

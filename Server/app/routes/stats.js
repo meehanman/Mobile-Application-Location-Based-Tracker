@@ -4,45 +4,6 @@ module.exports = function(server) {
     var User = require('../models/user');
     var Place = require('../models/place');
 
-    server.get('/stats/place/:place', function(req, res) {
-        Location.find({
-            place: req.params.place
-        }).lean().exec(function(error, locations) {
-            if (error) {
-                res.json({
-                    title: "Failed",
-                    message: "Could not find location.",
-                    error: error
-                });
-            } else {
-                var e = [];
-                var count =0;
-                for(var i=0;i<locations.length;i++){
-                  console.log(locations[i]._id);
-                  locations[i].events = [];
-                  Event.find({
-                      location: locations[i]._id
-                  }).lean().exec(function(error, events) {
-                      console.log(events.length);
-                      if (error) {
-                          res.json({
-                              title: "Failed",
-                              message: "Could not find location.",
-                              error: error
-                          });
-                      } else {
-                        console.log(locations[i].events, events.length);
-                        locations[i].events = events;
-                        count++;
-                        console.log(locations[i].events, events.length);
-                      }
-                  });
-                }
-                res.json({q: count, l:locations});
-            }
-        });
-    });
-
     server.get('/stats/location/:location', function(req, res) {
         Event.find({
             location: req.params.location
