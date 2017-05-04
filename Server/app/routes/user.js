@@ -79,7 +79,7 @@ module.exports = function(server) {
     server.post('/user/email', function(req, res) {
         User.findOne({
             email: req.body.email
-        }, function(error, user) {
+        }.lean().exec(function(error, user) {
             if (error || !user) {
                 res.json(404, {
                     title: "Failed",
@@ -88,6 +88,7 @@ module.exports = function(server) {
                 });
             }
             if (user) {
+                delete user.password;
                 res.json({
                     id: user._id,
                     name: user.name.replace(/\b\w/g, l => l.toUpperCase())
