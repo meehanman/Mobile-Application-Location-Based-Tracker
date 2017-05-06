@@ -28,13 +28,16 @@
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "technology.dean"
         },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "technology.dean"
-        },
         "technology.dean.backgroundservice": {
             "PACKAGE_NAME": "technology.dean"
         },
         "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+            "PACKAGE_NAME": "technology.dean"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "technology.dean"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "technology.dean"
         }
     },

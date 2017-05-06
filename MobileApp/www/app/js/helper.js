@@ -25,9 +25,7 @@ var mainView = myApp.addView('.view-main', {
 var authView = myApp.addView('.view-auth');
 
 $$(document).on('deviceready', function() {
-    console.info("Your Device is Ready Dean!");
-
-    console.log("WIN", window);
+    console.info("MALBT Device Ready!");
 
     //PUSH notification EVENT HANDLERS
     window.FirebasePlugin.getToken(function(token) {
@@ -161,7 +159,7 @@ $$(document).on('click', '#logout-button', function() {
 //Used to update everything after something is called
 
 $$(document).on('ajax:complete', function(e) {
-
+  $$('#default-error-message').hide();
 });
 
 //Used to update everything after something is called

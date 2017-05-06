@@ -106,6 +106,14 @@ module.exports = [
         "merges": [
             "launchnavigator"
         ]
+    },
+    {
+        "id": "cordova-plugin-splashscreen.SplashScreen",
+        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+        "pluginId": "cordova-plugin-splashscreen",
+        "clobbers": [
+            "navigator.splashscreen"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -120,9 +128,10 @@ module.exports.metadata =
     "cordova-plugin-eddystone": "1.3.0",
     "cordova-plugin-firebase": "0.1.20",
     "cordova-plugin-geolocation": "2.1.0",
-    "cordova-plugin-whitelist": "1.3.1",
     "technology.dean.backgroundservice": "0.1",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2"
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "3.2.2",
+    "cordova-plugin-splashscreen": "4.0.3",
+    "cordova-plugin-whitelist": "1.3.2"
 };
 // BOTTOM OF METADATA
 });
