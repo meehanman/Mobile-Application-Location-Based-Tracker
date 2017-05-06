@@ -9,7 +9,7 @@
   <div class="quick-actions_homepage">
     <ul class="quick-actions">
 
-      <li class="bg_lg" ng-repeat="event in upcomingEvents" ng-if="currentlyActive(event.starts_at, event.ends_at)">
+      <li class="bg_lg" ng-repeat="event in allEvents" ng-if="currentlyActive(event.starts_at, event.ends_at)">
         <a href ng-click="stateNav('events.info',{id: event._id})"> <i class="icon-star"></i>Event '{{event.name}}'<br>is currently taking place</a>
       </li>
     </ul>

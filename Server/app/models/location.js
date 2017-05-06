@@ -21,7 +21,6 @@ var locationSchema = new Schema({
         description: String
     }],
     place: {type: Schema.Types.ObjectId, required: true, ref: 'Place'},
-    image: String,
     beacon: String,
     access_point: String,
     gps: [],

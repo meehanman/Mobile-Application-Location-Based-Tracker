@@ -10,6 +10,7 @@ app.controller('LocationsInfoCtrl', ['$scope', '$stateParams', 'Locations', '$in
 
     $scope.getEvents = function() {
         Locations.getEvents($stateParams.id, function(events) {
+            console.log("events",events);
             $scope.eventsRaw = events.data;
         });
     }

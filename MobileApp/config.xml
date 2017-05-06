@@ -33,7 +33,6 @@
     <access launch-external="yes" origin="geo:*" />
     <access launch-external="yes" origin="*" />
     <engine name="android" spec="^6.2.2" />
-    <engine name="browser" spec="~4.1.0" />
     <plugin name="com.red_folder.phonegap.plugin.backgroundservice" spec="https://github.com/Red-Folder/bgs-core.git" />
     <plugin name="cordova-plugin-ble" spec="~2.0.1" />
     <plugin name="cordova-plugin-camera" spec="~2.4.0" />

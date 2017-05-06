@@ -88,7 +88,6 @@ module.exports = function(server) {
 
     //Adding a Location
     server.post('/location', function(req, res, next) {
-
         //Build Objects that have been stringified
         req.body.gps && JSON.parse(req.body.gps).length == 2 ? req.body.gps = JSON.parse(req.body.gps) : undefined;
         req.body.services ? req.body.services = JSON.parse(req.body.services) : undefined;
@@ -120,8 +119,14 @@ module.exports = function(server) {
         location.floor = req.body.floor;
         location.max_people = req.body.max_people;
         location.services = req.body.services;
-        location.beacon = req.body.beacon.toUpperCase();
+        if(location.beacon && location.beacon.length>0){
+          console.log("Beacon");
+          location.beacon = req.body.beacon.toUpperCase();
+        }
+        if(location.access_point  && location.access_point.length>0){
+          console.log("Access Point");
         location.access_point = req.body.access_point.toUpperCase();
+        }
         location.gps = req.body.gps;
 
         //If there was an image provided, then try and save it

@@ -9,7 +9,7 @@ var eventSchema = new Schema({
   description: String,
   owner: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
   image: String,
-  type: { type: String, required: true, enum: ["meeting","event","party","conference","lecture","other"]},
+  type: { type: String, required: true, enum: ["meeting","even  t","party","conference","lecture","other"]},
   location: {type: Schema.Types.ObjectId, required: true, ref: 'Location'},
   attendees: [{user: {type: Schema.Types.ObjectId, required: true, ref: 'User'}, status: {type: String, required: true, enum: ["invited","accepted","declined","attended"]}}],
   starts_at: { type: Date, required: true},

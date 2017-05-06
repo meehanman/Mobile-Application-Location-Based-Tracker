@@ -105,7 +105,7 @@ server.use(function(req, res, next) {
                       next(new restify.NotAuthorizedError("Username and/or Password is incorrect"));
                   }
                   if(verified){
-                    console.log("Auth: [/]");
+                    console.log("Auth: [/]#");
                     //Assign user to request object
                     req.user = user;
                     next();
