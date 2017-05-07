@@ -124,7 +124,7 @@
                   <td><a href ng-click="nav('events/info/'+event.eventID)">
                     <strong>{{event.eventName}}</strong>
                   </a></td>
-                  <td>{{event.eventStart}}</td>
+                  <td>{{event.eventStart | date:'medium'}}</td>
                   <td>Invited User Capacity</td>
                   <td><span class="badge badge-info">{{event.inviteUsage*100 | number: 0}}%</span></td>
                   <td>Users Attended</td>
