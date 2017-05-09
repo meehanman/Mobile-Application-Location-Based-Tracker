@@ -9,7 +9,7 @@ var userSchema = new Schema({
   location: String,
   image: String,
   token: String,
-  addedBy: {type: Schema.Types.ObjectId, required: true, ref: 'User'},
+  addedBy: {type: Schema.Types.ObjectId, required: false, ref: 'User'},
   created_at: Date,
   updated_at: Date
 });

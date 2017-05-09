@@ -26,6 +26,11 @@ Security setup with Basic Authentication over TLS/HTTPS using (apache and nodejs
 
 HTTPS certificates for TLS/SSL provided by LetsEncrypt with this (tutorial)[https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-14-04]
 
+### To Run Server
+
+Navigate to the server folder after installed and run:
+
+`/Server$ sudo supervisor server.js`
 
 ## API Reference
 

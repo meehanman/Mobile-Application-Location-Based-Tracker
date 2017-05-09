@@ -39,15 +39,16 @@ var fs = require("fs");
 var passwordhash = require('password-hash-and-salt');
 
 //Define Settings
-var settings = {
-  host: "0.0.0.0",
-  port: 9000
-}
-
+var settings = {};
 if (process.env.NODE_ENV == "test") {
-  var settings = {
+  settings = {
     host: "127.0.0.1",
     port: 9001
+  }
+}else{
+  settings = {
+    host: "0.0.0.0",
+    port: 9000
   }
 }
 
@@ -148,3 +149,5 @@ server.listen(settings.port, settings.host, function() {
     console.log('%s listening at %s', server.name, server.url);
   }
 });
+
+module.exports = server;
