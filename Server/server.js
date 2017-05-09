@@ -105,7 +105,6 @@ server.use(function(req, res, next) {
       // That user exists; and
       if (!user) {
         // Respond with { code: 'NotAuthorized', message: '' }
-        console.log("Auth: [ ]");
         next(new restify.NotAuthorizedError("Username and/or Password is incorrect"));
       } else {
         // Verifying the supplied password hash with the hash stored in the DB
@@ -117,7 +116,6 @@ server.use(function(req, res, next) {
             next(new restify.NotAuthorizedError("Username and/or Password is incorrect"));
           }
           if (verified) {
-            console.log("Auth: [/]#");
             //Assign user to request object
             req.user = user;
             next();
@@ -126,7 +124,6 @@ server.use(function(req, res, next) {
       }
     })
     .error(function(error) {
-      console.log("Database Error");
       next(new restify.InternalError("Could not check your creditentials [DBError]"));
     });
 });

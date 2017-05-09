@@ -9,3 +9,15 @@ var server = require('../server');
 var should = chai.should();
 
 chai.use(chaiHttp);
+
+describe("Event Route: GET /event",function(){
+  it('HTTP Responce is OK', (done) => {
+    chai.request(server)
+      .get('/event')
+      .set('Authorization', "Basic dGVzdC5lbWFpbEBkZWFuLnRlY2hub2xvZ3k6UGFzc3dvcmQ=")
+      .end(function(err, res) {
+        res.status.should.eql(200);
+        done();
+      });
+  });
+});

@@ -13,17 +13,17 @@ chai.use(chaiHttp);
 /*
  * Test the /GET route
  */
-describe('#Default Routes: /', () => {
+describe('#Other Routes: /', () => {
   it('Returns version number and author', (done) => {
     chai.request(server)
       .get('/')
       .end(function(err, res) {
         res.should.be.a("object");
-        res.body.should.have.all.keys(['version','author']);
+        res.body.should.have.all.keys(['version', 'author']);
         done();
       });
   });
-  it('HTTP Code 200', (done) => {
+  it('Returns HTTP OK', (done) => {
     chai.request(server)
       .get('/')
       .end(function(err, res) {
@@ -33,27 +33,21 @@ describe('#Default Routes: /', () => {
   });
 });
 
-describe('#Default Routes: /whoami', () => {
-  it('Returns Object', (done) => {
+describe('#Other Routes: /favicon', () => {
+  it('should return an empty object', (done) => {
     chai.request(server)
-      .get('/whoami')
+      .get('/')
       .end(function(err, res) {
-        res.should.be.a("object");
+        res.body.should.be.a("object");
         done();
       });
   });
-  it('Doesn\'t allow access to anonymous users', (done) => {
+  it('Returns HTTP OK', (done) => {
     chai.request(server)
-      .get('/whoami')
+      .get('/')
       .end(function(err, res) {
-        res.should.be.a("object");
+        res.should.have.status("200");
         done();
       });
-  });
-  it('Access to only logged in users', (done) => {
-    done();
-  });
-  it('Contains 7 keys', (done) => {
-    done();
   });
 });

@@ -13,44 +13,33 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 
-//Create admin user
-passwordhash("Password").hash(function(error, hash) {
-  if (error) {
-    console.log("Could not hash password")
-    res.json({
-      title: "Failed",
-      message: "Could not hash password.",
-      error: error
-    });
-  }
-  var user = new User({
-    name: "Admin User",
-    email: "test.email@dean.technology",
-    password: hash,
-    admin: true,
-    location: "Test Location",
-    image: "http://dean.technology/images/LinkedInProfileImage.png"
-  });
+describe('Authentication', function() {
 
-  user.save(function(error){
-    if(error){
-      console.log(error);
-    }
-  });
-});
-
-
-describe('#Authentication', () => {
-
-  it('Returns version number and author', (done) => {
+  it('Returns http 403 with no header', (done) => {
     chai.request(server)
-      .get('/')
+      .get('/whoami')
       .end(function(err, res) {
-        res.should.be.a("object");
-        res.body.should.have.all.keys(['version', 'author']);
+        res.status.should.eql(403);
         done();
       });
   });
 
-
+  it('Returns http 200 with correct authorization header', (done) => {
+    chai.request(server)
+      .get('/whoami')
+      .set('Authorization', "Basic dGVzdC5lbWFpbEBkZWFuLnRlY2hub2xvZ3k6UGFzc3dvcmQ=")
+      .end(function(err, res) {
+        res.status.should.eql(200);
+        done();
+      });
+  });
+  it('Returned Object is the correct user', (done) => {
+    chai.request(server)
+      .get('/whoami')
+      .set('Authorization', "Basic dGVzdC5lbWFpbEBkZWFuLnRlY2hub2xvZ3k6UGFzc3dvcmQ=")
+      .end(function(err, res) {
+        res.body.name.should.eql("Admin User");
+        done();
+      });
+  });
 });

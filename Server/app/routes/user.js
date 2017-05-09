@@ -4,7 +4,7 @@ module.exports = function(server) {
 
   //Returns all users
   server.get('/user', function(req, res) {
-    User.findOne({}, function(error, users) {
+    User.find({}).lean().exec(function(error, users) {
       if (error) {
         res.json({
           title: "Failed",
@@ -12,24 +12,17 @@ module.exports = function(server) {
           error: error
         });
       }
-      var out = [];
       for (i in users) {
-        var user = users[i];
-        out.push({
-          id: user._id,
-          name: user.name.replace(/\b\w/g, l => l.toUpperCase()),
-          email: user.email,
-          location: user.location,
-          image: user.image
-        })
+        delete users[i].password;
+        users[i].name.replace(/\b\w/g, l => l.toUpperCase());
       }
-      res.json(out);
+      res.json(users);
     });
   });
 
   //Returns all users
   server.get('/user/all', function(req, res) {
-    User.find({}, function(error, users) {
+    User.find({}).lean().exec(function(error, users) {
       if (error) {
         res.json({
           title: "Failed",
@@ -37,18 +30,11 @@ module.exports = function(server) {
           error: error
         });
       }
-      var out = [];
       for (i in users) {
-        var user = users[i];
-        out.push({
-          id: user._id,
-          name: user.name.replace(/\b\w/g, l => l.toUpperCase()),
-          email: user.email,
-          location: user.location,
-          image: user.image
-        })
+        delete users[i].password;
+        users[i].name.replace(/\b\w/g, l => l.toUpperCase());
       }
-      res.json(out);
+      res.json(users);
     });
   });
 

@@ -5,29 +5,13 @@ module.exports = function(server) {
     var Location = require('../models/location');
     var User = require('../models/user');
 
-    //Polling
-    //Returns all evemts
-    /*
-    POST DATA
-    {
-        "gps": [lat, lon],
-        "beacon": [
-            "e!3por3wpkrwpokrwpork3"
-        ],
-        "access_point": [
-            "dw:dw:dw:wd:wd:dw:dw:wd",
-            "dw:dw:dw:wd:wd:dw:dw:wd",
-            "dw:dw:dw:wd:wd:dw:dw:wd"
-        ]
-    }
-    */
-    server.post('/poll', function(req, res) {
-      console.log("////");
-      console.log("");
-      console.log("");
-      console.log("");
 
-      console.log(req.body);
+    server.post('/poll', function(req, res) {
+
+        if(req.body == undefined){
+          next();
+          return;
+        }
 
         var Query = {
             $or: []
@@ -78,7 +62,6 @@ module.exports = function(server) {
         }
         //If there is nothing to check, then return an empty array
         if (Query['$or'] == []) {
-            console.log("no data sent for /poll");
             res.json([]);
             next();
         }
@@ -86,12 +69,9 @@ module.exports = function(server) {
         //Let's check if there are any locations that match up ;)
         Location.find(Query).populate('attendees').lean().exec(function(error, locations) {
           if(locations != undefined){
-          console.log("FOUND L:"+locations.length,locations);
         }else{
-          console.log("No Location Found");
         }
             if (error || locations.length == 0) {
-              console.log("0 or error",locations );
                 res.json({
                     title: "Failed",
                     message: "No Location Matches",
@@ -122,7 +102,6 @@ module.exports = function(server) {
                                 message: "No current events matched for location input",
                             });
                         } else {
-                            console.log("FOUND E:"+events.length);
                             for (var e = 0; e < events.length; e++) {
                                 var event = events[e];
                                 for (var u = 0; u < event.attendees.length; u++) {
@@ -153,6 +132,12 @@ module.exports = function(server) {
 
 
     server.post('/poll/gps', function(req, res) {
+
+        if(req.body == undefined){
+          next();
+          return;
+        }
+
         var Query = {
             $or: []
         }
@@ -180,20 +165,13 @@ module.exports = function(server) {
 
         //If there is nothing to check, then return an empty array
         if (Query['$or'] == []) {
-            console.log("no data sent for /poll");
             res.json([]);
             next();
         }
 
         //Let's check if there are any locations that match up ;)
         Location.find(Query).populate('attendees').lean().exec(function(error, locations) {
-          if(locations != undefined){
-          console.log("FOUND L:"+locations.length,locations);
-        }else{
-          console.log("No Location Found");
-        }
             if (error || locations.length == 0) {
-              console.log("0 or error",locations );
                 res.json({
                     title: "Failed",
                     message: "No Location Matches",
@@ -224,7 +202,6 @@ module.exports = function(server) {
                                 message: "No current events matched for location input",
                             });
                         } else {
-                            console.log("FOUND E:"+events.length);
                             for (var e = 0; e < events.length; e++) {
                                 var event = events[e];
                                 for (var u = 0; u < event.attendees.length; u++) {
