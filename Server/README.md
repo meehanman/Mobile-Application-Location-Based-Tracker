@@ -4,6 +4,29 @@
 This server provides a restful api interface for the MALBT dashboard running on
 the url <https://cloud.dean.technology>
 
+## Server Install Instructions
+
+Server is setup to run on digital ocean Ubuntu Droplet
+
+Install NodeJS
+`sudo apt-get install nodejs`
+
+Install NPM
+`sudo apt-get install npm`
+
+Install MongoDB
+`https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04`
+
+Install Supervisor
+`sudo apt-get install npm`
+
+Install NPM Requirements from package.json
+
+Security setup with Basic Authentication over TLS/HTTPS using (apache and nodejs)[https://gist.github.com/meehanman/005d6d942c8979fb68356c688ea2459a]
+
+HTTPS certificates for TLS/SSL provided by LetsEncrypt with this (tutorial)[https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-14-04]
+
+
 ## API Reference
 
 
